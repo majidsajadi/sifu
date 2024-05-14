@@ -9,7 +9,7 @@ export default function Page({ searchParams }: { searchParams: SearchParams }) {
   return (
     <main>
       {dependencies.map((dep) => (
-        <Suspense fallback={<DependencyLoading />}>
+        <Suspense fallback={<DependencyLoading />} key={dep.name}>
           <Dependency {...dep} />
         </Suspense>
       ))}

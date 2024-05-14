@@ -1,0 +1,2 @@
+export { getDependencyAvailableVersions } from "./version";
+

@@ -1,5 +1,5 @@
 import semver from "semver";
-import { fetchDependencyMetadata } from "./npm";
+import { TDependencyMetadata, fetchDependencyMetadata } from "./npm";
 
 /**
  * Returns the minimum version that satisfies the range and asume its the current version of dependency
@@ -24,9 +24,8 @@ function getGreaterVersionsSorted(versions: string[], current: string) {
   return versions.filter((version) => semver.gt(version, current)).sort((a, b) => semver.rcompare(a, b));
 }
 
-export async function getDependencyAvailableVersions(dependency: string, range: string) {
+export function getDependencyAvailableVersions(metadata: TDependencyMetadata, range: string) {
   const currentVersion = getCurrentVersion(range);
-  const metadata = await fetchDependencyMetadata(dependency);
   const versions = Object.keys(metadata.versions);
   const latest = metadata["dist-tags"].latest;
   const latestSatisfies = getLatestVersionStatisfies(versions, range)

@@ -1,4 +1,4 @@
-import { getDependencyAvailableVersions } from "@/lib";
+import { getDependency } from "@/lib/dependency";
 import Link from "next/link";
 
 type TDependencyProps = {
@@ -7,8 +7,9 @@ type TDependencyProps = {
 };
 
 export async function Dependency({ name, range }: TDependencyProps) {
+  const { availableVersions } = await getDependency(name, range);
   const { latest, latestSatisfies, availableCount, availableSatisfiesCount } =
-    await getDependencyAvailableVersions(name, range);
+    availableVersions;
 
   return (
     <div>

@@ -1,6 +1,5 @@
-import { getDependencyAvailableVersions } from "@/lib";
+import { getDependency } from "@/lib/dependency";
 import Link from "next/link";
-import semver from "semver";
 
 export default async function Page({
   params,
@@ -9,9 +8,7 @@ export default async function Page({
 }) {
   const name = decodeURIComponent(params.name);
   const range = decodeURIComponent(params.range);
-  const current = semver.minVersion(range);
-  if (!current) throw new Error("Unable to find installed version");
-  const { available } = await getDependencyAvailableVersions(name, range);
+  const { availableVersions } = await getDependency(name, range);
 
   return (
     <>
@@ -19,13 +16,17 @@ export default async function Page({
         {name} - {range}
       </div>
       <ul>
-        {available.map(({ version, date, satisfies, deprecated }) => (
-          <li key={version}>
-            {version} - {date} - {satisfies && "satisfies"} -{" "}
-            {deprecated && "deprecated"}
-            <Link href={`/compare/${name}/${current}/${version}`}>Detail</Link>
-          </li>
-        ))}
+        {availableVersions.available.map(
+          ({ version, date, satisfies, deprecated }) => (
+            <li key={version}>
+              {version} - {date} - {satisfies && "satisfies"} -{" "}
+              {deprecated && "deprecated"}
+              <Link href={`/compare/${encodeURIComponent(name)}/${range}/${version}`}>
+                Detail
+              </Link>
+            </li>
+          )
+        )}
       </ul>
     </>
   );

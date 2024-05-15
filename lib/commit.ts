@@ -1,6 +1,6 @@
 import { github } from "./github";
 
-type TGetCommitsBetweenVersionsParams = {
+type TGetCommitsParams = {
   /**
    * Github repository name
    */
@@ -22,19 +22,18 @@ type TGetCommitsBetweenVersionsParams = {
 /**
  * Fetches and return commits between to version of a dependency (and reporting stats)
  */
-export async function getDependencyCommitsBetweenVersions({ repo, owner, from, to }: TGetCommitsBetweenVersionsParams) {
-  console.log( {
-    owner,
-    repo,
-    basehead: `v${from}...v${to}`,
-  })
-  
-  const { data } = await github.compareCommitsWithBasehead({
+export async function getCommits({ repo, owner, from, to }: TGetCommitsParams) {
+  console.log({
     owner,
     repo,
     basehead: `v${from}...v${to}`,
   });
 
+  const { data } = await github.compareCommitsWithBasehead({
+    owner,
+    repo,
+    basehead: `v${from}...v${to}`,
+  });
 
   const total = data.total_commits;
   const url = data.html_url;
@@ -53,7 +52,9 @@ export async function getDependencyCommitsBetweenVersions({ repo, owner, from, t
   );
 
   const commits = data.commits.map((commit) => {
-    const author = commit.author ? { url: commit.author.html_url, name: commit.author.login } : undefined;
+    const author = commit.author
+      ? { url: commit.author.html_url, name: commit.author.login }
+      : undefined;
 
     return {
       author,

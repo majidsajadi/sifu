@@ -1,5 +1,6 @@
 import { Dependency, DependencyLoading } from "@/components/dependency";
 import { Suspense } from "react";
+import { ErrorBoundary } from "react-error-boundary";
 
 type SearchParams = { dep?: string | string[] };
 
@@ -9,9 +10,11 @@ export default function Page({ searchParams }: { searchParams: SearchParams }) {
   return (
     <main>
       {dependencies.map((dep) => (
-        <Suspense fallback={<DependencyLoading />} key={dep.name}>
-          <Dependency {...dep} />
-        </Suspense>
+        <ErrorBoundary fallback={<div>Something went wrong</div>}>
+          <Suspense fallback={<DependencyLoading />} key={dep.name}>
+            <Dependency {...dep} />
+          </Suspense>
+        </ErrorBoundary>
       ))}
     </main>
   );

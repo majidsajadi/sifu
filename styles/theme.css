@@ -1,0 +1,53 @@
+@import "./palette.css";
+
+:root {
+  --neutral-base: var(--gray-1);
+  --neutral-bg-subtle: var(--gray-2);
+  --neutral-bg: var(--gray-3);
+  --neutral-bg-hover: var(--gray-4);
+  --neutral-bg-active: var(--gray-5);
+  --neutral-line: var(--gray-6);
+  --neutral-border: var(--gray-7);
+  --neutral-border-hover: var(--gray-8);
+  --neutral-solid: var(--gray-9);
+  --neutral-solid-hover: var(--gray-10);
+  --neutral-text: var(--gray-11);
+  --neutral-text-contrast: var(--gray-12);
+
+  --accent-base: var(--jade-1);
+  --accent-bg-subtle: var(--jade-2);
+  --accent-bg: var(--jade-3);
+  --accent-bg-hover: var(--jade-4);
+  --accent-bg-active: var(--jade-5);
+  --accent-line: var(--jade-6);
+  --accent-border: var(--jade-7);
+  --accent-border-hover: var(--jade-8);
+  --accent-solid: var(--jade-9);
+  --accent-solid-hover: var(--jade-10);
+  --accent-text: var(--jade-11);
+  --accent-text-contrast: var(--jade-12);
+}
+
+:root {
+  --color-background: var(--neutral-base);
+  --color-foreground: var(--neutral-text);
+  --font-size: 14px;
+  --font-size-sm: 12px;
+  --font-weight: 400;
+  --font-weight-medium: 600;
+
+  --border-color: var(--neutral-border);
+  --border-radius: 4px;
+
+  /* Popover tokens */
+  --popover-border-color: var(--border-color);
+  --popover-border-radius: var(--border-radius);
+  --popover-color-background: var(--neutral-bg-subtle);
+  --popover-color-foreground: var(--neutral-text);
+  --popover-item-font-size: var(--font-size-sm);
+  --popover-item-hover-background-color: var(--neutral-bg-hover);
+  --popover-item-hover-foreground-color: var(--neutral-text-contrast);
+  --popover-separator-line-color: var(--neutral-border);
+  --popover-label-font-size: var(--font-size-sm);
+  --popover-label-font-weight: var(--font-weight-medium);
+}

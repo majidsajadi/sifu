@@ -2,7 +2,10 @@
 
 import { useFormState, useFormStatus } from "react-dom";
 import { useDropzone } from "react-dropzone";
+import { clsx } from "clsx";
 import { upload } from "./action";
+import styles from "./page.module.css";
+import { Spinner } from "@/ui/spinner";
 
 export default function Page() {
   const [state, action] = useFormState(upload, { message: "" });
@@ -24,15 +27,18 @@ export default function Page() {
   const message = state.message || fileRejections[0]?.errors[0]?.message;
 
   return (
-    <div {...getRootProps()}>
+    <div
+      {...getRootProps()}
+      className={clsx(styles.container, isDragActive && styles.active)}
+    >
       <input {...getInputProps()} />
       {isDragActive ? (
         <p>Drop the files here ...</p>
       ) : (
-        <p>Drag 'n' drop some files here, or click to select files</p>
+        <p>Drag 'n' drop some files here or click to select files</p>
       )}
       <Loading />
-      {message}
+      {message && !isDragActive && <div className={styles.error}>{message}</div>}
     </div>
   );
 }
@@ -40,7 +46,7 @@ export default function Page() {
 function Loading() {
   const { pending } = useFormStatus();
 
-  if (pending) return <div>Pending...</div>;
+  if (pending) return <Spinner />;
 
   return <></>;
 }

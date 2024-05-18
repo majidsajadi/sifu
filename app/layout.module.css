@@ -1,0 +1,10 @@
+.container {
+  height: 100vh;
+}
+
+.main {
+  height: 100%;
+  padding: 1rem;
+  padding-top: calc(48px + 1rem);
+  overflow-x: hidden;
+}

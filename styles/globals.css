@@ -6,4 +6,7 @@ body {
   color: var(--color-foreground);
   font-size: var(--font-size);
   font-weight: var(--font-weight);
+  min-height: 100vh;
+  height: 100%;
+  width: 100vw;
 }

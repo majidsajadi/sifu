@@ -26,6 +26,8 @@
   --accent-solid-hover: var(--cyan-10);
   --accent-text: var(--cyan-11);
   --accent-text-contrast: var(--cyan-12);
+
+  --danger-solid: var(--red-9);
 }
 
 :root {

@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
 import { Noto_Sans_Mono } from "next/font/google";
-import "@/styles/globals.css";
 import { Header } from "@/components/header";
+import styles from './layout.module.css';
+
+import "@/styles/globals.css";
 
 const font = Noto_Sans_Mono({
   subsets: ["latin"],
@@ -21,8 +23,10 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={font.className}>
         <ThemeProvider>
-          <Header />
-          {children}
+          <div className={styles.container}>
+            <Header />
+            <main  className={styles.main}>{children}</main>
+          </div>
         </ThemeProvider>
       </body>
     </html>

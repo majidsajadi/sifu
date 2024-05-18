@@ -10,7 +10,7 @@ export default function Page({ searchParams }: { searchParams: SearchParams }) {
   if (!dependencies.length) redirect("/upload");
 
   return (
-    <main>
+    <div>
       {dependencies.map((dep) => (
         <ErrorBoundary fallback={<div>Something went wrong</div>}>
           <Suspense fallback={<DependencyLoading />} key={dep.name}>
@@ -18,7 +18,7 @@ export default function Page({ searchParams }: { searchParams: SearchParams }) {
           </Suspense>
         </ErrorBoundary>
       ))}
-    </main>
+    </div>
   );
 }
 

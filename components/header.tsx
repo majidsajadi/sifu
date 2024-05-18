@@ -1,4 +1,6 @@
 "use client";
+
+import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import {
   DropdownMenu,
@@ -8,14 +10,13 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/ui/dropdown-menu"
+} from "@/ui/dropdown-menu";
 import { useIsMounted } from "@/hooks/use-is-mounted";
-import { useState } from "react";
+import { Button } from "@/ui/button";
 
 export function Header() {
-  const { theme, setTheme } = useTheme();
+  const { theme, resolvedTheme, setTheme } = useTheme();
   const isMounted = useIsMounted();
-  const [position, setPosition] = useState("bottom")
 
   if (!isMounted) {
     return null;
@@ -23,28 +24,29 @@ export function Header() {
 
   return (
     <header>
-      <div>
+      {/* <div>
         The current theme is: {theme}
         <button onClick={() => setTheme("light")}>Light Mode</button>
         <button onClick={() => setTheme("dark")}>Dark Mode</button>
         <button onClick={() => setTheme("system")}>System Mode</button>
-      </div>
+      </div> */}
 
       <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-       <button>theme</button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56">
-        <DropdownMenuLabel>Panel Position</DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        <DropdownMenuRadioGroup value={position} onValueChange={setPosition}>
-          <DropdownMenuRadioItem value="top">Top</DropdownMenuRadioItem>
-          <DropdownMenuRadioItem value="bottom">Bottom</DropdownMenuRadioItem>
-          <DropdownMenuRadioItem value="right">Right</DropdownMenuRadioItem>
-        </DropdownMenuRadioGroup>
-      </DropdownMenuContent>
-    </DropdownMenu>
-
+        <DropdownMenuTrigger asChild>
+          <Button variant="ghost" size="icon">
+            {resolvedTheme === "dark" ? <Moon size={18} /> : <Sun size={18} />}
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent>
+          <DropdownMenuLabel>Theme</DropdownMenuLabel>
+          <DropdownMenuSeparator />
+          <DropdownMenuRadioGroup value={theme} onValueChange={setTheme}>
+            <DropdownMenuRadioItem value="dark">Dark</DropdownMenuRadioItem>
+            <DropdownMenuRadioItem value="light">Light</DropdownMenuRadioItem>
+            <DropdownMenuRadioItem value="system">System</DropdownMenuRadioItem>
+          </DropdownMenuRadioGroup>
+        </DropdownMenuContent>
+      </DropdownMenu>
     </header>
   );
 }

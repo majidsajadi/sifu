@@ -14,18 +14,18 @@
   --neutral-text: var(--gray-11);
   --neutral-text-contrast: var(--gray-12);
 
-  --accent-base: var(--jade-1);
-  --accent-bg-subtle: var(--jade-2);
-  --accent-bg: var(--jade-3);
-  --accent-bg-hover: var(--jade-4);
-  --accent-bg-active: var(--jade-5);
-  --accent-line: var(--jade-6);
-  --accent-border: var(--jade-7);
-  --accent-border-hover: var(--jade-8);
-  --accent-solid: var(--jade-9);
-  --accent-solid-hover: var(--jade-10);
-  --accent-text: var(--jade-11);
-  --accent-text-contrast: var(--jade-12);
+  --accent-base: var(--cyan-1);
+  --accent-bg-subtle: var(--cyan-2);
+  --accent-bg: var(--cyan-3);
+  --accent-bg-hover: var(--cyan-4);
+  --accent-bg-active: var(--cyan-5);
+  --accent-line: var(--cyan-6);
+  --accent-border: var(--cyan-7);
+  --accent-border-hover: var(--cyan-8);
+  --accent-solid: var(--cyan-9);
+  --accent-solid-hover: var(--cyan-10);
+  --accent-text: var(--cyan-11);
+  --accent-text-contrast: var(--cyan-12);
 }
 
 :root {
@@ -44,10 +44,24 @@
   --popover-border-radius: var(--border-radius);
   --popover-color-background: var(--neutral-bg-subtle);
   --popover-color-foreground: var(--neutral-text);
-  --popover-item-font-size: var(--font-size-sm);
+  --popover-font-size: var(--font-size-sm);
   --popover-item-hover-background-color: var(--neutral-bg-hover);
   --popover-item-hover-foreground-color: var(--neutral-text-contrast);
   --popover-separator-line-color: var(--neutral-border);
-  --popover-label-font-size: var(--font-size-sm);
   --popover-label-font-weight: var(--font-weight-medium);
+
+  /* Button tokens */
+  --button-border-radius: var(--border-radius);
+  --button-font-size: var(--font-size-sm);
+  --button-font-weight: var(--font-weight-medium);
+  --button-color-outline: var(--accent-solid);
+
+  --button-color-background-primary: var(--accent-solid);
+  --button-color-foreground-primary: var(--neutral-text-contrast);
+  --button-color-background-primary-hover: var(--accent-solid-hover);
+
+  --button-color-background-secondary: var(--neutral-bg);
+  --button-color-foreground-secondary: var(--neutral-text);
+  --button-color-foreground-secondary-hover: var(--neutral-text-contrast);
+  --button-color-background-secondary-hover: var(--neutral-bg-hover);
 }

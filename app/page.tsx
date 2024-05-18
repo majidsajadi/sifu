@@ -11,13 +11,29 @@ export default function Page({ searchParams }: { searchParams: SearchParams }) {
 
   return (
     <div>
-      {dependencies.map((dep) => (
-        <ErrorBoundary fallback={<div>Something went wrong</div>}>
-          <Suspense fallback={<DependencyLoading />} key={dep.name}>
-            <Dependency {...dep} />
-          </Suspense>
-        </ErrorBoundary>
-      ))}
+      <div>
+        <div>
+          <span>Name</span>
+          <span>Range</span>
+        </div>
+        <div>
+          <span>Latest Satisfies</span>
+          <span>Latest Satisfies</span>
+          <span>Count</span>
+        </div>
+      </div>
+      <ul>
+        {dependencies.map((dep) => (
+          <li key={dep.name}>
+            <div>{dep.name}</div>
+          </li>
+          // <ErrorBoundary fallback={<div>Something went wrong</div>}>
+          //   <Suspense fallback={<DependencyLoading />} key={dep.name}>
+          //     <Dependency {...dep} />
+          //   </Suspense>
+          // </ErrorBoundary>
+        ))}
+      </ul>
     </div>
   );
 }

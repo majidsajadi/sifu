@@ -1,0 +1,14 @@
+.header {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.header-section {
+  display: flex;
+  gap: 0.5rem;
+  width: 50%;
+}
+
+.header-section span {
+  flex: 1;
+}

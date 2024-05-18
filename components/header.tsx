@@ -9,13 +9,14 @@ import styles from "./header.module.css";
 export function Header() {
   return (
     <header className={styles.header}>
-      <nav className={styles.nav}>
-        <Link className={styles.logo} href="/">
-          Sifu
-        </Link>
-        <Link href="/upload">Upload</Link>
-      </nav>
-      <div>
+      <Link className={styles.logo} href="/">
+        Sifu
+      </Link>
+
+      <div className={styles.actions}>
+        <Button asChild className={styles.upload}>
+          <Link href="/upload">Upload</Link>
+        </Button>
         <Button variant="ghost" size="icon" asChild>
           <Link href="https://github.com/majidsajadi/sifu">
             <Github size={16} />

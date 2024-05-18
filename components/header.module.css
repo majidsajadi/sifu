@@ -11,20 +11,19 @@
   right: 0;
 }
 
-.nav {
-  align-items: center;
-  display: flex;
-  gap: 2.5rem;
-}
-
-.nav a {
-  color: var(--color-foreground);
-  font-size: var(--font-size-sm);
-}
-
-.nav .logo {
+.logo {
   text-decoration: none;
   color: var(--neutral-text-contrast);
   font-weight: 500;
   font-size: 18px;
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.upload {
+  margin-right: 1rem;
 }

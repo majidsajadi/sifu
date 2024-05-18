@@ -1,4 +1,5 @@
 import { Dependency, DependencyLoading } from "@/components/dependency";
+import { redirect } from "next/navigation";
 import { Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 
@@ -6,6 +7,7 @@ type SearchParams = { dep?: string | string[] };
 
 export default function Page({ searchParams }: { searchParams: SearchParams }) {
   const dependencies = parseDependencyList(searchParams.dep);
+  if (!dependencies.length) redirect("/upload");
 
   return (
     <main>

@@ -1,11 +1,11 @@
 "use client";
 
-import { useFormState } from "react-dom";
+import { useFormState, useFormStatus } from "react-dom";
 import { useDropzone } from "react-dropzone";
 import { upload } from "./action";
 
 export default function Page() {
-  const [state, action, pending] = useFormState(upload, { message: "" });
+  const [state, action] = useFormState(upload, { message: "" });
 
   const { getRootProps, getInputProps, fileRejections, isDragActive } =
     useDropzone({
@@ -31,10 +31,16 @@ export default function Page() {
       ) : (
         <p>Drag 'n' drop some files here, or click to select files</p>
       )}
-
-      {pending && <div>Pending...</div>}
-
+      <Loading />
       {message}
     </div>
   );
+}
+
+function Loading() {
+  const { pending } = useFormStatus();
+
+  if (pending) return <div>Pending...</div>;
+
+  return <></>;
 }

@@ -16,8 +16,8 @@
   color: var(--neutral-solid);
 }
 
-
 .date {
+  color: var(--neutral-solid);
   font-size: var(--font-size-sm);
   display: inline-block;
   margin-left: 0.25rem;

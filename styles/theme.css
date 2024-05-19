@@ -28,8 +28,16 @@
   --accent-text-contrast: var(--cyan-12);
 
   --danger-solid: var(--red-9);
-  --warning-solid: var(--yellow-9);
+  --danger-border: var(--red-7);
+  --danger-bg-subtle: var(--red-2);
+  --danger-solid-hover: var(--red-10);
+
   --success-solid: var(--green-9);
+  --success-border: var(--green-7);
+  --success-bg-subtle: var(--green-2);
+  --success-solid-hover: var(--green-10);
+
+  --warning-solid: var(--yellow-9);
   --info-solid: var(--blue-9);
 }
 
@@ -58,7 +66,7 @@
   /* Button tokens */
   --button-border-radius: var(--border-radius);
   --button-font-size: var(--font-size-sm);
-  --button-font-weight: var(--font-weight-medium);
+  --button-font-weight: var(--font-weight);
   --button-color-outline: var(--accent-solid);
 
   --button-color-background-primary: var(--accent-solid);

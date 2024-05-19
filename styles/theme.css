@@ -66,4 +66,9 @@
   --button-color-foreground-secondary: var(--neutral-text);
   --button-color-foreground-secondary-hover: var(--neutral-text-contrast);
   --button-color-background-secondary-hover: var(--neutral-bg-hover);
+
+  --button-color-foreground-link: var(--accent-text);
+  --button-color-foreground-link-hover: var(--accent-text-contrast);
+  --button-color-background-link: var(--neutral-bg);
+  --button-color-background-link-hover: var(--neutral-bg-hover);
 }

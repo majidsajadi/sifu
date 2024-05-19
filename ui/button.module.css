@@ -5,6 +5,7 @@
   align-items: center;
   justify-content: center;
   white-space: nowrap;
+  cursor: pointer;
   border-radius: var(--button-border-radius);
   font-size: var(--button-font-size);
   font-weight: var(--button-font-weight);
@@ -54,6 +55,10 @@
   color: var(--button-color-foreground-secondary-hover);
 }
 
-/* default: "",
-secondary:
-ghost: "hover:bg-accent hover:text-accent-foreground", */
+.link {
+  color: var(--button-color-foreground-link);
+}
+
+.link:hover {
+  color: var(--button-color-foreground-link-hover);
+}

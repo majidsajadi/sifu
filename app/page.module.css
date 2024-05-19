@@ -1,14 +1,40 @@
-.header {
-  display: flex;
-  gap: 0.5rem;
+.container {
+  width: 100%;
+  margin: 0 auto;
+  font-size: var(--font-size-sm);
+  color: var(--neutral-solid-hover);
+  background: var(--neutral-bg-subtle);
+  border-radius: var(--border-radius);
 }
 
-.header-section {
+.row,
+.heading {
   display: flex;
   gap: 0.5rem;
-  width: 50%;
+  align-items: center;
 }
 
-.header-section span {
+.group {
+  display: flex;
+  gap: 0.5rem;
   flex: 1;
+}
+
+.column {
+  flex: 1;
+  padding: 0.5rem 0.25rem;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: var(--font-size);
+  color: var(--neutral-text);
+  padding: 0.25rem 0.5rem;
+}
+
+.heading {
+  background: var(--neutral-base);
+  padding: 0.25rem 0.5rem;
 }

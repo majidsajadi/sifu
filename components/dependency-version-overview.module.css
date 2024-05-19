@@ -1,0 +1,15 @@
+.container {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  flex: 1;
+}
+
+.column,
+.last {
+  flex: 1;
+}
+
+.last {
+  text-align: right;
+}

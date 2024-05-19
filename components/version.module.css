@@ -1,0 +1,15 @@
+.major {
+  color: red;
+}
+
+.minor {
+  color: yellow;
+}
+
+.patch {
+  color: green;
+}
+
+.prerelease {
+  color: blue;
+}

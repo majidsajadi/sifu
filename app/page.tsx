@@ -1,7 +1,14 @@
-import { Dependency, DependencyLoading } from "@/components/dependency";
+import {
+  DependencyVersionOverview,
+  DependencyVersionOverviewError,
+  DependencyVersionOverviewLoading,
+} from "@/components/dependency-version-overview";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
+import styles from "./page.module.css";
+import { Skeleton } from "@/ui/skeleton";
+import { Info } from "lucide-react";
 
 type SearchParams = { dep?: string | string[] };
 
@@ -10,28 +17,34 @@ export default function Page({ searchParams }: { searchParams: SearchParams }) {
   if (!dependencies.length) redirect("/upload");
 
   return (
-    <div>
-      <div>
-        <div>
-          <span>Name</span>
-          <span>Range</span>
+    <div className={styles.container}>
+      <div className={styles.heading}>
+        <div className={styles.group}>
+          <div className={styles.column}>Name</div>
+          <div className={styles.column}>Range</div>
         </div>
-        <div>
-          <span>Latest Satisfies</span>
-          <span>Latest Satisfies</span>
-          <span>Count</span>
+        <div className={styles.group}>
+          <div className={styles.column}>Latest Satisfies</div>
+          <div className={styles.column}>Latest</div>
+          <div className={styles.column}>Available (Satisfies)</div>
+          <div className={styles.column}></div>
         </div>
       </div>
-      <ul>
+      <ul className={styles.list}>
         {dependencies.map((dep) => (
-          <li key={dep.name}>
-            <div>{dep.name}</div>
+          <li key={dep.name} className={styles.row}>
+            <div className={styles.group}>
+              <div className={styles.column}>{dep.name}</div>
+              <div className={styles.column}>{dep.range}</div>
+            </div>
+            <div className={styles.group}>
+              <ErrorBoundary fallback={<DependencyVersionOverviewError />}>
+                <Suspense fallback={<DependencyVersionOverviewLoading />}>
+                  <DependencyVersionOverview {...dep} />
+                </Suspense>
+              </ErrorBoundary>
+            </div>
           </li>
-          // <ErrorBoundary fallback={<div>Something went wrong</div>}>
-          //   <Suspense fallback={<DependencyLoading />} key={dep.name}>
-          //     <Dependency {...dep} />
-          //   </Suspense>
-          // </ErrorBoundary>
         ))}
       </ul>
     </div>

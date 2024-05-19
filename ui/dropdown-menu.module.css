@@ -2,10 +2,8 @@
   z-index: 10;
   min-width: 8rem;
   overflow: hidden;
-
   border: 1px solid var(--popover-border-color);
   border-radius: var(--popover-border-radius);
-
   background-color: var(--popover-color-background);
   color: var(--popover-color-foreground);
   font-size: var(--popover-font-size);
@@ -49,5 +47,4 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  /* absolute left-2 flex h-3.5 w-3.5 items-center justify-center */
 }

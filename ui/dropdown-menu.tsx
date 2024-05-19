@@ -1,78 +1,70 @@
 "use client";
 
-import * as React from "react";
-import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
-import styles from "./dropdown-menu.module.css";
+import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
 import { Dot } from "lucide-react";
+import {
+  Root,
+  Trigger,
+  RadioGroup,
+  Content,
+  Separator,
+  RadioItem,
+  ItemIndicator,
+  Portal,
+  Label,
+} from "@radix-ui/react-dropdown-menu";
+import styles from "./dropdown-menu.module.css";
 
-const DropdownMenu = DropdownMenuPrimitive.Root;
+export const DropdownMenu = Root;
 
-const DropdownMenuTrigger = DropdownMenuPrimitive.Trigger;
+export const DropdownMenuTrigger = Trigger;
 
-const DropdownMenuRadioGroup = DropdownMenuPrimitive.RadioGroup;
+export const DropdownMenuRadioGroup = RadioGroup;
 
-const DropdownMenuContent = React.forwardRef<
-  React.ElementRef<typeof DropdownMenuPrimitive.Content>,
-  React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Content>
+export const DropdownMenuContent = forwardRef<
+  ElementRef<typeof Content>,
+  ComponentPropsWithoutRef<typeof Content>
 >(({ className, sideOffset = 4, ...props }, ref) => (
-  <DropdownMenuPrimitive.Portal>
-    <DropdownMenuPrimitive.Content
+  <Portal>
+    <Content
       ref={ref}
       sideOffset={sideOffset}
       className={styles.content}
       {...props}
     />
-  </DropdownMenuPrimitive.Portal>
+  </Portal>
 ));
-DropdownMenuContent.displayName = DropdownMenuPrimitive.Content.displayName;
+DropdownMenuContent.displayName = Content.displayName;
 
-const DropdownMenuSeparator = React.forwardRef<
-  React.ElementRef<typeof DropdownMenuPrimitive.Separator>,
-  React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Separator>
+export const DropdownMenuSeparator = forwardRef<
+  ElementRef<typeof Separator>,
+  ComponentPropsWithoutRef<typeof Separator>
 >(({ className, ...props }, ref) => (
-  <DropdownMenuPrimitive.Separator
-    ref={ref}
-    className={styles.separator}
-    {...props}
-  />
+  <Separator ref={ref} className={styles.separator} {...props} />
 ));
-DropdownMenuSeparator.displayName = DropdownMenuPrimitive.Separator.displayName;
+DropdownMenuSeparator.displayName = Separator.displayName;
 
-const DropdownMenuRadioItem = React.forwardRef<
-  React.ElementRef<typeof DropdownMenuPrimitive.RadioItem>,
-  React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.RadioItem>
+export const DropdownMenuRadioItem = forwardRef<
+  ElementRef<typeof RadioItem>,
+  ComponentPropsWithoutRef<typeof RadioItem>
 >(({ className, children, ...props }, ref) => (
-  <DropdownMenuPrimitive.RadioItem
-    ref={ref}
-    className={styles['radio-item']}
-    {...props}
-  >
+  <RadioItem ref={ref} className={styles["radio-item"]} {...props}>
     <span className={styles.dot}>
-      <DropdownMenuPrimitive.ItemIndicator>
+      <ItemIndicator>
         <Dot size={24} />
-      </DropdownMenuPrimitive.ItemIndicator>
+      </ItemIndicator>
     </span>
     {children}
-  </DropdownMenuPrimitive.RadioItem>
+  </RadioItem>
 ));
-DropdownMenuRadioItem.displayName = DropdownMenuPrimitive.RadioItem.displayName;
+DropdownMenuRadioItem.displayName = RadioItem.displayName;
 
-const DropdownMenuLabel = React.forwardRef<
-  React.ElementRef<typeof DropdownMenuPrimitive.Label>,
-  React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Label> & {
+export const DropdownMenuLabel = forwardRef<
+  ElementRef<typeof Label>,
+  ComponentPropsWithoutRef<typeof Label> & {
     inset?: boolean;
   }
 >(({ className, inset, ...props }, ref) => (
-  <DropdownMenuPrimitive.Label ref={ref} className={styles.label} {...props} />
+  <Label ref={ref} className={styles.label} {...props} />
 ));
-DropdownMenuLabel.displayName = DropdownMenuPrimitive.Label.displayName;
-
-export {
-  DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuRadioItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuRadioGroup,
-};
+DropdownMenuLabel.displayName = Label.displayName;

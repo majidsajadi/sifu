@@ -4,8 +4,8 @@ import { useFormState, useFormStatus } from "react-dom";
 import { useDropzone } from "react-dropzone";
 import { clsx } from "clsx";
 import { upload } from "./action";
-import styles from "./page.module.css";
 import { Spinner } from "@/ui/spinner";
+import styles from "./page.module.css";
 
 export default function Page() {
   const [state, action] = useFormState(upload, { message: "" });
@@ -35,7 +35,7 @@ export default function Page() {
       {isDragActive ? (
         <p>Drop the files here ...</p>
       ) : (
-        <p>Drag 'n' drop some files here or click to select files</p>
+        <p>Drag and drop some files here or click to select files</p>
       )}
       <Loading />
       {message && !isDragActive && <div className={styles.error}>{message}</div>}

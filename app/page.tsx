@@ -45,9 +45,9 @@ export default function Page({ searchParams }: { searchParams: SearchParams }) {
                 <div className={styles.column}>{dep.name}</div>
                 <div className={styles.column}>
                   <span>{dep.range}</span>
-                  {parsedRange && <Badge className={styles.badge}>
-                    {parsedRange}
-                  </Badge>}
+                  {parsedRange && (
+                    <Badge className={styles.badge}>{parsedRange}</Badge>
+                  )}
                 </div>
               </div>
               <div className={styles.group}>
@@ -65,7 +65,7 @@ export default function Page({ searchParams }: { searchParams: SearchParams }) {
   );
 }
 
-export function parseDependencyList(search?: string | string[]) {
+function parseDependencyList(search?: string | string[]) {
   if (!search) return [];
 
   const dependencies = Array.isArray(search) ? search : [search];

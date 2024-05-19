@@ -1,0 +1,8 @@
+.container {
+  display: flex;
+  gap: 1rem;
+}
+
+.container section {
+  flex: 1;
+}

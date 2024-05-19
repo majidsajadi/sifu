@@ -1,0 +1,19 @@
+.content {
+  padding: 0.5rem;
+}
+
+.title {
+  color: var(--neutral-text-contrast);
+}
+
+.header {
+  border-bottom: 1px solid var(--border-color);
+  padding: 0.5rem;
+  font-size: var(--font-size-sm);
+}
+
+.card {
+  background: var(--neutral-bg-subtle);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color);
+}

@@ -1,12 +1,12 @@
 import semver from "semver";
 import { TComparePageProps } from "@/app/compare/[name]/types";
 import { getCommits } from "@/lib/commit";
+import { Card, CardContent, CardHeader, CardTitle } from "@/ui/card";
 
 export default async function Page({
   params,
   searchParams,
 }: TComparePageProps) {
-  const { name } = params;
   const { range, repo, owner, version: to } = searchParams;
   const from = range && semver.minVersion(range)?.toString();
 
@@ -21,20 +21,22 @@ export default async function Page({
   });
 
   return (
-    <div>
-      <div>
-        Commit Page {name} - {range}
-      </div>
-      <ul>
-        {commits.map((commits) => (
-          <li key={commits.sha}>
-            <div>
-              <span>{commits.sha}</span>
-              <span>{commits.message}</span>
-            </div>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <Card>
+      <CardHeader>
+        <CardTitle>Commits</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <ul>
+          {commits.map((commits) => (
+            <li key={commits.sha}>
+              <div>
+                <span>{commits.sha}</span>
+                <span>{commits.message}</span>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </CardContent>
+    </Card>
   );
 }

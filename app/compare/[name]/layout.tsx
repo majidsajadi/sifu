@@ -1,3 +1,5 @@
+import styles from "./layout.module.css";
+
 export default function Layout({
   children,
   commits,
@@ -8,19 +10,9 @@ export default function Layout({
   changelog: React.ReactNode;
 }) {
   return (
-    <>
-      <div>
-        <h3>info</h3>
-        {children}
-      </div>
-      <div>
-        <h3>commits</h3>
-        {commits}
-      </div>
-      <div>
-        <h3>changelog</h3>
-        {changelog}
-      </div>
-    </>
+    <div className={styles.container}>
+      <section>{commits}</section>
+      <section>{changelog}</section>
+    </div>
   );
 }

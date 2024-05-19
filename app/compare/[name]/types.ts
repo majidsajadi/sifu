@@ -7,6 +7,7 @@ export type TCompareSearchParams = {
   repo?: string;
   owner?: string;
   version?: string;
+  directory?: string;
 };
 
 export type TComparePageProps = {

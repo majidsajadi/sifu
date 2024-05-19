@@ -37,15 +37,17 @@ export default function Page({ searchParams }: { searchParams: SearchParams }) {
             dep.range
           }`;
 
+          const parsedRange = semver.validRange(dep.range);
+
           return (
             <Link href={href} key={dep.name} className={styles.row}>
               <div className={styles.group}>
                 <div className={styles.column}>{dep.name}</div>
                 <div className={styles.column}>
                   <span>{dep.range}</span>
-                  <Badge className={styles.badge}>
-                    {semver.validRange(dep.range)}
-                  </Badge>
+                  {parsedRange && <Badge className={styles.badge}>
+                    {parsedRange}
+                  </Badge>}
                 </div>
               </div>
               <div className={styles.group}>

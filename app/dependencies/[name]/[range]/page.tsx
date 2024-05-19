@@ -44,7 +44,7 @@ export default async function Page({ params }: TDependenciesPageProps) {
                 {satisfies && (
                   <Badge variant="success">
                     <CheckCircle size={14} />
-                    <span>Satisfies the range</span>
+                    <span>Satisfies {range}</span>
                   </Badge>
                 )}
                 {deprecated && (
@@ -56,7 +56,7 @@ export default async function Page({ params }: TDependenciesPageProps) {
                 <Version value={version} range={range} />
               </div>
               <Button asChild variant="ghost">
-                <Link href={href}>Compare with current version</Link>
+                <Link href={href}>Compare</Link>
               </Button>
             </li>
           );

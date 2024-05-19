@@ -1,12 +1,8 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/ui/card";
 import type { TComparePageProps } from "../types";
 import { getDependencyChangelogBetweenVersions } from "@/lib/changelog";
 import semver from "semver";
 
-export default async function Page({
-  params,
-  searchParams,
-}: TComparePageProps) {
+export default async function Page({ searchParams }: TComparePageProps) {
   const { range, repo, owner, version: to, directory } = searchParams;
   const from = range && semver.minVersion(range)?.toString();
 
@@ -22,22 +18,15 @@ export default async function Page({
   });
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Changelog</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <ul>
-          {entries.map((entry) => (
-            <li key={entry.version}>
-              <div>
-                <span>{entry.version}</span>
-                <span>{entry.content}</span>
-              </div>
-            </li>
-          ))}
-        </ul>
-      </CardContent>
-    </Card>
+    <ul>
+      {entries.map((entry) => (
+        <li key={entry.version}>
+          <div>
+            <span>{entry.version}</span>
+            <span>{entry.content}</span>
+          </div>
+        </li>
+      ))}
+    </ul>
   );
 }

@@ -23,12 +23,6 @@ type TGetCommitsParams = {
  * Fetches and return commits between to version of a dependency (and reporting stats)
  */
 export async function getCommits({ repo, owner, from, to }: TGetCommitsParams) {
-  console.log({
-    owner,
-    repo,
-    basehead: `v${from}...v${to}`,
-  });
-
   const { data } = await github.compareCommitsWithBasehead({
     owner,
     repo,

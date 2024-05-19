@@ -69,6 +69,7 @@ async function findChangelog(params: TFindChangelogParams) {
     if (hit.ok) {
       break;
     }
+    path = ''
   }
 
   if (!path) throw new Error("Couldn't find the changelog");
@@ -185,6 +186,7 @@ export async function getDependencyChangelogBetweenVersions({
     repo,
     path,
   });
+
   const entries = await parseChangelog({ content, from, to });
 
   return {

@@ -8,7 +8,9 @@ import { Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import styles from "./page.module.css";
 import { Skeleton } from "@/ui/skeleton";
-import { Info } from "lucide-react";
+import semver from "semver";
+import { Badge } from "@/ui/badge";
+import Link from "next/link";
 
 type SearchParams = { dep?: string | string[] };
 
@@ -24,28 +26,38 @@ export default function Page({ searchParams }: { searchParams: SearchParams }) {
           <div className={styles.column}>Range</div>
         </div>
         <div className={styles.group}>
-          <div className={styles.column}>Latest Satisfies</div>
-          <div className={styles.column}>Latest</div>
+          <div className={styles.column}>Latest Satisfies (T)</div>
+          <div className={styles.column}>Latest (T)</div>
           <div className={styles.column}>Available (Satisfies)</div>
-          <div className={styles.column}></div>
         </div>
       </div>
       <ul className={styles.list}>
-        {dependencies.map((dep) => (
-          <li key={dep.name} className={styles.row}>
-            <div className={styles.group}>
-              <div className={styles.column}>{dep.name}</div>
-              <div className={styles.column}>{dep.range}</div>
-            </div>
-            <div className={styles.group}>
-              <ErrorBoundary fallback={<DependencyVersionOverviewError />}>
-                <Suspense fallback={<DependencyVersionOverviewLoading />}>
-                  <DependencyVersionOverview {...dep} />
-                </Suspense>
-              </ErrorBoundary>
-            </div>
-          </li>
-        ))}
+        {dependencies.map((dep) => {
+          const href = `/dependencies/${encodeURIComponent(dep.name)}/${
+            dep.range
+          }`;
+
+          return (
+            <Link href={href} key={dep.name} className={styles.row}>
+              <div className={styles.group}>
+                <div className={styles.column}>{dep.name}</div>
+                <div className={styles.column}>
+                  <span>{dep.range}</span>
+                  <Badge className={styles.badge}>
+                    {semver.validRange(dep.range)}
+                  </Badge>
+                </div>
+              </div>
+              <div className={styles.group}>
+                <ErrorBoundary fallback={<DependencyVersionOverviewError />}>
+                  <Suspense fallback={<DependencyVersionOverviewLoading />}>
+                    <DependencyVersionOverview {...dep} />
+                  </Suspense>
+                </ErrorBoundary>
+              </div>
+            </Link>
+          );
+        })}
       </ul>
     </div>
   );

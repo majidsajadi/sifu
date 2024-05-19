@@ -14,10 +14,10 @@ export function Header() {
       </Link>
 
       <div className={styles.actions}>
-        <Button asChild className={styles.upload}>
-          <Link href="/upload">Upload</Link>
+        <Button variant="secondary" asChild>
+          <Link href="/upload">Scan package.json</Link>
         </Button>
-        <Button variant="ghost" size="icon" asChild>
+        <Button variant="secondary" size="icon" asChild>
           <Link href="https://github.com/majidsajadi/sifu">
             <Github size={16} />
           </Link>

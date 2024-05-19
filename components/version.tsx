@@ -44,14 +44,16 @@ export function Version({ value, range }: TVersionProps) {
         {parsed.patch}
       </span>
       {!!parsed.prerelease.length && (
-        <span 
-        className={clsx(
-          diff === "major" && styles.major,
-          diff === "minor" && styles.minor,
-          diff === "patch" && styles.patch,
-          diff === "prerelease" && styles.prerelease,
-        )}
-        >-{parsed.prerelease.join(".")}</span>
+        <span
+          className={clsx(
+            diff === "major" && styles.major,
+            diff === "minor" && styles.minor,
+            diff === "patch" && styles.patch,
+            diff === "prerelease" && styles.prerelease
+          )}
+        >
+          -{parsed.prerelease.join(".")}
+        </span>
       )}
     </div>
   );

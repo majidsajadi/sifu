@@ -14,10 +14,21 @@
   align-items: center;
 }
 
+.row {
+  text-decoration: none;
+  color: currentColor;
+  border-radius: var(--border-radius);
+}
+
+.row:hover {
+  background-color: var(--neutral-bg);
+}
+
 .group {
   display: flex;
   gap: 0.5rem;
   flex: 1;
+  align-items: center;
 }
 
 .column {
@@ -37,4 +48,8 @@
 .heading {
   background: var(--neutral-base);
   padding: 0.25rem 0.5rem;
+}
+
+.badge {
+  margin-left: 0.5rem;
 }

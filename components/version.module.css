@@ -1,15 +1,15 @@
 .major {
-  color: red;
+  color: var(--danger-solid);
 }
 
 .minor {
-  color: yellow;
+  color: var(--warning-solid);
 }
 
 .patch {
-  color: green;
+  color: var(--success-solid);
 }
 
 .prerelease {
-  color: blue;
+  color: var(--info-solid);
 }

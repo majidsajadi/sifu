@@ -1,7 +1,7 @@
-import { Slot } from "@radix-ui/react-slot";
-import { cva, type VariantProps } from "class-variance-authority";
-import styles from "./button.module.css";
 import { ButtonHTMLAttributes, forwardRef } from "react";
+import { cva, type VariantProps } from "class-variance-authority";
+import { Slot } from "@radix-ui/react-slot";
+import styles from "./button.module.css";
 
 const buttonVariants = cva(styles.base, {
   variants: {

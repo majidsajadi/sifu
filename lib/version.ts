@@ -39,6 +39,9 @@ export function getDependencyAvailableVersions(
     currentVersion
   );
 
+  const latestTime = metadata.time[latest];
+  const latestSatisfiesTime = latestSatisfies && metadata.time[latestSatisfies];
+
   let availableSatisfiesCount = 0;
   const available = greaterVersionsSorted.map((version) => {
     const date = metadata.time[version];
@@ -57,7 +60,9 @@ export function getDependencyAvailableVersions(
 
   return {
     latest,
+    latestTime,
     latestSatisfies,
+    latestSatisfiesTime,
     available,
     availableCount: available.length,
     availableSatisfiesCount,

@@ -1,18 +1,18 @@
 @import "./palette.css";
 
 :root {
-  --neutral-base: var(--gray-1);
-  --neutral-bg-subtle: var(--gray-2);
-  --neutral-bg: var(--gray-3);
-  --neutral-bg-hover: var(--gray-4);
-  --neutral-bg-active: var(--gray-5);
-  --neutral-line: var(--gray-6);
-  --neutral-border: var(--gray-7);
-  --neutral-border-hover: var(--gray-8);
-  --neutral-solid: var(--gray-9);
-  --neutral-solid-hover: var(--gray-10);
-  --neutral-text: var(--gray-11);
-  --neutral-text-contrast: var(--gray-12);
+  --neutral-base: var(--slate-1);
+  --neutral-bg-subtle: var(--slate-2);
+  --neutral-bg: var(--slate-3);
+  --neutral-bg-hover: var(--slate-4);
+  --neutral-bg-active: var(--slate-5);
+  --neutral-line: var(--slate-6);
+  --neutral-border: var(--slate-7);
+  --neutral-border-hover: var(--slate-8);
+  --neutral-solid: var(--slate-9);
+  --neutral-solid-hover: var(--slate-10);
+  --neutral-text: var(--slate-11);
+  --neutral-text-contrast: var(--slate-12);
 
   --accent-base: var(--cyan-1);
   --accent-bg-subtle: var(--cyan-2);
@@ -28,6 +28,9 @@
   --accent-text-contrast: var(--cyan-12);
 
   --danger-solid: var(--red-9);
+  --warning-solid: var(--yellow-9);
+  --success-solid: var(--green-9);
+  --info-solid: var(--blue-9);
 }
 
 :root {

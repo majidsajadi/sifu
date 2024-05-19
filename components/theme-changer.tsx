@@ -25,7 +25,7 @@ export function ThemeChanger() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon">
+        <Button variant="secondary" size="icon">
           {resolvedTheme === "dark" ? <Moon size={18} /> : <Sun size={18} />}
         </Button>
       </DropdownMenuTrigger>

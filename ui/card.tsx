@@ -32,3 +32,12 @@ export const CardContent = forwardRef<
   <div ref={ref} className={clsx(styles.content, className)} {...props} />
 ));
 CardContent.displayName = "CardContent";
+
+
+export const CardExtra = forwardRef<
+  HTMLDivElement,
+  HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div ref={ref} className={clsx(styles.extra, className)} {...props} />
+));
+CardExtra.displayName = "CardExtra";

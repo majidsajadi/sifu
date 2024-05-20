@@ -55,7 +55,19 @@
   gap: 0.5rem;
 }
 
-.content a {
-  color: var(--accent-border-hover);
+.author {
+  color: var(--neutral-solid-hover);
+}
+
+.author:hover {
+  color: var(--neutral-text);
+}
+
+.sha {
+  color: var(--accent-text);
   text-decoration: none;
+}
+
+.sha:hover {
+  color: var(--accent-text-contrast);
 }

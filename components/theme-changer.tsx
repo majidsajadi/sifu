@@ -18,9 +18,9 @@ export function ThemeChanger() {
   const { theme, resolvedTheme, setTheme } = useTheme();
   const isMounted = useIsMounted();
 
-  if (!isMounted) {
-    return null;
-  }
+  // if (!isMounted) {
+  //   return null;
+  // }
 
   return (
     <DropdownMenu>

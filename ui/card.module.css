@@ -1,19 +1,23 @@
-.content {
-  padding: 0.5rem;
-}
-
 .title {
   color: var(--neutral-text-contrast);
 }
 
 .header {
-  border-bottom: 1px solid var(--border-color);
-  padding: 0.5rem;
   font-size: var(--font-size-sm);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .card {
+  padding: .5rem 1rem;
   background: var(--neutral-bg-subtle);
   border-radius: var(--border-radius);
-  border: 1px solid var(--border-color);
+}
+
+.extra {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }

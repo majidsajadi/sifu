@@ -102,3 +102,24 @@ export const commits = {
     },
   ],
 };
+
+export const changelog = {
+  href: "https://github.com/facebook/react/blob/main//CHANGELOG.md",
+  entries: [
+    {
+      version: "18.3.1",
+      content:
+        "\n- Export `act` from `react` [f1338f](https://github.com/facebook/react/commit/f1338f8080abd1386454a10bbf93d67bfe37ce85)\n",
+    },
+    {
+      version: "18.3.0",
+      content:
+        "\nThis release is identical to 18.2 but adds warnings for deprecated APIs and other changes that are needed for React 19.\n\nRead the [React 19 Upgrade Guide](https://react.dev/blog/2024/04/25/react-19-upgrade-guide) for more info.\n\n### React\n\n- Allow writing to `this.refs` to support string ref codemod [909071](https://github.com/facebook/react/commit/9090712fd3ca4e1099e1f92e67933c2cb4f32552)\n- Warn for deprecated `findDOMNode` outside StrictMode [c3b283](https://github.com/facebook/react/commit/c3b283964108b0e8dbcf1f9eb2e7e67815e39dfb)\n- Warn for deprecated `test-utils` methods [d4ea75](https://github.com/facebook/react/commit/d4ea75dc4258095593b6ac764289f42bddeb835c)\n- Warn for deprecated Legacy Context outside StrictMode [415ee0](https://github.com/facebook/react/commit/415ee0e6ea0fe3e288e65868df2e3241143d5f7f)\n- Warn for deprecated string refs outside StrictMode [#25383](https://github.com/facebook/react/pull/25383)\n- Warn for deprecated `defaultProps` for function components [#25699](https://github.com/facebook/react/pull/25699)\n- Warn when spreading `key` [#25697](https://github.com/facebook/react/pull/25697)\n- Warn when using `act` from `test-utils` [d4ea75](https://github.com/facebook/react/commit/d4ea75dc4258095593b6ac764289f42bddeb835c)\n\n### React DOM\n- Warn for deprecated `unmountComponentAtNode` [8a015b](https://github.com/facebook/react/commit/8a015b68cc060079878e426610e64e86fb328f8d)\n- Warn for deprecated `renderToStaticNodeStream` [#28874](https://github.com/facebook/react/pull/28874)\n",
+    },
+    {
+      version: "18.2.0",
+      content:
+        "\n### React DOM\n\n* Provide a component stack as a second argument to `onRecoverableError`. ([@gnoff](https://github.com/gnoff) in [#24591](https://github.com/facebook/react/pull/24591))\n* Fix hydrating into `document` causing a blank page on mismatch. ([@gnoff](https://github.com/gnoff) in [#24523](https://github.com/facebook/react/pull/24523))\n* Fix false positive hydration errors with Suspense. ([@gnoff](https://github.com/gnoff) in [#24480](https://github.com/facebook/react/pull/24480) and  [@acdlite](https://github.com/acdlite) in [#24532](https://github.com/facebook/react/pull/24532))\n* Fix ignored `setState` in Safari when adding an iframe. ([@gaearon](https://github.com/gaearon) in [#24459](https://github.com/facebook/react/pull/24459))\n\n### React DOM Server\n\n* Pass information about server errors to the client. ([@salazarm](https://github.com/salazarm) and [@gnoff](https://github.com/gnoff) in [#24551](https://github.com/facebook/react/pull/24551) and [#24591](https://github.com/facebook/react/pull/24591))\n* Allow to provide a reason when aborting the HTML stream. ([@gnoff](https://github.com/gnoff) in [#24680](https://github.com/facebook/react/pull/24680))\n* Eliminate extraneous text separators in the HTML where possible. ([@gnoff](https://github.com/gnoff) in [#24630](https://github.com/facebook/react/pull/24630))\n* Disallow complex children inside `<title>` elements to match the browser constraints. ([@gnoff](https://github.com/gnoff) in [#24679](https://github.com/facebook/react/pull/24679))\n* Fix buffering in some worker environments by explicitly setting `highWaterMark` to `0`. ([@jplhomer](https://github.com/jplhomer) in [#24641](https://github.com/facebook/react/pull/24641))\n\n### Server Components (Experimental)\n\n* Add support for `useId()` inside Server Components. ([@gnoff](https://github.com/gnoff) in [#24172](https://github.com/facebook/react/pull/24172))\n",
+    },
+  ],
+};

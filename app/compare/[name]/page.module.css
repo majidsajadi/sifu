@@ -71,3 +71,7 @@
 .sha:hover {
   color: var(--accent-text-contrast);
 }
+
+.container {
+  display: flex;
+}

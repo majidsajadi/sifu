@@ -55,7 +55,7 @@ async function findChangelog(params: TFindChangelogParams) {
   // TODO: search in other common branches too. ex. `master`
   const branch = options.branch ?? "main";
   // TODO: try to figure out if the repository is monorepo and get the directory from the workspaces?
-  const directory = options.directory ?? "";
+  const directory =  "";
 
   // TODO: handle other git hostings. ex. gitlab, bitbucket
   const baseURL = `https://github.com/${owner}/${repo}/blob/${branch}`;

@@ -46,6 +46,7 @@
   --color-foreground: var(--neutral-text);
   --font-size: 14px;
   --font-size-sm: 12px;
+  --font-size-lg: 15px;
   --font-weight: 400;
   --font-weight-medium: 600;
 

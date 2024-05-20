@@ -74,4 +74,47 @@
 
 .container {
   display: flex;
+  gap: 1rem;
+}
+
+.container > * {
+  flex: 1;
+}
+
+.md {
+  color: var(--neutral-text);
+  line-height: 1.6;
+  font-size: var(--font-size);
+}
+
+.md h3,
+.md h4 {
+  color: var(--neutral-text-contrast);
+  margin-bottom: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.md h3 {
+  font-size: var(--font-size-lg);
+}
+
+.md h4 {
+  font-size: var(--font-size);
+}
+
+.md a {
+  color: var(--accent-text);
+  text-decoration: none;
+}
+
+.md a:hover {
+  color: var(--accent-text-contrast);
+}
+
+.md ul {
+  margin-left: 1rem;
+}
+
+.md li {
+  list-style: circle;
 }

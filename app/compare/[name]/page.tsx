@@ -19,6 +19,12 @@ import { Button } from "@/ui/button";
 import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle, CardExtra } from "@/ui/card";
 import { MDXRemote } from "next-mdx-remote/rsc";
+import {
+  AccordionContent,
+  AccordionTrigger,
+  Accordion,
+  AccordionItem,
+} from "@/ui/accordion";
 
 export default async function Page({ params }: TComparePageProps) {
   return (
@@ -105,12 +111,16 @@ export default async function Page({ params }: TComparePageProps) {
           </CardExtra>
         </CardHeader>
         <CardContent>
-          {changelog.entries.map((entry) => (
-            <div>
-              <div>{entry.version}</div>
-              <MDXRemote source={entry.content} />
-            </div>
-          ))}
+          <Accordion type="multiple" defaultValue={changelog.entries.map(ent => ent.version)}>
+            {changelog.entries.map((entry) => (
+              <AccordionItem value={entry.version}>
+                <AccordionTrigger>{entry.version}</AccordionTrigger>
+                <AccordionContent className={styles.md}>
+                  <MDXRemote  source={entry.content} />
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
         </CardContent>
       </Card>
     </div>

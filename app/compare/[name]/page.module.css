@@ -1,0 +1,61 @@
+.timeline {
+  display: flex;
+  gap: 0.25rem;
+  flex-direction: column;
+}
+
+.item {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.separator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.dot {
+  color: var(--neutral-border-hover);
+}
+
+.line {
+  flex: 1;
+  display: block;
+  min-height: 2.5rem;
+  border-left: 1px dashed var(--neutral-border-hover);
+  box-sizing: content-box;
+}
+
+.head .dot {
+  color: var(--accent-solid);
+}
+
+.head .content {
+  color: var(--accent-solid);
+}
+
+.head .line {
+  min-height: 1rem;
+}
+
+.content {
+  padding-bottom: 1rem;
+}
+
+.description {
+  color: var(--neutral-solid-hover);
+  font-size: var(--font-size-sm);
+  margin-top: 0.5rem;
+}
+
+.heading {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.content a {
+  color: var(--accent-border-hover);
+  text-decoration: none;
+}

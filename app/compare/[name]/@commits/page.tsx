@@ -9,7 +9,7 @@ export default async function Page({ searchParams }: TComparePageProps) {
   if (!from || !repo || !owner || !to)
     throw new Error("Unexpected error occurred");
 
-  const { commits } = await getCommits({
+  const result = await getCommits({
     repo,
     owner,
     from,
@@ -18,7 +18,7 @@ export default async function Page({ searchParams }: TComparePageProps) {
 
   return (
     <ul>
-      {commits.map((commits) => (
+      {result.commits.map((commits) => (
         <li key={commits.sha}>
           <div>
             <span>{commits.sha}</span>

@@ -1,7 +1,10 @@
 const MILLISECONDS_IN_DAY = 86400000;
 
 export function formatDate(value: string) {
-  return new Intl.DateTimeFormat("en-US").format(new Date(value));
+  return new Intl.DateTimeFormat("en-US", {
+    dateStyle: "short",
+    timeStyle: "short"
+  }).format(new Date(value));
 }
 
 export function fromNowInDays(value: string) {

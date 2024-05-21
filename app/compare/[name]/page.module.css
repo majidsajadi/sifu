@@ -75,15 +75,6 @@
   color: var(--accent-text-contrast);
 }
 
-.container {
-  display: flex;
-  gap: 1rem;
-}
-
-.container > * {
-  flex: 1;
-}
-
 .md {
   color: var(--neutral-text);
   line-height: 1.6;
@@ -120,4 +111,13 @@
 
 .md li {
   list-style: circle;
+}
+
+.container {
+  display: flex;
+  gap: 1rem;
+}
+
+.container > * {
+  flex: 1;
 }

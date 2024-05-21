@@ -10,4 +10,6 @@ body {
   min-height: 100vh;
   height: 100%;
   width: 100vw;
+  -webkit-font-smoothing: auto;
+  -moz-osx-font-smoothing: auto;
 }

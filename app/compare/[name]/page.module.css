@@ -33,7 +33,7 @@
 }
 
 .head .content {
-  color: var(--accent-solid);
+  color: var(--accent-solid-hover);
 }
 
 .head .line {
@@ -45,7 +45,6 @@
 }
 
 .description {
-  color: var(--neutral-solid-hover);
   font-size: var(--font-size-sm);
   margin-top: 0.5rem;
 }
@@ -56,11 +55,15 @@
 }
 
 .author {
-  color: var(--neutral-solid-hover);
+  color: var(--neutral-text);
+}
+
+.title {
+  color: var(--neutral-text-contrast);
 }
 
 .author:hover {
-  color: var(--neutral-text);
+  color: var(--neutral-text-contrast);
 }
 
 .sha {
@@ -112,7 +115,7 @@
 }
 
 .md ul {
-  margin-left: 1rem;
+  margin-left: 2rem;
 }
 
 .md li {

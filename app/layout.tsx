@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
-import { Noto_Sans_Mono } from "next/font/google";
+import { Source_Code_Pro } from "next/font/google";
 import { Header } from "@/components/header";
 import styles from './layout.module.css';
 
 import "@/styles/globals.css";
 
-const font = Noto_Sans_Mono({
+const font = Source_Code_Pro({
   subsets: ["latin"],
 });
 

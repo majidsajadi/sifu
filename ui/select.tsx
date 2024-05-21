@@ -16,13 +16,15 @@ export const SelectValue = SelectPrimitive.Value;
 
 export const SelectTrigger = forwardRef<
   ElementRef<typeof SelectPrimitive.Trigger>,
-  ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger>
->(({ className, children, ...props }, ref) => (
+  ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger> & { prefix?: string }
+>(({ className, children, prefix, ...props }, ref) => (
   <SelectPrimitive.Trigger
+    aria-label={prefix}
     ref={ref}
     className={clsx(styles.trigger, className)}
     {...props}
   >
+   {!!prefix && <div className={styles.prefix}> {prefix}: </div>}
     {children}
     <SelectPrimitive.Icon className={styles.icon} asChild>
       <ChevronDown width={20} />

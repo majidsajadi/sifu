@@ -2,7 +2,6 @@
   all: unset;
   display: flex;
   height: 1rem;
-  width: 100%;
   align-items: center;
   justify-content: space-between;
   white-space: nowrap;
@@ -11,6 +10,7 @@
   padding: 0.75rem 0.5rem;
   color: var(--neutral-text-contrast);
   font-size: var(--font-size-sm);
+  gap: 0.5rem;
 }
 
 .trigger[data-placeholder] {
@@ -79,4 +79,8 @@
 
 .icon {
   color: var(--neutral-solid);
+}
+
+.prefix {
+  color: var(--neutral-text);
 }

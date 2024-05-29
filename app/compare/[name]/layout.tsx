@@ -9,14 +9,11 @@ export default function Layout({
   commits: React.ReactNode;
   changelog: React.ReactNode;
 }) {
-
-
-  return children
-  
   return (
     <div className={styles.container}>
-      <section>{commits}</section>
-      <section>{changelog}</section>
+      <section className={styles.overview}>{children}</section>
+      <section className={styles.commits}>commits</section>
+      <section className={styles.changelog}>changelog</section>
     </div>
   );
 }

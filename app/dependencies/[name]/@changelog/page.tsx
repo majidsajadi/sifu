@@ -1,7 +1,11 @@
 import { Badge, Flex, Card, IconButton } from "@radix-ui/themes";
 import { ExternalLinkIcon } from "@radix-ui/react-icons";
 
-export default async function Page() {
+type TPageProps = {
+  params: { name: string };
+};
+
+export default async function Page({ params }: TPageProps) {
   return (
     <Card>
       <Flex direction="column" gap="2">
@@ -9,7 +13,7 @@ export default async function Page() {
           <IconButton size="2" variant="soft" color="gray">
             <ExternalLinkIcon />
           </IconButton>
-          <Badge size="2" color="gray" variant="solid" highContrast>
+          <Badge size="2" color="gray" variant="soft">
             3 releases
           </Badge>
         </Flex>

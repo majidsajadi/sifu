@@ -1,4 +1,4 @@
-import { TDependencyMetadata, fetchDependencyMetadata } from "./npm";
+import { TDependencyMetadata, fetchDependencyMetadata } from "../core/npm";
 import { getDependencyAvailableVersions } from "./version";
 
 export type TRepository = {

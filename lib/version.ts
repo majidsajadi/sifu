@@ -1,5 +1,5 @@
 import semver from "semver";
-import { TDependencyMetadata } from "./npm";
+import { TDependencyMetadata } from "../core/npm";
 
 /**
  * Returns the minimum version that satisfies the range and asume its the current version of dependency

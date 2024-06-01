@@ -1,4 +1,4 @@
-import { Flex, Box, Card, Heading, Select, Skeleton } from "@radix-ui/themes";
+import { Flex, Box, Card, Heading, Select } from "@radix-ui/themes";
 
 type TPageProps = {
   params: { name: string };

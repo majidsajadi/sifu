@@ -3,11 +3,12 @@ import {
   Badge,
   Flex,
   Card,
-  IconButton,
+  Heading,
   Text,
   Box,
-  Link as NavLink,
   Tooltip,
+  IconButton,
+  Link as NavLink,
 } from "@radix-ui/themes";
 import {
   ArchiveIcon,
@@ -50,24 +51,27 @@ export default async function Page({ params, searchParams }: TPageProps) {
   return (
     <Card>
       <Flex direction="column" gap="4">
-        <Flex gap="2" direction="row-reverse" align="center">
-          <Tooltip content="View compare in Github">
-            <IconButton asChild variant="soft" color="gray">
-              <Link target="_blank" href={response.url}>
-                <ExternalLinkIcon />
-              </Link>
-            </IconButton>
-          </Tooltip>
-          <Badge color="gray" variant="soft">
-            {response.total} commits
-          </Badge>
-          <Badge color="gray" variant="soft">
-            {response.files} files change
-          </Badge>
+        <Flex gap="2" justify="between" align="center" mb="2">
+          <Heading size="3">Commits between versions</Heading>
+          <Flex align="center" gap="2">
+            <Tooltip content="View compare in Github">
+              <IconButton asChild size="1" variant="soft" color="gray">
+                <Link target="_blank" href={response.url}>
+                  <ExternalLinkIcon />
+                </Link>
+              </IconButton>
+            </Tooltip>
+            <Badge color="gray" variant="soft">
+              {response.total} commits
+            </Badge>
+            <Badge color="gray" variant="soft">
+              {response.files} files change
+            </Badge>
+          </Flex>
         </Flex>
         <Flex direction="column" gap="1">
           {response.commits.map((commit) => (
-            <Flex align="stretch" gap="3">
+            <Flex align="stretch" gap="3" key={commit.sha}>
               <Flex direction="column" align="center" gap="1">
                 <CircleIcon color="var(--gray-9)" width={12} height={12} />
                 <Box
@@ -82,7 +86,9 @@ export default async function Page({ params, searchParams }: TPageProps) {
               <Flex direction="column" gap="1" pb="4">
                 <Text trim="start">
                   <NavLink asChild>
-                    <Link href={commit.url}>{commit.sha.substring(0, 7)}</Link>
+                    <Link target="_blank" href={commit.url}>
+                      {commit.sha.substring(0, 7)}
+                    </Link>
                   </NavLink>
                   : {commit.message}
                 </Text>
@@ -90,7 +96,7 @@ export default async function Page({ params, searchParams }: TPageProps) {
                   <Text color="gray" size="2">
                     authored by{" "}
                     <NavLink asChild>
-                      <Link href={commit.author.url}>
+                      <Link target="_blank" href={commit.author.url}>
                         {commit.author?.name}
                       </Link>
                     </NavLink>{" "}

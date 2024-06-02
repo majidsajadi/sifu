@@ -83,3 +83,5 @@ export async function getCommits(name: string, from?: string, to?: string) {
     commits,
   };
 }
+
+export async function getChangelog(name: string, from?: string, to?: string) {}

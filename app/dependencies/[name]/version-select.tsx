@@ -2,7 +2,7 @@
 
 import semver from "semver";
 import type { TVersion } from "@/core";
-import { Select, Text } from "@radix-ui/themes";
+import { Flex, Select, Text } from "@radix-ui/themes";
 import { Virtuoso } from "react-virtuoso";
 
 const MIN_VERSION_POSSIBLE = "0.0.0";
@@ -39,21 +39,31 @@ export function VersionSelect({
         <Text color="gray">Source:</Text> {value}
       </Select.Trigger>
       <Select.Content position="popper">
-        <Virtuoso
-          style={{
-            // subtract 16px (2 * var(space-2)) for the content padding to prevent the radix scroll component functionality
-            height: "calc(var(--radix-select-content-available-height) - 16px)",
-          }}
-          totalCount={items.length}
-          itemContent={(index) => {
-            const item = items[index];
-            return (
-              <Select.Item key={item.version} value={item.version}>
-                {item.version}
-              </Select.Item>
-            );
-          }}
-        />
+        {!!items.length ? (
+          <Virtuoso
+            style={{
+              height: "280px",
+              // subtract 16px (2 * var(space-2)) for the content padding to prevent the radix scroll component functionality
+              maxHeight:
+                "calc(var(--radix-select-content-available-height) - 16px)",
+            }}
+            totalCount={items.length}
+            itemContent={(index) => {
+              const item = items[index];
+              return (
+                <Select.Item key={item.version} value={item.version}>
+                  {item.version}
+                </Select.Item>
+              );
+            }}
+          />
+        ) : (
+          <Flex align="center" justify="center">
+            <Text size="2" color="gray">
+              No available version
+            </Text>
+          </Flex>
+        )}
       </Select.Content>
     </Select.Root>
   );

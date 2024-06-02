@@ -2,18 +2,16 @@ import { Spinner, Card, Text, Flex } from "@radix-ui/themes";
 
 export default function Loading() {
   return (
-    <Card style={{ height: 420 }}>
+    <Card>
       <Flex
         align="center"
         justify="center"
-        height="100%"
+        height="240px"
         direction="column"
         gap="2"
       >
         <Spinner size="3" />
-        <Text size="2" color="gray">
-          Fetching commits...
-        </Text>
+        <Text color="gray">Fetching commits...</Text>
       </Flex>
     </Card>
   );

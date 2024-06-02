@@ -24,12 +24,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning className={font.className}>
       <body>
         <ThemeProvider attribute="class">
-          <Theme
-            accentColor="lime"
-            grayColor="gray"
-            radius="small"
-            scaling="90%"
-          >
+          <Theme accentColor="lime" grayColor="gray" radius="small">
             {children}
           </Theme>
         </ThemeProvider>

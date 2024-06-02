@@ -2,7 +2,7 @@
 
 import semver from "semver";
 import type { TVersion } from "@/core";
-import { Flex, Select, Text } from "@radix-ui/themes";
+import { Box, Flex, Select, Text } from "@radix-ui/themes";
 import { Virtuoso } from "react-virtuoso";
 
 const MIN_VERSION_POSSIBLE = "0.0.0";
@@ -51,7 +51,15 @@ export function VersionSelect({
             itemContent={(index) => {
               const item = items[index];
               return (
-                <Select.Item key={item.version} value={item.version}>
+                <Select.Item
+                  style={{
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    whiteSpace: "nowrap",
+                  }}
+                  key={item.version}
+                  value={item.version}
+                >
                   {item.version}
                 </Select.Item>
               );

@@ -142,3 +142,50 @@ export async function getDependencies(
 
   return result;
 }
+
+export type TEngineDiff = {
+  name: string;
+  before?: string;
+  after?: string;
+};
+
+export async function getEngines(
+  name: string,
+  source?: string,
+  target?: string
+) {
+  if (!source || !target) return;
+
+  const { versions } = await npm.fetchDependency(name);
+
+  const { engines: sourceEngines } = versions[source];
+  const { engines: targetEngines } = versions[target];
+
+  const result: Array<TEngineDiff> = [];
+
+  if (sourceEngines) {
+    Object.entries(sourceEngines).forEach(([name, range]) => {
+      result.push({
+        name,
+        before: range,
+      });
+    });
+  }
+
+  if (targetEngines) {
+    Object.entries(targetEngines).forEach(([name, range]) => {
+      const item = result.find((diff) => diff.name === name);
+
+      if (!!item) {
+        item.after = range;
+      } else {
+        result.push({
+          name,
+          after: range,
+        });
+      }
+    });
+  }
+
+  return result;
+}

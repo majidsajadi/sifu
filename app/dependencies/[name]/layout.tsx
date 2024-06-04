@@ -5,6 +5,7 @@ type TLayoutProps = PropsWithChildren & {
   commits: ReactNode;
   changelog: ReactNode;
   dependencies: ReactNode;
+  engines: ReactNode;
 };
 
 export default function Layout({
@@ -12,6 +13,7 @@ export default function Layout({
   commits,
   changelog,
   dependencies,
+  engines,
 }: TLayoutProps) {
   return (
     <Container size="4" height="100vh" py="4">
@@ -29,9 +31,10 @@ export default function Layout({
             </Tabs.Trigger>
             <Tabs.Trigger value="size" disabled>
               <Flex gap="2">
-                <Text>Compatibilities</Text> <Badge>Soon</Badge>
+                <Text>Browserlist</Text> <Badge>Soon</Badge>
               </Flex>
             </Tabs.Trigger>
+            <Tabs.Trigger value="engines">Engines</Tabs.Trigger>
             <Tabs.Trigger value="size" disabled>
               <Flex gap="2">
                 <Text>Vulnerabilities</Text> <Badge>Soon</Badge>
@@ -42,6 +45,7 @@ export default function Layout({
             <Tabs.Content value="commits">{commits}</Tabs.Content>
             <Tabs.Content value="changelog">{changelog}</Tabs.Content>
             <Tabs.Content value="dependencies">{dependencies}</Tabs.Content>
+            <Tabs.Content value="engines">{engines}</Tabs.Content>
           </Box>
         </Tabs.Root>
       </Flex>

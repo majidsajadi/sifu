@@ -7,7 +7,7 @@ type TPageProps = {
 };
 
 export default async function Page({ params }: TPageProps) {
-  const dependency = await getDependency(params.name);
+  const dependency = await getDependency(decodeURIComponent(params.name));
 
   return (
     <Flex gap="4" align="center" minHeight="32px">

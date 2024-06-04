@@ -3,20 +3,16 @@ import {
   Badge,
   Flex,
   Card,
-  Heading,
   Text,
   Box,
   Tooltip,
   IconButton,
   Link as NavLink,
 } from "@radix-ui/themes";
-import {
-  ArchiveIcon,
-  CircleIcon,
-  ExternalLinkIcon,
-} from "@radix-ui/react-icons";
+import { CircleIcon, ExternalLinkIcon } from "@radix-ui/react-icons";
 import { getCommits } from "@/core";
 import { formatDate } from "@/utils/date";
+import CEmpty from "../(common)/empty";
 
 type TPageProps = {
   params: { name: string };
@@ -25,49 +21,30 @@ type TPageProps = {
 
 export default async function Page({ params, searchParams }: TPageProps) {
   const response = await getCommits(
-    params.name,
+    decodeURIComponent(params.name),
     searchParams.source,
     searchParams.target
   );
 
-  if (!response?.commits)
-    return (
-      <Card>
-        <Flex
-          align="center"
-          justify="center"
-          height="240px"
-          direction="column"
-          gap="2"
-        >
-          <Text trim="both" color="gray">
-            <ArchiveIcon />
-          </Text>
-          <Text color="gray">No commit found</Text>
-        </Flex>
-      </Card>
-    );
+  if (!response?.commits) return <CEmpty message="No commit found" />;
 
   return (
     <Card>
       <Flex direction="column" gap="4">
-        <Flex gap="2" justify="between" align="center" mb="2">
-          <Heading size="3">Commits between versions</Heading>
-          <Flex align="center" gap="2">
-            <Tooltip content="View compare in Github">
-              <IconButton asChild size="1" variant="soft" color="gray">
-                <Link target="_blank" href={response.url}>
-                  <ExternalLinkIcon />
-                </Link>
-              </IconButton>
-            </Tooltip>
-            <Badge color="gray" variant="soft">
-              {response.total} commits
-            </Badge>
-            <Badge color="gray" variant="soft">
-              {response.files} files change
-            </Badge>
-          </Flex>
+        <Flex gap="2" direction="row-reverse" align="center" mb="2">
+          <Tooltip content="View compare in Github">
+            <IconButton asChild size="1" variant="soft" color="gray">
+              <Link target="_blank" href={response.url}>
+                <ExternalLinkIcon />
+              </Link>
+            </IconButton>
+          </Tooltip>
+          <Badge color="gray" variant="soft">
+            {response.total} commits
+          </Badge>
+          <Badge color="gray" variant="soft">
+            {response.files} files change
+          </Badge>
         </Flex>
         <Flex direction="column" gap="1">
           {response.commits.map((commit) => (

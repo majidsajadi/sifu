@@ -1,19 +1,16 @@
-import semver from "semver";
+import semver, { sort } from "semver";
 import { npm } from "./npm";
 import { github } from "./github";
 
-
-// fetch dependency from registery 
+// fetch dependency from registery
 // cache with scheduled revalidation (1 day for example)
 // fetchDependency()
 
 // extract informaction from dependency from the fetched data from registery
 // getDependency()
 
-
 // getCommits()
 // getChangelog()
-
 
 export type TDependency = {
   name: string;
@@ -98,3 +95,50 @@ export async function getCommits(name: string, from?: string, to?: string) {
 }
 
 export async function getChangelog(name: string, from?: string, to?: string) {}
+
+export type TDependencyDiff = {
+  name: string;
+  before?: string;
+  after?: string;
+};
+
+export async function getDependencies(
+  name: string,
+  source?: string,
+  target?: string
+) {
+  if (!source || !target) return;
+
+  const { versions } = await npm.fetchDependency(name);
+
+  const { dependencies: sourceDependencies } = versions[source];
+  const { dependencies: targetDependencies } = versions[target];
+
+  const result: Array<TDependencyDiff> = [];
+
+  if (sourceDependencies) {
+    Object.entries(sourceDependencies).forEach(([name, range]) => {
+      result.push({
+        name,
+        before: range,
+      });
+    });
+  }
+
+  if (targetDependencies) {
+    Object.entries(targetDependencies).forEach(([name, range]) => {
+      const item = result.find((diff) => diff.name === name);
+
+      if (!!item) {
+        item.after = range;
+      } else {
+        result.push({
+          name,
+          after: range,
+        });
+      }
+    });
+  }
+
+  return result;
+}

@@ -67,7 +67,17 @@ export default async function Page({ params, searchParams }: TPageProps) {
                       {commit.sha.substring(0, 7)}
                     </Link>
                   </NavLink>
-                  : {commit.message}
+                  :
+                  <Flex direction="column">
+                    {commit.message
+                      .split("\n")
+                      .filter(Boolean)
+                      .map((line, index, lines) => (
+                        <Text mb={index === 0 && lines.length > 1 ? "4" : "0"}>
+                          {line}
+                        </Text>
+                      ))}
+                  </Flex>
                 </Text>
                 {commit.author && commit.date && (
                   <Text color="gray" size="2">

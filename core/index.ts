@@ -1,6 +1,7 @@
 import semver, { sort } from "semver";
 import { npm } from "./npm";
 import { github } from "./github";
+import { writeFile } from "fs/promises";
 
 // fetch dependency from registery
 // cache with scheduled revalidation (1 day for example)
@@ -86,6 +87,8 @@ export async function getCommits(name: string, from?: string, to?: string) {
     };
   });
 
+
+  await writeFile("./pacjage.json", JSON.stringify(commits))
   return {
     url: data.html_url,
     total: data.total_commits,

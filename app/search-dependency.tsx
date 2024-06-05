@@ -7,9 +7,9 @@ import { useDebouncedCallback } from "use-debounce";
 import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
 import { Box, Card, Flex, Text, TextField } from "@radix-ui/themes";
 import { searchAction } from "./search-action";
-import { SearchPacakgeSpinner } from "./search-package-spinner";
+import { SearchDependencySpinner } from "./search-dependency-spinner";
 
-export function SearchPacakge() {
+export function SearchDependency() {
   const [state, action] = useFormState(searchAction, undefined);
 
   const handleChange = useDebouncedCallback(
@@ -39,7 +39,7 @@ export function SearchPacakge() {
         <TextField.Slot color="gray">
           <MagnifyingGlassIcon height="28" width="28" />
         </TextField.Slot>
-        <SearchPacakgeSpinner />
+        <SearchDependencySpinner />
       </TextField.Root>
       {!!state?.length && (
         <Box mt="2" width="420px" maxHeight="420px" overflow="auto">

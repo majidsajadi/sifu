@@ -3,7 +3,7 @@
 import { Spinner, TextField } from "@radix-ui/themes";
 import { useFormStatus } from "react-dom";
 
-export function SearchPacakgeSpinner() {
+export function SearchDependencySpinner() {
   const { pending } = useFormStatus();
 
   return (

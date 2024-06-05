@@ -85,8 +85,6 @@ export async function getCommits(name: string, from?: string, to?: string) {
   };
 }
 
-export async function getChangelog(name: string, from?: string, to?: string) {}
-
 export type TDependencyDiff = {
   name: string;
   before?: string;

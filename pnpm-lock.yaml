@@ -1,9 +1,13 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 dependencies:
   '@ark-ui/react':
     specifier: ^2.2.3
-    version: 2.2.3(react-dom@18.3.1)(react@18.3.1)
+    version: 2.2.3(@internationalized/date@3.5.2)(react-dom@18.3.1)(react@18.3.1)
   '@radix-ui/react-accordion':
     specifier: ^1.1.2
     version: 1.1.2(@types/react-dom@18.3.0)(@types/react@18.3.2)(react-dom@18.3.1)(react@18.3.1)
@@ -64,6 +68,9 @@ dependencies:
   semver:
     specifier: ^7.6.2
     version: 7.6.2
+  use-debounce:
+    specifier: ^10.0.1
+    version: 10.0.1(react@18.3.1)
 
 devDependencies:
   '@types/node':
@@ -93,7 +100,7 @@ devDependencies:
 
 packages:
 
-  /@ark-ui/anatomy@2.3.1:
+  /@ark-ui/anatomy@2.3.1(@internationalized/date@3.5.2):
     resolution: {integrity: sha512-pfHDkuFRFdzOnZxqNcAld1b03ehvFrOqXery9JHBTchP8+VmAmxg6ZDn4Se1ie4HvcmXD6IU61jltJB/aXYpJg==}
     dependencies:
       '@zag-js/accordion': 0.38.0
@@ -107,7 +114,7 @@ packages:
       '@zag-js/color-utils': 0.38.0
       '@zag-js/combobox': 0.38.0
       '@zag-js/date-picker': 0.38.0
-      '@zag-js/date-utils': 0.38.0
+      '@zag-js/date-utils': 0.38.0(@internationalized/date@3.5.2)
       '@zag-js/dialog': 0.38.0
       '@zag-js/editable': 0.38.0
       '@zag-js/file-upload': 0.38.0
@@ -135,13 +142,13 @@ packages:
       - '@internationalized/date'
     dev: false
 
-  /@ark-ui/react@2.2.3(react-dom@18.3.1)(react@18.3.1):
+  /@ark-ui/react@2.2.3(@internationalized/date@3.5.2)(react-dom@18.3.1)(react@18.3.1):
     resolution: {integrity: sha512-W43rbimG1f7v1jk8J+PG/3um8/PaL1lQZEnRPzaXtQjEoiBlXH4yFyJakoEldxoZEQGB8x7SUkjHxZ93cRceuQ==}
     peerDependencies:
       react: '>=18.0.0'
       react-dom: '>=18.0.0'
     dependencies:
-      '@ark-ui/anatomy': 2.3.1
+      '@ark-ui/anatomy': 2.3.1(@internationalized/date@3.5.2)
       '@zag-js/accordion': 0.38.0
       '@zag-js/avatar': 0.38.0
       '@zag-js/carousel': 0.38.0
@@ -153,7 +160,7 @@ packages:
       '@zag-js/combobox': 0.38.0
       '@zag-js/core': 0.38.0
       '@zag-js/date-picker': 0.38.0
-      '@zag-js/date-utils': 0.38.0
+      '@zag-js/date-utils': 0.38.0(@internationalized/date@3.5.2)
       '@zag-js/dialog': 0.38.0
       '@zag-js/editable': 0.38.0
       '@zag-js/file-upload': 0.38.0
@@ -2262,12 +2269,6 @@ packages:
       '@zag-js/text-selection': 0.38.0
       '@zag-js/types': 0.38.0
       '@zag-js/utils': 0.38.0
-    dev: false
-
-  /@zag-js/date-utils@0.38.0:
-    resolution: {integrity: sha512-H6dR/HcFEJTATKDc19YRg6fabpF26DbCI1o0YmuclKY68jF9XWfbeAwjyr/V71DjB2QHzvODALWWSbNLDKxQDg==}
-    peerDependencies:
-      '@internationalized/date': '>=3.0.0'
     dev: false
 
   /@zag-js/date-utils@0.38.0(@internationalized/date@3.5.2):
@@ -5820,6 +5821,15 @@ packages:
       tslib: 2.6.2
     dev: false
 
+  /use-debounce@10.0.1(react@18.3.1):
+    resolution: {integrity: sha512-0uUXjOfm44e6z4LZ/woZvkM8FwV1wiuoB6xnrrOmeAEjRDDzTLQNRFtYHvqUsJdrz1X37j0rVGIVp144GLHGKg==}
+    engines: {node: '>= 16.0.0'}
+    peerDependencies:
+      react: '>=16.8.0'
+    dependencies:
+      react: 18.3.1
+    dev: false
+
   /use-sidecar@1.1.2(@types/react@18.3.2)(react@18.3.1):
     resolution: {integrity: sha512-epTbsLuzZ7lPClpz2TyryBfztm7m+28DlEv2ZCQ3MDr5ssiwyOwGH/e5F9CkfWjJ1t4clvI58yF822/GUkjjhw==}
     engines: {node: '>=10'}
@@ -5963,7 +5973,3 @@ packages:
   /zwitch@2.0.4:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
     dev: false
-
-settings:
-  autoInstallPeers: true
-  excludeLinksFromLockfile: false

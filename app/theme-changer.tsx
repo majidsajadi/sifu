@@ -23,13 +23,13 @@ export function ThemeChanger() {
 
   return (
     <DropdownMenu.Root>
-      <DropdownMenu.Trigger>
         <Tooltip content="theme">
+      <DropdownMenu.Trigger>
           <IconButton variant="soft" color="gray">
             {resolvedTheme === "dark" ? <MoonIcon /> : <SunIcon />}
           </IconButton>
-        </Tooltip>
       </DropdownMenu.Trigger>
+        </Tooltip>
       <DropdownMenu.Content size="1">
         <DropdownMenu.RadioGroup value={theme} onValueChange={setTheme}>
           <DropdownMenu.RadioItem value="dark">Dark</DropdownMenu.RadioItem>

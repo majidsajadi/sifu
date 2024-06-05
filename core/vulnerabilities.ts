@@ -10,6 +10,8 @@ export type TAdvisory = {
   cvss: unknown; // not using
 };
 
+type TSecurityAdvisoriesResponse = Record<string, TAdvisory[]>;
+
 export async function getVulnerabilities(
   name: string,
   source?: string,
@@ -30,7 +32,7 @@ export async function getVulnerabilities(
     }
   );
 
-  const data = (await resp.json()) as Record<string, TAdvisory[]>;
+  const data = (await resp.json()) as TSecurityAdvisoriesResponse;
 
   return data[name];
 }

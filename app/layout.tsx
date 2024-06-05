@@ -45,7 +45,11 @@ export default function RootLayout({
                   <Box p="2" asChild>
                     <header>
                       <Flex align="center" justify="between" gap="2">
-                        <Heading color="lime">SIFU</Heading>
+                        <Link asChild>
+                          <NextLink href="/">
+                            <Heading>SIFU</Heading>
+                          </NextLink>
+                        </Link>
                         <Flex align="center" gap="2">
                           <Tooltip content="Source code">
                             <IconButton variant="soft" color="gray" asChild>

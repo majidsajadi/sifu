@@ -1,5 +1,6 @@
-import { Button, Flex, Heading, Text } from "@radix-ui/themes";
+import { Flex, Heading, Text } from "@radix-ui/themes";
 import { SearchDependency } from "./search-dependency";
+import { UploadManifest } from "./upload-manifest";
 
 export default function Page() {
   return (
@@ -8,11 +9,11 @@ export default function Page() {
         Update your product dependencies with insight
       </Heading>
       <SearchDependency />
-      <Flex align="center" gap="3">
+      <Flex gap="3">
         <Text size="2" color="gray">
           or
         </Text>
-        <Button variant="ghost">Upload package.json</Button>
+        <UploadManifest />
       </Flex>
     </Flex>
   );

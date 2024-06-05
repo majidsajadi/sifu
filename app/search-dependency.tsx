@@ -45,7 +45,7 @@ export function SearchDependency() {
         <Box mt="2" width="420px" maxHeight="420px" overflow="auto">
           <Flex direction="column" gap="2">
             {state.map(({ name, description }) => (
-              <Card size="1">
+              <Card size="1" key={name}>
                 <Link
                   href={`/dependencies/${name}`}
                   style={{ textDecoration: "none" }}

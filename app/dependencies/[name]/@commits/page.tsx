@@ -73,7 +73,10 @@ export default async function Page({ params, searchParams }: TPageProps) {
                       .split("\n")
                       .filter(Boolean)
                       .map((line, index, lines) => (
-                        <Text mb={index === 0 && lines.length > 1 ? "4" : "0"}>
+                        <Text
+                          key={line}
+                          mb={index === 0 && lines.length > 1 ? "4" : "0"}
+                        >
                           {line}
                         </Text>
                       ))}

@@ -1,24 +1,53 @@
-import { Badge, Flex, Card, IconButton } from "@radix-ui/themes";
+import {
+  Badge,
+  Flex,
+  Card,
+  IconButton,
+  Heading,
+  Theme,
+} from "@radix-ui/themes";
 import { ExternalLinkIcon } from "@radix-ui/react-icons";
+import { getChangelog } from "@/core/changelog";
+import CEmpty from "../(common)/empty";
+import { MDXRemote } from "next-mdx-remote/rsc";
+import Link from "next/link";
 
 type TPageProps = {
   params: { name: string };
+  searchParams: { source?: string; target?: string };
 };
 
-export default async function Page({ params }: TPageProps) {
+export default async function Page({ params, searchParams }: TPageProps) {
+  const response = await getChangelog(
+    params.name,
+    searchParams.source,
+    searchParams.target
+  );
+
+  if (!response?.entries) return <CEmpty message="No changelog found" />;
+
   return (
-    <Card>
-      <Flex direction="column" gap="2">
-        <Flex gap="2" direction="row-reverse" align="center">
-          <IconButton size="2" variant="soft" color="gray">
+    <Flex direction="column" gap="4">
+      <Flex gap="2" direction="row-reverse" align="center">
+        <IconButton size="2" variant="soft" color="gray" asChild>
+          <Link href={response.href}>
             <ExternalLinkIcon />
-          </IconButton>
-          <Badge size="2" color="gray" variant="soft">
-            3 releases
-          </Badge>
-        </Flex>
-        <Flex>asdasd</Flex>
+          </Link>
+        </IconButton>
+        <Badge size="2" color="gray" variant="soft">
+          {response.entries.length} releases
+        </Badge>
       </Flex>
-    </Card>
+      <Flex direction="column">
+        <Theme scaling="90%">
+          {response.entries.map((entry) => (
+            <Card size="1" key={entry.version} mb="4">
+              <Heading size="6">{entry.version}</Heading>
+              <MDXRemote source={entry.content} />
+            </Card>
+          ))}
+        </Theme>
+      </Flex>
+    </Flex>
   );
 }

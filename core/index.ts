@@ -13,6 +13,7 @@ export type TVersion = {
 
 export async function getDependency(name: string) {
   const dependency = await npm.fetchDependency(name);
+
   const versions = Object.values(dependency.versions)
     .map((ver) => ({
       version: ver.version,

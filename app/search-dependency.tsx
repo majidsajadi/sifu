@@ -16,11 +16,17 @@ export function SearchDependency() {
     (event: ChangeEvent<HTMLInputElement>) => {
       event.target.form?.requestSubmit();
     },
-    30
+    300
   );
 
   return (
-    <form action={action}>
+    <form
+      action={action}
+      style={{
+        width: "100%",
+        maxWidth: "720px",
+      }}
+    >
       <TextField.Root
         name="query"
         autoFocus
@@ -31,7 +37,6 @@ export function SearchDependency() {
         color="gray"
         size="3"
         style={{
-          width: "420px",
           height: "var(--space-9)",
         }}
         onChange={handleChange}
@@ -42,10 +47,10 @@ export function SearchDependency() {
         <SearchDependencySpinner />
       </TextField.Root>
       {!!state?.length && (
-        <Box mt="2" width="420px" maxHeight="420px" overflow="auto">
+        <Box mt="2" maxHeight="420px" overflow="auto">
           <Flex direction="column" gap="2">
             {state.map(({ name, description }) => (
-              <Card size="1" key={name}>
+              <Card size="1" key={name} asChild>
                 <Link
                   href={`/dependencies/${name}`}
                   style={{ textDecoration: "none" }}

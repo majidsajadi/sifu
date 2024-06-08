@@ -1,5 +1,3 @@
-"use server";
-
 import { type TSearchObjectPackage, search } from "@/core/search";
 
 type TSearchState = TSearchObjectPackage[] | undefined;

@@ -1,4 +1,4 @@
-import { Skeleton, Flex } from "@radix-ui/themes";
+import { Flex, Skeleton } from "@radix-ui/themes";
 
 export default function Loading() {
   return (

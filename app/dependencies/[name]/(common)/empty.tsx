@@ -1,4 +1,4 @@
-import { Card, Text, Flex } from "@radix-ui/themes";
+import { Card, Flex, Text } from "@radix-ui/themes";
 import { ArchiveIcon } from "@radix-ui/react-icons";
 
 type TEmptyProps = {

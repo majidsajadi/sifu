@@ -1,7 +1,7 @@
 import { Suspense } from "react";
+import { redirect } from "next/navigation";
 import { ErrorBoundary } from "react-error-boundary";
 import { Table } from "@radix-ui/themes";
-import { redirect } from "next/navigation";
 import { DependencyVersionOverview } from "./dependency-version-overview";
 import { DependencyVersionOverviewError } from "./dependency-version-overview-error";
 import { DependencyVersionOverviewLoading } from "./dependency-version-overview-loading";

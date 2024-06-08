@@ -21,20 +21,8 @@ export function DisplayVersion({ value, range }: TDisplayVersionProps) {
   return (
     <Text highContrast>
       <Text color={diff === "major" ? "red" : undefined}>{parsed.major}.</Text>
-      <Text color={diff === "major" ? "red" : diff === "minor" ? "orange" : undefined}>
-        {parsed.minor}.
-      </Text>
-      <Text
-        color={
-          diff === "major"
-            ? "red"
-            : diff === "minor"
-              ? "orange"
-              : diff === "patch"
-                ? "yellow"
-                : undefined
-        }
-      >
+      <Text color={diff === "major" ? "red" : diff === "minor" ? "orange" : undefined}>{parsed.minor}.</Text>
+      <Text color={diff === "major" ? "red" : diff === "minor" ? "orange" : diff === "patch" ? "yellow" : undefined}>
         {parsed.patch}
       </Text>
       {!!parsed.prerelease.length && (

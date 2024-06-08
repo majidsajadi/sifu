@@ -2,13 +2,7 @@ import semver from "semver";
 import { github } from "./github";
 import { npm } from "./npm";
 
-const POSSIBLE_CHANGELOG_FILE_NAME = [
-  "CHANGELOG.md",
-  "HISTORY.md",
-  "RELEASES.md",
-  "changelog.md",
-  "NEWS.md",
-];
+const POSSIBLE_CHANGELOG_FILE_NAME = ["CHANGELOG.md", "HISTORY.md", "RELEASES.md", "changelog.md", "NEWS.md"];
 const ENTRY_HEADING_REGEX = /^##\s.*$/;
 const SEMVER_HEADING_REGEX =
   /(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?/;
@@ -200,12 +194,7 @@ export async function getChangelog(name: string, from?: string, to?: string) {
 
   const { repository } = await npm.fetchDependency(name);
 
-  const url =
-    typeof repository === "string"
-      ? repository
-      : repository?.type === "git"
-        ? repository.url
-        : undefined;
+  const url = typeof repository === "string" ? repository : repository?.type === "git" ? repository.url : undefined;
 
   if (!url) {
     throw new Error("Parsing repostory failed");
@@ -214,9 +203,7 @@ export async function getChangelog(name: string, from?: string, to?: string) {
   const { hostname, pathname } = new URL(url);
 
   if (hostname !== "github.com") {
-    throw new Error(
-      `Parsing repostory failed. expected Github repository found ${hostname} repository`
-    );
+    throw new Error(`Parsing repostory failed. expected Github repository found ${hostname} repository`);
   }
 
   let path = pathname.replace(".git", "");

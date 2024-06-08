@@ -1,8 +1,9 @@
 import Link from "next/link";
+import { getDependencies } from "@/internal";
 import { minVersion } from "semver";
-import { Flex, Card, Text, Table, Button, Badge } from "@radix-ui/themes";
+import { Badge, Button, Card, Flex, Table, Text } from "@radix-ui/themes";
 import { ArchiveIcon, ExternalLinkIcon } from "@radix-ui/react-icons";
-import { type TDependencyDiff, getDependencies } from "@/internal";
+import type { TDependencyDiff } from "@/internal";
 
 type TPageProps = {
   params: { name: string };
@@ -10,11 +11,7 @@ type TPageProps = {
 };
 
 export default async function Page({ params, searchParams }: TPageProps) {
-  const response = await getDependencies(
-    decodeURIComponent(params.name),
-    searchParams.source,
-    searchParams.target
-  );
+  const response = await getDependencies(decodeURIComponent(params.name), searchParams.source, searchParams.target);
 
   const getStatus = (item: TDependencyDiff) => {
     if (!item.before) return <Badge color="green">New</Badge>;

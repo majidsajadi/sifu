@@ -1,11 +1,11 @@
 "use client";
 
+import { type ChangeEvent } from "react";
 import Link from "next/link";
 import { useFormState } from "react-dom";
-import { type ChangeEvent } from "react";
 import { useDebouncedCallback } from "use-debounce";
-import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
 import { Box, Card, Flex, Text, TextField } from "@radix-ui/themes";
+import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
 import { searchAction } from "./search-action";
 import { SearchDependencySpinner } from "./search-dependency-spinner";
 

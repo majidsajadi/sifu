@@ -1,6 +1,7 @@
-import { Flex, Card, Text, Table, Badge } from "@radix-ui/themes";
+import { getEngines } from "@/internal";
+import { Badge, Card, Flex, Table, Text } from "@radix-ui/themes";
 import { ArchiveIcon } from "@radix-ui/react-icons";
-import { type TEngineDiff, getEngines } from "@/internal";
+import type { TEngineDiff } from "@/internal";
 
 type TPageProps = {
   params: { name: string };
@@ -8,11 +9,7 @@ type TPageProps = {
 };
 
 export default async function Page({ params, searchParams }: TPageProps) {
-  const response = await getEngines(
-    decodeURIComponent(params.name),
-    searchParams.source,
-    searchParams.target
-  );
+  const response = await getEngines(decodeURIComponent(params.name), searchParams.source, searchParams.target);
 
   const getStatus = (item: TEngineDiff) => {
     if (!item.before) return <Badge color="green">New</Badge>;

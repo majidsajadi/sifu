@@ -1,9 +1,9 @@
 "use client";
 
-import semver from "semver";
-import type { TVersion } from "@/internal";
-import { Box, Flex, Select, Text } from "@radix-ui/themes";
 import { Virtuoso } from "react-virtuoso";
+import semver from "semver";
+import { Box, Flex, Select, Text } from "@radix-ui/themes";
+import type { TVersion } from "@/internal";
 
 const MIN_VERSION_POSSIBLE = "0.0.0";
 const MAX_VERSION_POSSIBLE = `${Number.MAX_SAFE_INTEGER}.${Number.MAX_SAFE_INTEGER}.${Number.MAX_SAFE_INTEGER}`;

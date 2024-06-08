@@ -1,8 +1,9 @@
-import semver from "semver";
 import NextLink from "next/link";
-import { Flex, Text, Badge, Table, IconButton, Tooltip, type BadgeProps } from "@radix-ui/themes";
+import { getVulnerabilities, TSeverity } from "@/internal/vulnerabilities";
+import semver from "semver";
+import { Badge, Flex, IconButton, Table, Text, Tooltip } from "@radix-ui/themes";
 import { CheckIcon, CircleBackslashIcon, ExternalLinkIcon } from "@radix-ui/react-icons";
-import { TSeverity, getVulnerabilities } from "@/internal/vulnerabilities";
+import type { BadgeProps } from "@radix-ui/themes";
 import CEmpty from "../(common)/empty";
 
 const SEVERITY_COLORS: Record<TSeverity, BadgeProps["color"]> = {
@@ -19,11 +20,7 @@ type TPageProps = {
 
 export default async function Page({ params, searchParams }: TPageProps) {
   const { source, target } = searchParams;
-  const response = await getVulnerabilities(
-    decodeURIComponent(params.name),
-    searchParams.source,
-    searchParams.target
-  );
+  const response = await getVulnerabilities(decodeURIComponent(params.name), searchParams.source, searchParams.target);
 
   if (!source || !target) return <CEmpty message="Please select `source` and `target`" />;
 

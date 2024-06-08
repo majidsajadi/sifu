@@ -1,4 +1,4 @@
-import { Spinner, Card, Text, Flex } from "@radix-ui/themes";
+import { Card, Flex, Spinner, Text } from "@radix-ui/themes";
 
 type TLoadingProps = {
   message: string;

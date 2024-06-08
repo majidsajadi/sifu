@@ -1,6 +1,6 @@
 import semver from "semver";
-import { npm } from "./npm";
 import { github } from "./github";
+import { npm } from "./npm";
 
 export type TDependency = {
   name: string;
@@ -31,12 +31,7 @@ export async function getCommits(name: string, from?: string, to?: string) {
 
   const { repository } = await npm.fetchDependency(name);
 
-  const url =
-    typeof repository === "string"
-      ? repository
-      : repository?.type === "git"
-        ? repository.url
-        : undefined;
+  const url = typeof repository === "string" ? repository : repository?.type === "git" ? repository.url : undefined;
 
   if (!url) {
     throw new Error("Parsing repostory failed");
@@ -45,9 +40,7 @@ export async function getCommits(name: string, from?: string, to?: string) {
   const { hostname, pathname } = new URL(url);
 
   if (hostname !== "github.com") {
-    throw new Error(
-      `Parsing repostory failed. expected Github repository found ${hostname} repository`
-    );
+    throw new Error(`Parsing repostory failed. expected Github repository found ${hostname} repository`);
   }
 
   let path = pathname.replace(".git", "");
@@ -64,9 +57,7 @@ export async function getCommits(name: string, from?: string, to?: string) {
   });
 
   const commits = data.commits.map((commit) => {
-    const author = commit.author
-      ? { url: commit.author.html_url, name: commit.author.login }
-      : undefined;
+    const author = commit.author ? { url: commit.author.html_url, name: commit.author.login } : undefined;
 
     return {
       author,

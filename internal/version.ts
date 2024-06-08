@@ -16,9 +16,7 @@ function getLatestVersionStatisfies(versions: string[], range: string) {
 }
 
 function getGreaterVersionsSorted(versions: string[], current: string) {
-  return versions
-    .filter((version) => semver.gt(version, current))
-    .sort((a, b) => semver.rcompare(a, b));
+  return versions.filter((version) => semver.gt(version, current)).sort((a, b) => semver.rcompare(a, b));
 }
 
 export async function getDependencyVersion(name: string, range: string) {

@@ -1,22 +1,10 @@
-import NextLink from "next/link";
-import type { Metadata } from "next";
-import { ThemeProvider } from "next-themes";
 import { Source_Code_Pro } from "next/font/google";
-import {
-  Box,
-  Container,
-  Flex,
-  Heading,
-  IconButton,
-  Reset,
-  Text,
-  Theme,
-  Tooltip,
-  Link,
-} from "@radix-ui/themes";
+import NextLink from "next/link";
+import { ThemeProvider } from "next-themes";
+import { Box, Container, Flex, Heading, IconButton, Link, Reset, Text, Theme, Tooltip } from "@radix-ui/themes";
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
+import type { Metadata } from "next";
 import { ThemeChanger } from "./theme-changer";
-
 import "./globals.css";
 
 const font = Source_Code_Pro({

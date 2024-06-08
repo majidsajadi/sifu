@@ -1,7 +1,7 @@
 "use client";
 
-import { Spinner, TextField } from "@radix-ui/themes";
 import { useFormStatus } from "react-dom";
+import { Spinner, TextField } from "@radix-ui/themes";
 
 export function SearchDependencySpinner() {
   const { pending } = useFormStatus();

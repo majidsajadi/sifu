@@ -1,9 +1,9 @@
-import { Badge, Flex, Card, IconButton, Heading, Theme } from "@radix-ui/themes";
-import { ExternalLinkIcon } from "@radix-ui/react-icons";
-import { getChangelog } from "@/internal/changelog";
-import CEmpty from "../(common)/empty";
-import { MDXRemote } from "next-mdx-remote/rsc";
 import Link from "next/link";
+import { getChangelog } from "@/internal/changelog";
+import { MDXRemote } from "next-mdx-remote/rsc";
+import { Badge, Card, Flex, Heading, IconButton, Theme } from "@radix-ui/themes";
+import { ExternalLinkIcon } from "@radix-ui/react-icons";
+import CEmpty from "../(common)/empty";
 
 type TPageProps = {
   params: { name: string };

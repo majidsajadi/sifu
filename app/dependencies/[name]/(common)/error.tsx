@@ -1,7 +1,7 @@
 import { useEffect } from "react";
-import { Card, Text, Flex, Link as NavLink } from "@radix-ui/themes";
-import { CrossCircledIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
+import { Card, Flex, Link as NavLink, Text } from "@radix-ui/themes";
+import { CrossCircledIcon } from "@radix-ui/react-icons";
 
 type TErrorProps = {
   message: string;

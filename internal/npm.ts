@@ -1,4 +1,5 @@
-import packageJson, { type FullMetadata } from "package-json";
+import packageJson from "package-json";
+import type { FullMetadata } from "package-json";
 
 export const npm = {
   fetchDependency(name: string) {

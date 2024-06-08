@@ -1,5 +1,5 @@
 import { getDependency } from "@/internal";
-import { Flex, Card, Heading } from "@radix-ui/themes";
+import { Card, Flex, Heading } from "@radix-ui/themes";
 import { VersionFilter } from "./version-filter";
 
 type TPageProps = {

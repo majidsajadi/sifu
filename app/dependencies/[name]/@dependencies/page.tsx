@@ -1,9 +1,9 @@
 import Link from "next/link";
-import { getDependencies } from "@/internal";
+import { getDependencies } from "@/lib";
 import { minVersion } from "semver";
 import { Badge, Button, Card, Flex, Table, Text } from "@radix-ui/themes";
 import { ArchiveIcon, ExternalLinkIcon } from "@radix-ui/react-icons";
-import type { TDependencyDiff } from "@/internal";
+import type { TDependencyDiff } from "@/lib";
 
 type TPageProps = {
   params: { name: string };

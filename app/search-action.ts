@@ -1,5 +1,5 @@
-import { search } from "@/internal/search";
-import type { TSearchObjectPackage } from "@/internal/search";
+import { search } from "@/lib/search";
+import type { TSearchObjectPackage } from "@/lib/search";
 
 type TSearchState = TSearchObjectPackage[] | undefined;
 

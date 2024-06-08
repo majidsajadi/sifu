@@ -1,7 +1,7 @@
-import { getEngines } from "@/internal";
+import { getEngines } from "@/lib";
 import { Badge, Card, Flex, Table, Text } from "@radix-ui/themes";
 import { ArchiveIcon } from "@radix-ui/react-icons";
-import type { TEngineDiff } from "@/internal";
+import type { TEngineDiff } from "@/lib";
 
 type TPageProps = {
   params: { name: string };

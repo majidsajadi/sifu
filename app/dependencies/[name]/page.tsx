@@ -1,4 +1,4 @@
-import { getDependency } from "@/internal";
+import { getDependency } from "@/lib";
 import { Card, Flex, Heading } from "@radix-ui/themes";
 import { VersionFilter } from "./version-filter";
 

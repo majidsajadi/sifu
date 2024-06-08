@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getChangelog } from "@/internal/changelog";
+import { getChangelog } from "@/lib/changelog";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { Badge, Card, Flex, Heading, IconButton, Theme } from "@radix-ui/themes";
 import { ExternalLinkIcon } from "@radix-ui/react-icons";

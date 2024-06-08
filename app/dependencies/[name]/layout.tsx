@@ -44,9 +44,7 @@ export default function Layout({
             <Tabs.Content value="changelog">{changelog}</Tabs.Content>
             <Tabs.Content value="dependencies">{dependencies}</Tabs.Content>
             <Tabs.Content value="engines">{engines}</Tabs.Content>
-            <Tabs.Content value="vulnerabilities">
-              {vulnerabilities}
-            </Tabs.Content>
+            <Tabs.Content value="vulnerabilities">{vulnerabilities}</Tabs.Content>
           </Box>
         </Tabs.Root>
       </Flex>

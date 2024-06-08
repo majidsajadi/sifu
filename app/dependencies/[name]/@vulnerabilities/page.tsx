@@ -1,19 +1,7 @@
 import semver from "semver";
 import NextLink from "next/link";
-import {
-  Flex,
-  Text,
-  Badge,
-  Table,
-  IconButton,
-  Tooltip,
-  type BadgeProps,
-} from "@radix-ui/themes";
-import {
-  CheckIcon,
-  CircleBackslashIcon,
-  ExternalLinkIcon,
-} from "@radix-ui/react-icons";
+import { Flex, Text, Badge, Table, IconButton, Tooltip, type BadgeProps } from "@radix-ui/themes";
+import { CheckIcon, CircleBackslashIcon, ExternalLinkIcon } from "@radix-ui/react-icons";
 import { TSeverity, getVulnerabilities } from "@/internal/vulnerabilities";
 import CEmpty from "../(common)/empty";
 
@@ -37,8 +25,7 @@ export default async function Page({ params, searchParams }: TPageProps) {
     searchParams.target
   );
 
-  if (!source || !target)
-    return <CEmpty message="Please select `source` and `target`" />;
+  if (!source || !target) return <CEmpty message="Please select `source` and `target`" />;
 
   if (!response?.length) return <CEmpty message="No vulnerabilities found" />;
 
@@ -57,10 +44,7 @@ export default async function Page({ params, searchParams }: TPageProps) {
           <Table.Row key={vulnerability.id}>
             <Table.RowHeaderCell>
               <Flex gap="2" align="center">
-                <Badge
-                  variant="solid"
-                  color={SEVERITY_COLORS[vulnerability.severity]}
-                >
+                <Badge variant="solid" color={SEVERITY_COLORS[vulnerability.severity]}>
                   {vulnerability.severity}
                 </Badge>
                 <Text>{vulnerability.title}</Text>

@@ -21,22 +21,15 @@ function getGreaterVersionsSorted(versions: string[], current: string) {
     .sort((a, b) => semver.rcompare(a, b));
 }
 
-export async function getDependencyVersion(
-  name: string,
-  range: string
-) {
+export async function getDependencyVersion(name: string, range: string) {
   const currentVersion = getCurrentVersion(range);
 
   const metadata = await npm.fetchDependency(name);
 
-
   const versions = Object.keys(metadata.versions);
   const latest = metadata["dist-tags"].latest;
   const latestSatisfies = getLatestVersionStatisfies(versions, range);
-  const greaterVersionsSorted = getGreaterVersionsSorted(
-    versions,
-    currentVersion
-  );
+  const greaterVersionsSorted = getGreaterVersionsSorted(versions, currentVersion);
 
   const latestTime = metadata.time[latest];
   const latestSatisfiesTime = latestSatisfies && metadata.time[latestSatisfies];

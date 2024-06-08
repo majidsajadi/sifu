@@ -12,25 +12,18 @@ export type TAdvisory = {
 
 type TSecurityAdvisoriesResponse = Record<string, TAdvisory[]>;
 
-export async function getVulnerabilities(
-  name: string,
-  source?: string,
-  target?: string
-) {
+export async function getVulnerabilities(name: string, source?: string, target?: string) {
   if (!source || !target) return;
 
-  const resp = await fetch(
-    "https://registry.npmjs.org/-/npm/v1/security/advisories/bulk",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        [name]: [source, target],
-      }),
-    }
-  );
+  const resp = await fetch("https://registry.npmjs.org/-/npm/v1/security/advisories/bulk", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      [name]: [source, target],
+    }),
+  });
 
   const data = (await resp.json()) as TSecurityAdvisoriesResponse;
 

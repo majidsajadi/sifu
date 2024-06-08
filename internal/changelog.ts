@@ -162,8 +162,7 @@ function parseChangelog({ content, from, to }: TParseChangelogParams) {
   return entries;
 }
 
-type TGetDependencyChangelogBetweenVersionsParams = TFindChangelogParams &
-  TParseFilter;
+type TGetDependencyChangelogBetweenVersionsParams = TFindChangelogParams & TParseFilter;
 
 /**
  * Finds, fetch and parse change log and return the changlog entries according to from and to filters
@@ -205,8 +204,8 @@ export async function getChangelog(name: string, from?: string, to?: string) {
     typeof repository === "string"
       ? repository
       : repository?.type === "git"
-      ? repository.url
-      : undefined;
+        ? repository.url
+        : undefined;
 
   if (!url) {
     throw new Error("Parsing repostory failed");

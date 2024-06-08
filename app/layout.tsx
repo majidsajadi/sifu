@@ -71,9 +71,7 @@ export default function RootLayout({
                       <Text color="gray" size="2">
                         Built by{" "}
                         <Link asChild>
-                          <NextLink href="https://github.com/majidsajadi">
-                            majidsajadi
-                          </NextLink>
+                          <NextLink href="https://github.com/majidsajadi">majidsajadi</NextLink>
                         </Link>
                       </Text>
                     </footer>

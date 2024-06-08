@@ -12,12 +12,9 @@ import { SearchDependencySpinner } from "./search-dependency-spinner";
 export function SearchDependency() {
   const [state, action] = useFormState(searchAction, undefined);
 
-  const handleChange = useDebouncedCallback(
-    (event: ChangeEvent<HTMLInputElement>) => {
-      event.target.form?.requestSubmit();
-    },
-    300
-  );
+  const handleChange = useDebouncedCallback((event: ChangeEvent<HTMLInputElement>) => {
+    event.target.form?.requestSubmit();
+  }, 300);
 
   return (
     <form
@@ -51,10 +48,7 @@ export function SearchDependency() {
           <Flex direction="column" gap="2">
             {state.map(({ name, description }) => (
               <Card size="1" key={name} asChild>
-                <Link
-                  href={`/dependencies/${name}`}
-                  style={{ textDecoration: "none" }}
-                >
+                <Link href={`/dependencies/${name}`} style={{ textDecoration: "none" }}>
                   <Flex direction="column" gap="1">
                     <Text color="gray" highContrast>
                       {name}

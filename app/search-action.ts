@@ -2,10 +2,7 @@ import { type TSearchObjectPackage, search } from "@/internal/search";
 
 type TSearchState = TSearchObjectPackage[] | undefined;
 
-export async function searchAction(
-  prevState: TSearchState,
-  formData: FormData
-) {
+export async function searchAction(prevState: TSearchState, formData: FormData) {
   const query = formData.get("query")?.toString();
 
   if (!query || query.length < 3) return;

@@ -35,8 +35,8 @@ export async function getCommits(name: string, from?: string, to?: string) {
     typeof repository === "string"
       ? repository
       : repository?.type === "git"
-      ? repository.url
-      : undefined;
+        ? repository.url
+        : undefined;
 
   if (!url) {
     throw new Error("Parsing repostory failed");
@@ -91,11 +91,7 @@ export type TDependencyDiff = {
   after?: string;
 };
 
-export async function getDependencies(
-  name: string,
-  source?: string,
-  target?: string
-) {
+export async function getDependencies(name: string, source?: string, target?: string) {
   if (!source || !target) return;
 
   const { versions } = await npm.fetchDependency(name);
@@ -138,11 +134,7 @@ export type TEngineDiff = {
   after?: string;
 };
 
-export async function getEngines(
-  name: string,
-  source?: string,
-  target?: string
-) {
+export async function getEngines(name: string, source?: string, target?: string) {
   if (!source || !target) return;
 
   const { versions } = await npm.fetchDependency(name);

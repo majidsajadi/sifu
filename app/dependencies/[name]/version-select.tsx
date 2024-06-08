@@ -31,11 +31,7 @@ export function VersionSelect({
 
   return (
     <Select.Root value={value} onValueChange={onValugeChange}>
-      <Select.Trigger
-        placeholder={`Select \`${name}\` version`}
-        variant="soft"
-        color="gray"
-      >
+      <Select.Trigger placeholder={`Select \`${name}\` version`} variant="soft" color="gray">
         <Text color="gray">Source:</Text> {value}
       </Select.Trigger>
       <Select.Content position="popper">
@@ -44,8 +40,7 @@ export function VersionSelect({
             style={{
               height: "280px",
               // subtract 16px (2 * var(space-2)) for the content padding to prevent the radix scroll component functionality
-              maxHeight:
-                "calc(var(--radix-select-content-available-height) - 16px)",
+              maxHeight: "calc(var(--radix-select-content-available-height) - 16px)",
             }}
             totalCount={items.length}
             itemContent={(index) => {

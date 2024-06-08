@@ -55,7 +55,6 @@ export default async function Page({ params, searchParams }: TPageProps) {
                     minHeight="32px"
                     height="100%"
                     style={{
-
                       borderLeft: "1px solid var(--gray-a6)",
                     }}
                   ></Box>
@@ -74,10 +73,7 @@ export default async function Page({ params, searchParams }: TPageProps) {
                       .split("\n")
                       .filter(Boolean)
                       .map((line, index, lines) => (
-                        <Text
-                          key={line}
-                          mb={index === 0 && lines.length > 1 ? "4" : "0"}
-                        >
+                        <Text key={line} mb={index === 0 && lines.length > 1 ? "4" : "0"}>
                           {line}
                         </Text>
                       ))}
@@ -103,10 +99,9 @@ export default async function Page({ params, searchParams }: TPageProps) {
   );
 }
 
- function formatDate(value: string) {
+function formatDate(value: string) {
   return new Intl.DateTimeFormat("en-US", {
     dateStyle: "short",
-    timeStyle: "short"
+    timeStyle: "short",
   }).format(new Date(value));
 }
-

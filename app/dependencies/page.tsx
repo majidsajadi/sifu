@@ -6,11 +6,7 @@ import { DependencyVersionOverview } from "./dependency-version-overview";
 import { DependencyVersionOverviewError } from "./dependency-version-overview-error";
 import { DependencyVersionOverviewLoading } from "./dependency-version-overview-loading";
 
-export default function Page({
-  searchParams,
-}: {
-  searchParams: { dep?: string | string[] };
-}) {
+export default function Page({ searchParams }: { searchParams: { dep?: string | string[] } }) {
   const dependencies = parseDependencyList(searchParams.dep);
 
   if (!dependencies.length) redirect("/upload");

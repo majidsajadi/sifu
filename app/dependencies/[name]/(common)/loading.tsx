@@ -7,13 +7,7 @@ type TLoadingProps = {
 export default function CLoading({ message }: TLoadingProps) {
   return (
     <Card>
-      <Flex
-        align="center"
-        justify="center"
-        height="240px"
-        direction="column"
-        gap="2"
-      >
+      <Flex align="center" justify="center" height="240px" direction="column" gap="2">
         <Spinner size="3" />
         <Text color="gray">{message}</Text>
       </Flex>

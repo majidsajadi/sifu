@@ -1,11 +1,4 @@
-import {
-  Badge,
-  Flex,
-  Card,
-  IconButton,
-  Heading,
-  Theme,
-} from "@radix-ui/themes";
+import { Badge, Flex, Card, IconButton, Heading, Theme } from "@radix-ui/themes";
 import { ExternalLinkIcon } from "@radix-ui/react-icons";
 import { getChangelog } from "@/internal/changelog";
 import CEmpty from "../(common)/empty";
@@ -18,11 +11,7 @@ type TPageProps = {
 };
 
 export default async function Page({ params, searchParams }: TPageProps) {
-  const response = await getChangelog(
-    params.name,
-    searchParams.source,
-    searchParams.target
-  );
+  const response = await getChangelog(params.name, searchParams.source, searchParams.target);
 
   if (!response?.entries) return <CEmpty message="No changelog found" />;
 

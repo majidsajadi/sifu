@@ -11,12 +11,12 @@ type TSearchObject = {
 
 type TSearchResponse = {
   objects: TSearchObject[];
-  total: number;
-  time: string;
+  // unused fields omitted
 };
 
 export async function search(query: string) {
-  const resp = await fetch(`https://registry.npmjs.org/-/v1/search?text=${query}&size=10`);
-
+  const resp = await fetch(
+    `https://registry.npmjs.org/-/v1/search?text=${query}&size=10`,
+  );
   return (await resp.json()) as TSearchResponse;
 }

@@ -1,7 +1,10 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import type { PackageJson } from "type-fest";
+
+type TManifest = {
+  dependencies?: Partial<Record<string, string>>;
+};
 
 export type TUploadState = {
   message?: string;
@@ -11,7 +14,7 @@ export async function uploadAction(_: TUploadState, formData: FormData) {
   const file = formData.get("manifest") as File;
   const content = await file.text();
 
-  let manifest!: PackageJson;
+  let manifest!: TManifest;
   try {
     manifest = JSON.parse(content);
   } catch (error) {

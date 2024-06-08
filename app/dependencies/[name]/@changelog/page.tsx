@@ -7,7 +7,7 @@ import {
   Theme,
 } from "@radix-ui/themes";
 import { ExternalLinkIcon } from "@radix-ui/react-icons";
-import { getChangelog } from "@/core/changelog";
+import { getChangelog } from "@/internal/changelog";
 import CEmpty from "../(common)/empty";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import Link from "next/link";

@@ -10,7 +10,7 @@ import {
   Link as NavLink,
 } from "@radix-ui/themes";
 import { CircleIcon, ExternalLinkIcon } from "@radix-ui/react-icons";
-import { getCommits } from "@/core";
+import { getCommits } from "@/internal";
 import CEmpty from "../(common)/empty";
 
 type TPageProps = {

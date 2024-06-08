@@ -1,7 +1,7 @@
 import semver from "semver";
 import NextLink from "next/link";
 import { Flex, IconButton, Table, Text, Tooltip } from "@radix-ui/themes";
-import { getDependencyVersion } from "@/core/version";
+import { getDependencyVersion } from "@/internal/version";
 import { ArrowRightIcon, CheckIcon, Link1Icon } from "@radix-ui/react-icons";
 import { DisplayVersion } from "./display-version";
 

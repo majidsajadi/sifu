@@ -1,7 +1,7 @@
 "use client";
 
 import semver from "semver";
-import type { TVersion } from "@/core";
+import type { TVersion } from "@/internal";
 import { Box, Flex, Select, Text } from "@radix-ui/themes";
 import { Virtuoso } from "react-virtuoso";
 

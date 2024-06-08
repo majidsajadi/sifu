@@ -1,6 +1,6 @@
 "use client";
 
-import type { TVersion } from "@/core";
+import type { TVersion } from "@/internal";
 import { Flex } from "@radix-ui/themes";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { VersionSelect } from "./version-select";

@@ -14,7 +14,7 @@ import {
   CircleBackslashIcon,
   ExternalLinkIcon,
 } from "@radix-ui/react-icons";
-import { TSeverity, getVulnerabilities } from "@/core/vulnerabilities";
+import { TSeverity, getVulnerabilities } from "@/internal/vulnerabilities";
 import CEmpty from "../(common)/empty";
 
 const SEVERITY_COLORS: Record<TSeverity, BadgeProps["color"]> = {

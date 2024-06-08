@@ -1,4 +1,4 @@
-import { type TSearchObjectPackage, search } from "@/core/search";
+import { type TSearchObjectPackage, search } from "@/internal/search";
 
 type TSearchState = TSearchObjectPackage[] | undefined;
 

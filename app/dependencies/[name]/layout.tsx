@@ -1,15 +1,24 @@
 import { Badge, Box, Container, Flex, Tabs, Text } from "@radix-ui/themes";
 import type { PropsWithChildren, ReactNode } from "react";
+import type { TDependenciesNamePageProps } from "./types";
 
-type TLayoutProps = PropsWithChildren & {
-  commits: ReactNode;
-  changelog: ReactNode;
-  dependencies: ReactNode;
-  engines: ReactNode;
-  vulnerabilities: ReactNode;
-};
+type TLayoutProps = PropsWithChildren &
+  TDependenciesNamePageProps & {
+    commits: ReactNode;
+    changelog: ReactNode;
+    dependencies: ReactNode;
+    engines: ReactNode;
+    vulnerabilities: ReactNode;
+  };
 
-export default function Layout({ children, commits, changelog, dependencies, engines, vulnerabilities }: TLayoutProps) {
+export default function Layout({
+  children,
+  commits,
+  changelog,
+  dependencies,
+  engines,
+  vulnerabilities,
+}: TLayoutProps) {
   return (
     <Container size="4" height="100vh" py="4">
       <Flex direction="column" gap="8">

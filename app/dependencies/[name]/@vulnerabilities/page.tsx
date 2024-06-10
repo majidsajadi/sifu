@@ -5,6 +5,7 @@ import { Badge, Flex, IconButton, Table, Text, Tooltip } from "@radix-ui/themes"
 import { CheckIcon, CircleBackslashIcon, ExternalLinkIcon } from "@radix-ui/react-icons";
 import type { BadgeProps } from "@radix-ui/themes";
 import CEmpty from "../(common)/empty";
+import type { TDependenciesNamePageProps } from "../types";
 
 const SEVERITY_COLORS: Record<TSeverity, BadgeProps["color"]> = {
   critical: "red",
@@ -13,12 +14,7 @@ const SEVERITY_COLORS: Record<TSeverity, BadgeProps["color"]> = {
   low: "gray",
 };
 
-type TPageProps = {
-  params: { name: string };
-  searchParams: { source?: string; target?: string };
-};
-
-export default async function Page({ params, searchParams }: TPageProps) {
+export default async function Page({ params, searchParams }: TDependenciesNamePageProps) {
   const { source, target } = searchParams;
   const response = await getVulnerabilities(decodeURIComponent(params.name), searchParams.source, searchParams.target);
 

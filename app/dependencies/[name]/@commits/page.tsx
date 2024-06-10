@@ -3,13 +3,9 @@ import { getCommits } from "@/lib";
 import { Badge, Box, Card, Flex, IconButton, Link as NavLink, Text, Tooltip } from "@radix-ui/themes";
 import { CircleIcon, ExternalLinkIcon } from "@radix-ui/react-icons";
 import CEmpty from "../(common)/empty";
+import type { TDependenciesNamePageProps } from "../types";
 
-type TPageProps = {
-  params: { name: string };
-  searchParams: { source?: string; target?: string };
-};
-
-export default async function Page({ params, searchParams }: TPageProps) {
+export default async function Page({ params, searchParams }: TDependenciesNamePageProps) {
   const response = await getCommits(decodeURIComponent(params.name), searchParams.source, searchParams.target);
 
   if (!response?.commits) return <CEmpty message="No commit found" />;

@@ -2,13 +2,9 @@ import { getEngines } from "@/lib";
 import { Badge, Card, Flex, Table, Text } from "@radix-ui/themes";
 import { ArchiveIcon } from "@radix-ui/react-icons";
 import type { TEngineDiff } from "@/lib";
+import type { TDependenciesNamePageProps } from "../types";
 
-type TPageProps = {
-  params: { name: string };
-  searchParams: { source?: string; target?: string };
-};
-
-export default async function Page({ params, searchParams }: TPageProps) {
+export default async function Page({ params, searchParams }: TDependenciesNamePageProps) {
   const response = await getEngines(decodeURIComponent(params.name), searchParams.source, searchParams.target);
 
   const getStatus = (item: TEngineDiff) => {

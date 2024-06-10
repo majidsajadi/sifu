@@ -41,17 +41,22 @@ class RegistryNetworkError extends Error {
   }
 }
 
-type TRegistryDependency = Readonly<{
+type TRegisteryDependency = Readonly<{
   name: string;
   modified: string;
-  "dist-tags": DistTags;
-  versions: Record<string, unknown>;
+  "dist-tags": {
+    latest: string;
+    // unused fields omitted
+  };
+  versions: Record<
+    string,
+    {
+      version: string;
+      deprecated?: string;
+      // unused fields omitted
+    }
+  >;
 }>;
-
-type DistTags = {
-  latest: string;
-  // unused fields omitted
-};
 
 const REVALIDATE_FETCH_DEPENDENCY = (12 * 60) & 60;
 
@@ -68,7 +73,7 @@ export async function fetchDependency(name: string) {
   const resp = await fetch(url, { headers, next: { revalidate: REVALIDATE_FETCH_DEPENDENCY } });
 
   if (resp.ok) {
-    return (await resp.json()) as TRegistryDependency;
+    return (await resp.json()) as TRegisteryDependency;
   }
 
   if (resp.status === 404) {

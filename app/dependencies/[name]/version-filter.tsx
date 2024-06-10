@@ -2,11 +2,10 @@
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Flex } from "@radix-ui/themes";
-import type { TVersion } from "@/lib";
 import { VersionSelect } from "./version-select";
 
 type TVersionFilterProps = {
-  versions: TVersion[];
+  versions: string[];
 };
 
 export function VersionFilter({ versions }: TVersionFilterProps) {

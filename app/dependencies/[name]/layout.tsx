@@ -11,14 +11,7 @@ type TLayoutProps = PropsWithChildren &
     vulnerabilities: ReactNode;
   };
 
-export default function Layout({
-  children,
-  commits,
-  changelog,
-  dependencies,
-  engines,
-  vulnerabilities,
-}: TLayoutProps) {
+export default function Layout({ children, commits, changelog, dependencies, engines, vulnerabilities }: TLayoutProps) {
   return (
     <Container size="4" height="100vh" py="4">
       <Flex direction="column" gap="8">

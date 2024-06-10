@@ -17,6 +17,7 @@ const config = {
     "^(@radix-ui/themes/(.*)$)|^(@radix-ui/themes$)",
     "^(@radix-ui/react-icons/(.*)$)|^(@radix-ui/react-icons$)",
     "<TYPES>",
+    "^(@/(.*)$)|^(@/$)",
     "^[.]",
     "<TYPES>^[.]",
   ],

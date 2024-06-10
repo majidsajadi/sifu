@@ -1,5 +1,5 @@
-import { getDependency } from "@/lib/dependency";
 import { Card, Flex, Heading } from "@radix-ui/themes";
+import { getDependency } from "@/lib/dependency";
 import { VersionFilter } from "./version-filter";
 import type { TDependenciesNamePageProps } from "./types";
 

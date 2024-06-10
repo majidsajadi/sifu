@@ -1,9 +1,9 @@
 import NextLink from "next/link";
-import { getVulnerabilities, TSeverity } from "@/lib/vulnerabilities";
 import semver from "semver";
 import { Badge, Flex, IconButton, Table, Text, Tooltip } from "@radix-ui/themes";
 import { CheckIcon, CircleBackslashIcon, ExternalLinkIcon } from "@radix-ui/react-icons";
 import type { BadgeProps } from "@radix-ui/themes";
+import { getVulnerabilities, TSeverity } from "@/lib/vulnerabilities";
 import CEmpty from "../(common)/empty";
 import type { TDependenciesNamePageProps } from "../types";
 

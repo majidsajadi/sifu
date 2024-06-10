@@ -1,8 +1,8 @@
 import Link from "next/link";
-import { getChangelog } from "@/lib/changelog";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { Badge, Card, Flex, Heading, IconButton, Theme } from "@radix-ui/themes";
 import { ExternalLinkIcon } from "@radix-ui/react-icons";
+import { getChangelog } from "@/lib/changelog";
 import CEmpty from "../(common)/empty";
 import type { TDependenciesNamePageProps } from "../types";
 

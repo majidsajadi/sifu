@@ -1,11 +1,11 @@
-import { compareDependenciesEngines } from "@/lib/dependency";
+import { compareEngines } from "@/lib/dependency";
 import { Badge, Card, Flex, Table, Text } from "@radix-ui/themes";
 import { ArchiveIcon } from "@radix-ui/react-icons";
 import type { TObjectPropertyDiff } from "@/lib/dependency";
 import type { TDependenciesNamePageProps } from "../types";
 
 export default async function Page({ params, searchParams }: TDependenciesNamePageProps) {
-  const response = await compareDependenciesEngines(
+  const response = await compareEngines(
     decodeURIComponent(params.name),
     searchParams.source,
     searchParams.target

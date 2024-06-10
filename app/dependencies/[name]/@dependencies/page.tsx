@@ -1,20 +1,20 @@
 import Link from "next/link";
+import { compareDependencies, TObjectPropertyDiff } from "@/lib/dependency";
 import { minVersion } from "semver";
 import { Badge, Button, Card, Flex, Table, Text } from "@radix-ui/themes";
 import { ArchiveIcon, ExternalLinkIcon } from "@radix-ui/react-icons";
-import type { TDependencyDiff } from "@/lib";
-import { getDependencies } from "@/lib";
 import type { TDependenciesNamePageProps } from "../types";
 
 export default async function Page({ params, searchParams }: TDependenciesNamePageProps) {
-  const response = await getDependencies(decodeURIComponent(params.name), searchParams.source, searchParams.target);
+  const name = decodeURIComponent(params.name);
+  const response = await compareDependencies(name, searchParams.source, searchParams.target);
 
-  const getStatus = (item: TDependencyDiff) => {
-    if (!item.before) return <Badge color="green">New</Badge>;
+  const getStatus = (item: TObjectPropertyDiff) => {
+    if (!item.source) return <Badge color="green">New</Badge>;
 
-    if (!item.after) return <Badge color="red">Removed</Badge>;
+    if (!item.target) return <Badge color="red">Removed</Badge>;
 
-    if (item.after === item.before) return <Badge color="gray">Same</Badge>;
+    if (item.target === item.source) return <Badge color="gray">Same</Badge>;
 
     return <Badge>Updated</Badge>;
   };
@@ -47,15 +47,13 @@ export default async function Page({ params, searchParams }: TDependenciesNamePa
           <Table.Row key={item.name}>
             <Table.Cell>{item.name}</Table.Cell>
             <Table.Cell>{getStatus(item)}</Table.Cell>
-            <Table.Cell>{item.before}</Table.Cell>
-            <Table.Cell>{item.after}</Table.Cell>
+            <Table.Cell>{item.source}</Table.Cell>
+            <Table.Cell>{item.target}</Table.Cell>
             <Table.Cell justify="end">
-              {!!item.before && !!item.after && item.after !== item.before && (
+              {!!item.source && !!item.target && item.target !== item.source && (
                 <Button size="1" asChild>
                   <Link
-                    href={`/dependencies/${encodeURIComponent(
-                      item.name
-                    )}?source=${minVersion(item.before)}&target=${minVersion(item.after)}`}
+                    href={`/dependencies/${name}?source=${minVersion(item.source)}&target=${minVersion(item.target)}`}
                   >
                     <ExternalLinkIcon /> Detail
                   </Link>

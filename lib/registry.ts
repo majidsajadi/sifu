@@ -54,6 +54,7 @@ type TFetchDependencyResponse = Readonly<{
     string,
     {
       version: string;
+      dependencies?: Partial<Record<string, string>>;
       deprecated?: string;
       engines?: {
         [EngineName in 'npm' | 'node' | string]?: string;

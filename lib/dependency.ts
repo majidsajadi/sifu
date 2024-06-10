@@ -43,14 +43,11 @@ export type TObjectPropertyDiff = {
   target?: string;
 };
 
-function compareObjects(
-  source?: {
-    [x: string]: string | undefined;
-  },
-  target?: {
-    [x: string]: string | undefined;
-  }
-) {
+type TObject = {
+  [x: string]: string | undefined;
+};
+
+function compareObjects(source?: TObject, target?: TObject) {
   const result: Array<TObjectPropertyDiff> = [];
 
   if (source) {
@@ -80,7 +77,7 @@ function compareObjects(
   return result;
 }
 
-export async function compareDependenciesEngines(name: string, source?: string, target?: string) {
+export async function compareEngines(name: string, source?: string, target?: string) {
   if (!source || !target) return;
 
   const { versions } = await fetchDependency(name);
@@ -89,4 +86,15 @@ export async function compareDependenciesEngines(name: string, source?: string, 
   const { engines: targetEngines } = versions[target];
 
   return compareObjects(sourceEngines, targetEngines);
+}
+
+export async function compareDependencies(name: string, source?: string, target?: string) {
+  if (!source || !target) return;
+
+  const { versions } = await fetchDependency(name);
+
+  const { dependencies: sourceDependencies } = versions[source];
+  const { dependencies: targetDependencies } = versions[target];
+
+  return compareObjects(sourceDependencies, targetDependencies);
 }

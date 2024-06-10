@@ -55,6 +55,9 @@ type TFetchDependencyResponse = Readonly<{
     {
       version: string;
       deprecated?: string;
+      engines?: {
+        [EngineName in 'npm' | 'node' | string]?: string;
+      };
       // unused fields omitted
     }
   >;

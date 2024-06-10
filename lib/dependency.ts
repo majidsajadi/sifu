@@ -36,3 +36,57 @@ export async function getDependencyVersionOverview(name: string, range: string) 
     latestSatisfies,
   };
 }
+
+export type TObjectPropertyDiff = {
+  name: string;
+  source?: string;
+  target?: string;
+};
+
+function compareObjects(
+  source?: {
+    [x: string]: string | undefined;
+  },
+  target?: {
+    [x: string]: string | undefined;
+  }
+) {
+  const result: Array<TObjectPropertyDiff> = [];
+
+  if (source) {
+    Object.entries(source).forEach(([name, range]) => {
+      result.push({
+        name,
+        source: range,
+      });
+    });
+  }
+
+  if (target) {
+    Object.entries(target).forEach(([name, range]) => {
+      const item = result.find((diff) => diff.name === name);
+
+      if (!!item) {
+        item.target = range;
+      } else {
+        result.push({
+          name,
+          target: range,
+        });
+      }
+    });
+  }
+
+  return result;
+}
+
+export async function compareDependenciesEngines(name: string, source?: string, target?: string) {
+  if (!source || !target) return;
+
+  const { versions } = await fetchDependency(name);
+
+  const { engines: sourceEngines } = versions[source];
+  const { engines: targetEngines } = versions[target];
+
+  return compareObjects(sourceEngines, targetEngines);
+}

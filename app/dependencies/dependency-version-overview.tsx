@@ -30,7 +30,7 @@ export async function DependencyVersionOverview({ name, range }: TDependencyVers
               }
             >
               <IconButton variant="soft" color="gray" size="1" asChild>
-                <NextLink href={`/dependencies/${name}?source=${source}&target=${latestSatisfies}`}>
+                <NextLink href={`/dependencies/${encodeURIComponent(name)}?source=${source}&target=${latestSatisfies}`}>
                   <Link1Icon />
                 </NextLink>
               </IconButton>
@@ -56,7 +56,7 @@ export async function DependencyVersionOverview({ name, range }: TDependencyVers
               }
             >
               <IconButton variant="soft" color="gray" size="1" asChild>
-                <NextLink href={`/dependencies/${name}?source=${source}&target=${latest}`}>
+                <NextLink href={`/dependencies/${encodeURIComponent(name)}?source=${source}&target=${latest}`}>
                   <Link1Icon />
                 </NextLink>
               </IconButton>

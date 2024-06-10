@@ -13,7 +13,7 @@ export default function Page({ searchParams }: { searchParams: { dep?: string | 
   if (!dependencies.length) redirect("/upload");
 
   return (
-    <Table.Root variant="surface">
+    <Table.Root variant="surface" mt="6">
       <Table.Header>
         <Table.Row>
           <Table.ColumnHeaderCell>Dependency</Table.ColumnHeaderCell>
@@ -27,7 +27,7 @@ export default function Page({ searchParams }: { searchParams: { dep?: string | 
           <Table.Row key={dep.name}>
             <Table.RowHeaderCell>
               <Link asChild>
-                <NextLink href={`/dependencies/${dep.name}`}>{dep.name}</NextLink>
+                <NextLink href={`/dependencies/${encodeURIComponent(dep.name)}`}>{dep.name}</NextLink>
               </Link>
             </Table.RowHeaderCell>
             <Table.Cell>{dep.range}</Table.Cell>

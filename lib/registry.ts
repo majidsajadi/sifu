@@ -33,7 +33,6 @@ const REVALIDATE_SEARCH_DEPENDENCY = (12 * 60) & 60;
 export async function searchDependency(query: string) {
   const url = new URL(`/-/v1/search?text=${query}&size=10`, REGISTRY_URL);
 
-  // TODO: timeout?
   const resp = await fetch(url, { next: { revalidate: REVALIDATE_SEARCH_DEPENDENCY } });
 
   if (resp.ok) {
@@ -57,7 +56,7 @@ type TFetchDependencyResponse = Readonly<{
       dependencies?: Partial<Record<string, string>>;
       deprecated?: string;
       engines?: {
-        [EngineName in 'npm' | 'node' | string]?: string;
+        [EngineName in "npm" | "node" | string]?: string;
       };
       // unused fields omitted
     }
@@ -66,7 +65,6 @@ type TFetchDependencyResponse = Readonly<{
 
 const REVALIDATE_FETCH_DEPENDENCY = (12 * 60) & 60;
 
-// TODO: bulkhead?
 export async function fetchDependency(name: string) {
   const url = new URL(encodeURIComponent(name).replace(/^%40/, "@"), REGISTRY_URL);
 
@@ -74,8 +72,6 @@ export async function fetchDependency(name: string) {
     accept: "application/vnd.npm.install-v1+json; q=1.0, application/json; q=0.8, */*",
   };
 
-  // TODO: retry
-  // TODO: timeout?
   const resp = await fetch(url, { headers, next: { revalidate: REVALIDATE_FETCH_DEPENDENCY } });
 
   if (resp.ok) {
@@ -84,6 +80,41 @@ export async function fetchDependency(name: string) {
 
   if (resp.status === 404) {
     throw new RegistryNotFoundError(name);
+  }
+
+  throw new RegistryNetworkError(await resp.text());
+}
+
+export type TSeverity = "critical" | "high" | "medium" | "low";
+
+type TSecurityAdvisoriesResponse = Record<
+  string,
+  {
+    id: number;
+    url: string;
+    title: string;
+    severity: TSeverity;
+    vulnerable_versions: string;
+    cwe: unknown; // not using
+    cvss: unknown; // not using
+  }[]
+>;
+
+export async function fetchAdvisories(name: string, source: string, target: string) {
+  const url = new URL(`/-/npm/v1/security/advisories/bulk`, REGISTRY_URL);
+
+  const resp = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      [name]: [source, target],
+    }),
+  });
+
+  if (resp.ok) {
+    return (await resp.json()) as TSecurityAdvisoriesResponse;
   }
 
   throw new RegistryNetworkError(await resp.text());

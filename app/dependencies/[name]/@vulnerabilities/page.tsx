@@ -1,9 +1,10 @@
 import NextLink from "next/link";
+import { compareVulnerabilities } from "@/lib/dependency";
 import semver from "semver";
 import { Badge, Flex, IconButton, Table, Text, Tooltip } from "@radix-ui/themes";
 import { CheckIcon, CircleBackslashIcon, ExternalLinkIcon } from "@radix-ui/react-icons";
+import type { TSeverity } from "@/lib/registry";
 import type { BadgeProps } from "@radix-ui/themes";
-import { getVulnerabilities, TSeverity } from "@/lib/vulnerabilities";
 import CEmpty from "../(common)/empty";
 import type { TDependenciesNamePageProps } from "../types";
 
@@ -16,11 +17,15 @@ const SEVERITY_COLORS: Record<TSeverity, BadgeProps["color"]> = {
 
 export default async function Page({ params, searchParams }: TDependenciesNamePageProps) {
   const { source, target } = searchParams;
-  const response = await getVulnerabilities(decodeURIComponent(params.name), searchParams.source, searchParams.target);
+  const advisories = await compareVulnerabilities(
+    decodeURIComponent(params.name),
+    searchParams.source,
+    searchParams.target
+  );
 
   if (!source || !target) return <CEmpty message="Please select `source` and `target`" />;
 
-  if (!response?.length) return <CEmpty message="No vulnerabilities found" />;
+  if (!advisories?.length) return <CEmpty message="No vulnerabilities found" />;
 
   return (
     <Table.Root>
@@ -33,17 +38,17 @@ export default async function Page({ params, searchParams }: TDependenciesNamePa
       </Table.Header>
 
       <Table.Body>
-        {response.map((vulnerability) => (
-          <Table.Row key={vulnerability.id}>
+        {advisories.map(({ id, severity, title, url, vulnerable_versions }) => (
+          <Table.Row key={id}>
             <Table.RowHeaderCell>
               <Flex gap="2" align="center">
-                <Badge variant="solid" color={SEVERITY_COLORS[vulnerability.severity]}>
-                  {vulnerability.severity}
+                <Badge variant="solid" color={SEVERITY_COLORS[severity]}>
+                  {severity}
                 </Badge>
-                <Text>{vulnerability.title}</Text>
+                <Text>{title}</Text>
                 <Tooltip content="View in Github">
                   <IconButton asChild size="1" variant="ghost" color="gray">
-                    <NextLink href={vulnerability.url}>
+                    <NextLink href={url}>
                       <ExternalLinkIcon />
                     </NextLink>
                   </IconButton>
@@ -51,7 +56,7 @@ export default async function Page({ params, searchParams }: TDependenciesNamePa
               </Flex>
             </Table.RowHeaderCell>
             <Table.Cell>
-              {semver.satisfies(source, vulnerability.vulnerable_versions) ? (
+              {semver.satisfies(source, vulnerable_versions) ? (
                 <Badge size="3" color="red">
                   <CircleBackslashIcon /> Affected
                 </Badge>
@@ -62,7 +67,7 @@ export default async function Page({ params, searchParams }: TDependenciesNamePa
               )}
             </Table.Cell>
             <Table.Cell>
-              {semver.satisfies(target, vulnerability.vulnerable_versions) ? (
+              {semver.satisfies(target, vulnerable_versions) ? (
                 <Badge size="3" color="red">
                   <CircleBackslashIcon /> Affected
                 </Badge>

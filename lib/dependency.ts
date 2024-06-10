@@ -1,5 +1,5 @@
 import semver from "semver";
-import { fetchDependency, searchDependency } from "./registry";
+import { fetchAdvisories, fetchDependency, searchDependency } from "./registry";
 
 export async function getDependency(name: string) {
   const dependency = await fetchDependency(name);
@@ -97,4 +97,11 @@ export async function compareDependencies(name: string, source?: string, target?
   const { dependencies: targetDependencies } = versions[target];
 
   return compareObjects(sourceDependencies, targetDependencies);
+}
+
+export async function compareVulnerabilities(name: string, source?: string, target?: string) {
+  if (!source || !target) return;
+
+  const data = await fetchAdvisories(name, source, target);
+  return data[name];
 }

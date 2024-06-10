@@ -1,14 +1,16 @@
 import Link from "next/link";
+import { getCommits } from "@/lib";
 import { Badge, Box, Card, Flex, IconButton, Link as NavLink, Text, Tooltip } from "@radix-ui/themes";
 import { CircleIcon, ExternalLinkIcon } from "@radix-ui/react-icons";
-import { getCommits } from "@/lib";
 import CEmpty from "../(common)/empty";
 import type { TDependenciesNamePageProps } from "../types";
 
 export default async function Page({ params, searchParams }: TDependenciesNamePageProps) {
   const response = await getCommits(decodeURIComponent(params.name), searchParams.source, searchParams.target);
 
-  if (!response?.commits) return <CEmpty message="No commit found" />;
+  if (!searchParams.source || !searchParams.target) return <CEmpty message="Please select `source` and `target`" />;
+
+  if (!response?.commits.length) return <CEmpty message="No commit found" />;
 
   return (
     <Flex direction="column" gap="4">

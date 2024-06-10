@@ -1,15 +1,11 @@
 import { compareEngines } from "@/lib/dependency";
-import { Badge, Card, Flex, Table, Text } from "@radix-ui/themes";
-import { ArchiveIcon } from "@radix-ui/react-icons";
+import { Badge, Table } from "@radix-ui/themes";
 import type { TObjectPropertyDiff } from "@/lib/dependency";
+import CEmpty from "../(common)/empty";
 import type { TDependenciesNamePageProps } from "../types";
 
 export default async function Page({ params, searchParams }: TDependenciesNamePageProps) {
-  const response = await compareEngines(
-    decodeURIComponent(params.name),
-    searchParams.source,
-    searchParams.target
-  );
+  const response = await compareEngines(decodeURIComponent(params.name), searchParams.source, searchParams.target);
 
   const getStatus = (item: TObjectPropertyDiff) => {
     if (!item.source) return <Badge color="green">New</Badge>;
@@ -21,17 +17,9 @@ export default async function Page({ params, searchParams }: TDependenciesNamePa
     return <Badge>Updated</Badge>;
   };
 
-  if (!response?.length)
-    return (
-      <Card>
-        <Flex align="center" justify="center" height="240px" direction="column" gap="2">
-          <Text trim="both" color="gray">
-            <ArchiveIcon />
-          </Text>
-          <Text color="gray">No engines found</Text>
-        </Flex>
-      </Card>
-    );
+  if (!searchParams.source || !searchParams.target) return <CEmpty message="Please select `source` and `target`" />;
+
+  if (!response?.length) return <CEmpty message="No engines found" />;
 
   return (
     <Table.Root variant="surface" size="1">

@@ -1,8 +1,9 @@
 import Link from "next/link";
 import { compareDependencies, TObjectPropertyDiff } from "@/lib/dependency";
 import { minVersion } from "semver";
-import { Badge, Button, Card, Flex, Table, Text } from "@radix-ui/themes";
-import { ArchiveIcon, ExternalLinkIcon } from "@radix-ui/react-icons";
+import { Badge, Button, Table } from "@radix-ui/themes";
+import { ExternalLinkIcon } from "@radix-ui/react-icons";
+import CEmpty from "../(common)/empty";
 import type { TDependenciesNamePageProps } from "../types";
 
 export default async function Page({ params, searchParams }: TDependenciesNamePageProps) {
@@ -19,17 +20,10 @@ export default async function Page({ params, searchParams }: TDependenciesNamePa
     return <Badge>Updated</Badge>;
   };
 
-  if (!response?.length)
-    return (
-      <Card>
-        <Flex align="center" justify="center" height="240px" direction="column" gap="2">
-          <Text trim="both" color="gray">
-            <ArchiveIcon />
-          </Text>
-          <Text color="gray">No dependencies found</Text>
-        </Flex>
-      </Card>
-    );
+  if (!searchParams.source || !searchParams.target) return <CEmpty message="Please select `source` and `target`" />;
+
+  if (!response?.length) return <CEmpty message="No dependencies found" />;
+
   return (
     <Table.Root variant="surface" size="1">
       <Table.Header>

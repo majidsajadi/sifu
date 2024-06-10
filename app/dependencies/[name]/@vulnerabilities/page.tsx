@@ -17,7 +17,7 @@ const SEVERITY_COLORS: Record<TSeverity, BadgeProps["color"]> = {
 
 export default async function Page({ params, searchParams }: TDependenciesNamePageProps) {
   const { source, target } = searchParams;
-  const advisories = await compareVulnerabilities(
+  const response = await compareVulnerabilities(
     decodeURIComponent(params.name),
     searchParams.source,
     searchParams.target
@@ -25,7 +25,7 @@ export default async function Page({ params, searchParams }: TDependenciesNamePa
 
   if (!source || !target) return <CEmpty message="Please select `source` and `target`" />;
 
-  if (!advisories?.length) return <CEmpty message="No vulnerabilities found" />;
+  if (!response?.length) return <CEmpty message="No vulnerabilities found" />;
 
   return (
     <Table.Root>
@@ -38,7 +38,7 @@ export default async function Page({ params, searchParams }: TDependenciesNamePa
       </Table.Header>
 
       <Table.Body>
-        {advisories.map(({ id, severity, title, url, vulnerable_versions }) => (
+        {response.map(({ id, severity, title, url, vulnerable_versions }) => (
           <Table.Row key={id}>
             <Table.RowHeaderCell>
               <Flex gap="2" align="center">

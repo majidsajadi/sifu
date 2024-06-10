@@ -1,7 +1,8 @@
 import { Suspense } from "react";
+import NextLink from "next/link";
 import { redirect } from "next/navigation";
 import { ErrorBoundary } from "react-error-boundary";
-import { Table } from "@radix-ui/themes";
+import { Link, Table } from "@radix-ui/themes";
 import { DependencyVersionOverview } from "./dependency-version-overview";
 import { DependencyVersionOverviewError } from "./dependency-version-overview-error";
 import { DependencyVersionOverviewLoading } from "./dependency-version-overview-loading";
@@ -24,7 +25,11 @@ export default function Page({ searchParams }: { searchParams: { dep?: string | 
       <Table.Body>
         {dependencies.map((dep) => (
           <Table.Row key={dep.name}>
-            <Table.RowHeaderCell>{dep.name}</Table.RowHeaderCell>
+            <Table.RowHeaderCell>
+              <Link asChild>
+                <NextLink href={`/dependencies/${dep.name}`}>{dep.name}</NextLink>
+              </Link>
+            </Table.RowHeaderCell>
             <Table.Cell>{dep.range}</Table.Cell>
             <ErrorBoundary fallback={<DependencyVersionOverviewError />}>
               <Suspense fallback={<DependencyVersionOverviewLoading />}>

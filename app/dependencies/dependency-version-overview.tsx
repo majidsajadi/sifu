@@ -1,5 +1,5 @@
 import NextLink from "next/link";
-import { getDependencyVersion } from "@/lib/version";
+import { getDependencyVersionOverview } from "@/lib/dependency";
 import semver from "semver";
 import { Flex, IconButton, Table, Text, Tooltip } from "@radix-ui/themes";
 import { ArrowRightIcon, CheckIcon, Link1Icon } from "@radix-ui/react-icons";
@@ -11,7 +11,7 @@ type TDependencyVersionOverviewProps = {
 };
 
 export async function DependencyVersionOverview({ name, range }: TDependencyVersionOverviewProps) {
-  const { latest, latestSatisfies } = await getDependencyVersion(name, range);
+  const { latest, latestSatisfies } = await getDependencyVersionOverview(name, range);
   const source = semver.minVersion(range)?.toString() ?? "";
 
   return (

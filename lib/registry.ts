@@ -71,6 +71,8 @@ type TFetchDependencyResponse = Readonly<{
 const REVALIDATE_FETCH_DEPENDENCY = (12 * 60) & 60;
 
 export async function fetchDependency(name: string, abbreviated = true) {
+  console.log("FETCH DEPENDENCY CALLED");
+
   const url = new URL(encodeURIComponent(name).replace(/^%40/, "@"), REGISTRY_URL);
 
   // fetch full metadata or abbreviated version. the full metadata includes information such as repository

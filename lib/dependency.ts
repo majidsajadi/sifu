@@ -153,8 +153,6 @@ export async function getAdvisories(name: string, source?: string, target?: stri
  * @returns Git commits from the source version to target version
  */
 export async function getCommits(name: string, source?: string, target?: string) {
-  console.log("CALLINGGGG GET COMMIT")
-
   if (!source || !target) return;
 
   const repository = await getDependencyRepositoryInfo(name);
@@ -192,9 +190,6 @@ export async function getCommits(name: string, source?: string, target?: string)
  * Finds, fetch and parse change log and return the changlog entries according to from and to filters
  */
 export async function getChangelog(name: string, source?: string, target?: string) {
-
-  console.log("CALLINGGGG GET CHANGELOG")
-
   if (!source || !target) return;
 
   const changelogURL = await getDependencyChangelogURL(name);

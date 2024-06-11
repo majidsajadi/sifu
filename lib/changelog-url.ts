@@ -1,37 +1,50 @@
 import { kv } from "@vercel/kv";
-import { getDependencyRepository } from "./dependency-repository";
-import type { IDependencyRepository } from "./dependency-repository";
+import { getDependencyRepositoryInfo } from "./repository-info";
+import type { IDependencyRepositoryInfo } from "./repository-info";
+
+type TChangelogURL = {
+  href: string;
+  owner: string;
+  repo: string;
+  path: string;
+};
 
 async function getDependencyChangelogURLCache(name: string) {
   try {
-    // return await kv.get<string>(`DEP:CL:URL:${name}`);
+    // return await kv.hgetall<string>(`DEP:CL:URL:${name}`);
   } catch (error) {
     return undefined;
   }
 }
 
-async function setDependencyChangelogURLInCache(name: string, url: string) {
+async function setDependencyChangelogURLInCache(name: string, url: TChangelogURL) {
   try {
-    // await kv.set(`DEP:CL:URL:${name}`, url);
+    // await kv.hset(`DEP:CL:URL:${name}`, url);
   } catch (error) {}
 }
 
-function getPossibleURLs({ directory, owner, repo }: IDependencyRepository) {
+function getPossibleURLs({ directory, owner, repo }: IDependencyRepositoryInfo) {
   const BASE_URL = "https://github.com";
   const POSSIBLE_NAMES = ["CHANGELOG.md", "HISTORY.md", "RELEASES.md", "changelog.md", "releases.md", "NEWS.md"];
   const POSSIBLE_DIRECTORIES = !!directory ? [directory, ""] : [""];
   const PISSIBLE_BRANCHES = ["main" /**, "master" */];
 
-  const urls: string[] = [];
+  const urls: TChangelogURL[] = [];
 
   POSSIBLE_NAMES.forEach((name) => {
     PISSIBLE_BRANCHES.forEach((branch) => {
       POSSIBLE_DIRECTORIES.forEach((directory) => {
+        let path = `/${name}`;
         if (!!directory) {
-          urls.push(new URL(`/${owner}/${repo}/blob/${branch}/${directory}/${name}`, BASE_URL).toString());
-        } else {
-          urls.push(new URL(`/${owner}/${repo}/blob/${branch}/${name}`, BASE_URL).toString());
+          path = `/${directory}/${name}`;
         }
+
+        urls.push({
+          href: new URL(`/${owner}/${repo}/blob/${branch}/${path}`, BASE_URL).toString(),
+          owner,
+          path,
+          repo,
+        });
       });
     });
   });
@@ -40,17 +53,17 @@ function getPossibleURLs({ directory, owner, repo }: IDependencyRepository) {
 }
 
 async function findDependencyChangelogURL(name: string) {
-  const repository = await getDependencyRepository(name);
+  const repository = await getDependencyRepositoryInfo(name);
   if (!repository) return;
 
   const possibleURLs = getPossibleURLs(repository);
 
-  let url: string | undefined = undefined;
+  let url: TChangelogURL | undefined = undefined;
 
   while (!!possibleURLs.length && !url) {
     const possibleURL = possibleURLs.shift()!;
     try {
-      const response = await fetch(possibleURL, { method: "HEAD" });
+      const response = await fetch(possibleURL.href, { method: "HEAD" });
       if (response.ok) {
         url = possibleURL;
       }

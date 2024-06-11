@@ -1,9 +1,9 @@
 import { kv } from "@vercel/kv";
 import { fetchDependency, TRegistryVersionRepository } from "./registry";
 
-export type IDependencyRepository = { owner: string; repo: string; directory: undefined | string };
+export type IDependencyRepositoryInfo = { owner: string; repo: string; directory: undefined | string };
 
-function parseDependencyRepository(repository: TRegistryVersionRepository) {
+function parseDependencyRepositoryInfo(repository: TRegistryVersionRepository) {
   const url = typeof repository === "string" ? repository : repository.type === "git" ? repository.url : undefined;
 
   if (!url) {
@@ -31,26 +31,26 @@ function parseDependencyRepository(repository: TRegistryVersionRepository) {
   };
 }
 
-async function getDependencyRepositoryFromCache(name: string) {
+async function getDependencyRepositoryInfoFromCache(name: string) {
   try {
-    // return await kv.hgetall<IDependencyRepository>(`DEP:REPO:${name}`);
+    // return await kv.hgetall<IDependencyRepositoryInfo>(`DEP:REPO:${name}`);
   } catch (error) {
     return undefined;
   }
 }
 
-async function setDependencyRepositoryInCache(name: string, repository: IDependencyRepository) {
+async function setDependencyRepositoryInfoInCache(name: string, repository: IDependencyRepositoryInfo) {
   try {
     // await kv.hset(`DEP:REPO:${name}`, repository);
   } catch (error) {
   }
 }
 
-async function getDependencyRepositoryFromRegistery(name: string) {
+async function getDependencyRepositoryInfoFromRegistery(name: string) {
   const dependency = await fetchDependency(name, false);
   const repository = dependency.versions[dependency["dist-tags"].latest].repository;
   if (!repository) return;
-  return parseDependencyRepository(repository);
+  return parseDependencyRepositoryInfo(repository);
 }
 
 /**
@@ -59,13 +59,13 @@ async function getDependencyRepositoryFromRegistery(name: string) {
  * @param name - dependency name
  * @returns repository info
  */
-export async function getDependencyRepository(name: string) {
-  const hit = await getDependencyRepositoryFromCache(name);
+export async function getDependencyRepositoryInfo(name: string) {
+  const hit = await getDependencyRepositoryInfoFromCache(name);
   if (!!hit) return hit;
 
-  const repo = await getDependencyRepositoryFromRegistery(name);
+  const repo = await getDependencyRepositoryInfoFromRegistery(name);
   if (!!repo) {
-    await setDependencyRepositoryInCache(name, repo);
+    await setDependencyRepositoryInfoInCache(name, repo);
   }
 
   return repo;

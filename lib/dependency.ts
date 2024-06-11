@@ -1,7 +1,9 @@
-import semver from "semver";
 import { Octokit } from "octokit";
+import semver from "semver";
+import { parseChangelog } from "./changelog-parser";
+import { getDependencyChangelogURL } from "./changelog-url";
+import { getDependencyRepositoryInfo } from "./repository-info";
 import { fetchAdvisories, fetchDependency, searchDependency } from "./registry";
-import { getDependencyRepository } from "./dependency-repository";
 
 export const github = new Octokit().rest;
 
@@ -148,15 +150,15 @@ export async function getAdvisories(name: string, source?: string, target?: stri
  * @param name - dependency name
  * @param source - source dependency
  * @param target - target dependency
- * @returns Git commits from the source version to target version 
+ * @returns Git commits from the source version to target version
  */
 export async function getCommits(name: string, source?: string, target?: string) {
   if (!source || !target) return;
 
-  const repository = await getDependencyRepository(name); 
+  const repository = await getDependencyRepositoryInfo(name);
   if (!repository) throw new Error("Repository information could not be found");
 
-  const {owner, repo } = repository;
+  const { owner, repo } = repository;
 
   const { data } = await github.repos.compareCommitsWithBasehead({
     owner,
@@ -181,5 +183,34 @@ export async function getCommits(name: string, source?: string, target?: string)
     total: data.total_commits,
     files: data.files?.length,
     commits,
+  };
+}
+
+/**
+ * Finds, fetch and parse change log and return the changlog entries according to from and to filters
+ */
+export async function getChangelog(name: string, source?: string, target?: string) {
+  if (!source || !target) return;
+
+  const changelogURL = await getDependencyChangelogURL(name);
+  if (!changelogURL) throw new Error("Changelog url could not be found");
+
+  const { repo, owner, path, href } = changelogURL;
+
+  const response = await github.repos.getContent({
+    repo,
+    owner,
+    path,
+  });
+
+  const content = (response.data as any).content as string;
+  const parsed = Buffer.from(content, "base64").toString();
+  // TODO: use stream?
+
+  const entries = await parseChangelog(parsed, source, target);
+
+  return {
+    href,
+    entries,
   };
 }

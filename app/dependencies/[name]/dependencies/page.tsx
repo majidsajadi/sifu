@@ -47,7 +47,7 @@ export default async function Page({ params, searchParams }: TDependenciesNamePa
               {!!item.source && !!item.target && item.target !== item.source && (
                 <Button size="1" asChild>
                   <Link
-                    href={`/dependencies/${name}?source=${minVersion(item.source)}&target=${minVersion(item.target)}`}
+                    href={`/dependencies/${encodeURIComponent(name)}?source=${minVersion(item.source)}&target=${minVersion(item.target)}`}
                   >
                     <ExternalLinkIcon /> Detail
                   </Link>

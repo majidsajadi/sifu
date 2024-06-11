@@ -7,10 +7,6 @@ import { getDependencyRepository } from "@/lib/dependency-repository-manager";
 export default async function Page({ params }: TDependenciesNamePageProps) {
   const { versions, name } = await getDependency(decodeURIComponent(params.name));
 
-
-
-  console.log("!", await getDependencyRepository(params.name))
-
   return (
     <Flex gap="4" align="center" minHeight="32px">
       <Flex flexGrow="1">

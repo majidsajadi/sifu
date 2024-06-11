@@ -22,7 +22,7 @@ function parseDependencyRepository(repository: TRegistryVersionRepository) {
 
   const [owner, repo] = path.split("/");
 
-  const directory = typeof repository !== "string" ? repository.directory : undefined;
+  const directory = typeof repository !== "string" ? (repository.directory ?? "") : "";
 
   return {
     owner,
@@ -31,33 +31,42 @@ function parseDependencyRepository(repository: TRegistryVersionRepository) {
   };
 }
 
-export function checkDependencyRepository(name: string) {
-  return kv.exists(`DEP:REPO:${name}`);
-}
-
-async function storeDependencyRepository(name: string, repository: TRegistryVersionRepository) {
-  const dependencyRepository = parseDependencyRepository(repository);
-  await kv.hset(`DEP:REPO:${name}`, dependencyRepository);
-  return dependencyRepository;
-}
-
-export async function storeDependencyRepositoryGracefully(name: string, repository?: TRegistryVersionRepository) {
-  if (!repository) return;
-
+async function getDependencyRepositoryFromCache(name: string) {
   try {
-    await storeDependencyRepository(name, repository);
+    // return await kv.hgetall<IDependencyRepository>(`DEP:REPO:${name}`);
   } catch (error) {
-    return;
+    return undefined;
   }
 }
 
+async function setDependencyRepositoryInCache(name: string, repository: IDependencyRepository) {
+  try {
+    // await kv.hset(`DEP:REPO:${name}`, repository);
+  } catch (error) {
+  }
+}
+
+async function getDependencyRepositoryFromRegistery(name: string) {
+  const dependency = await fetchDependency(name, false);
+  const repository = dependency.versions[dependency["dist-tags"].latest].repository;
+  if (!repository) return;
+  return parseDependencyRepository(repository);
+}
+
+/**
+ * Fetches dependency metadata from registry and parses repository information from the metadata
+ * Using a cache aside strategy
+ * @param name - dependency name
+ * @returns repository info
+ */
 export async function getDependencyRepository(name: string) {
-  const hit = await kv.hgetall<IDependencyRepository>(`DEP:REPO:${name}`);
+  const hit = await getDependencyRepositoryFromCache(name);
   if (!!hit) return hit;
 
-  const dependency = await fetchDependency(name, false);
-  const respository = dependency.versions[dependency["dist-tags"].latest].repository;
-  if (!respository) return;
+  const repo = await getDependencyRepositoryFromRegistery(name);
+  if (!!repo) {
+    await setDependencyRepositoryInCache(name, repo);
+  }
 
-  return storeDependencyRepository(name, respository);
+  return repo;
 }

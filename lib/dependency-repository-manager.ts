@@ -1,8 +1,7 @@
-import { TRegistryVersionRepository } from "./registry";
+import { kv } from "@vercel/kv";
+import { fetchDependency, TRegistryVersionRepository } from "./registry";
 
 type IDependencyRepository = { owner: string; repo: string; directory: undefined | string };
-
-const dependencyRepositories = new Map<string, IDependencyRepository>();
 
 function parseDependencyRepository(repository: TRegistryVersionRepository) {
   const url = typeof repository === "string" ? repository : repository.type === "git" ? repository.url : undefined;
@@ -33,21 +32,32 @@ function parseDependencyRepository(repository: TRegistryVersionRepository) {
 }
 
 export function checkDependencyRepository(name: string) {
-  return dependencyRepositories.has(name);
+  return kv.exists(`DEP:REPO:${name}`);
 }
 
-export function storeDependencyRepository(name: string, repository?: TRegistryVersionRepository) {
+async function storeDependencyRepository(name: string, repository: TRegistryVersionRepository) {
+  const dependencyRepository = parseDependencyRepository(repository);
+  await kv.hset(`DEP:REPO:${name}`, dependencyRepository);
+  return dependencyRepository;
+}
+
+export async function storeDependencyRepositoryGracefully(name: string, repository?: TRegistryVersionRepository) {
   if (!repository) return;
 
   try {
-    const dependencyRepository = parseDependencyRepository(repository);
-    dependencyRepositories.set(name, dependencyRepository);
+    await storeDependencyRepository(name, repository);
   } catch (error) {
-    // gracefull
     return;
   }
 }
 
-export function getDependencyRepository(name: string) {
-  return dependencyRepositories.get(name);
+export async function getDependencyRepository(name: string) {
+  const hit = await kv.hgetall<IDependencyRepository>(`DEP:REPO:${name}`);
+  if (!!hit) return hit;
+
+  const dependency = await fetchDependency(name, false);
+  const respository = dependency.versions[dependency["dist-tags"].latest].repository;
+  if (!respository) return;
+
+  return storeDependencyRepository(name, respository);
 }

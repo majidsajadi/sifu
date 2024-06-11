@@ -1,5 +1,5 @@
 import semver from "semver";
-import { checkDependencyRepository, storeDependencyRepository } from "./dependency-repository-manager";
+import { checkDependencyRepository, storeDependencyRepositoryGracefully } from "./dependency-repository-manager";
 import { fetchAdvisories, fetchDependency, searchDependency } from "./registry";
 
 /**
@@ -7,14 +7,15 @@ import { fetchAdvisories, fetchDependency, searchDependency } from "./registry";
  * @param name - dependency name
  */
 export async function getDependency(name: string) {
-  const dependencyRepositoryExists = checkDependencyRepository(name);
+  const dependencyRepositoryExists = await checkDependencyRepository(name);
 
   // if we dont have the dependency repository info fetch the full metadata from registry that has the repository field
   // so we can find and store the dependency repository information ahead of time
   const dependency = await fetchDependency(name, !dependencyRepositoryExists);
 
   if (dependencyRepositoryExists) {
-    storeDependencyRepository(name, dependency.versions[dependency["dist-tags"].latest].repository);
+    const repository = dependency.versions[dependency["dist-tags"].latest].repository;
+    await storeDependencyRepositoryGracefully(name, repository);
   }
 
   const versions = Object.values(dependency.versions)

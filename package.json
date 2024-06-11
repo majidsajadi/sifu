@@ -12,6 +12,7 @@
   "dependencies": {
     "@radix-ui/react-icons": "^1.3.0",
     "@radix-ui/themes": "^3.0.5",
+    "@vercel/kv": "^2.0.0",
     "next": "14.2.3",
     "next-mdx-remote": "^4.4.1",
     "next-themes": "^0.3.0",

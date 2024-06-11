@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getCommits } from "@/lib";
+import { getCommits } from "@/lib/lib";
 import { Badge, Box, Card, Flex, IconButton, Link as NavLink, Text, Tooltip } from "@radix-ui/themes";
 import { CircleIcon, ExternalLinkIcon } from "@radix-ui/react-icons";
 import CEmpty from "../(common)/empty";

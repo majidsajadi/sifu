@@ -8,6 +8,7 @@ const MIN_VERSION_POSSIBLE = "0.0.0";
 const MAX_VERSION_POSSIBLE = `${Number.MAX_SAFE_INTEGER}.${Number.MAX_SAFE_INTEGER}.${Number.MAX_SAFE_INTEGER}`;
 
 type TVersionSelectProps = {
+  // eslint-disable-next-line no-unused-vars
   onValugeChange: (value: string) => void;
   versions: string[];
   name: string;
@@ -32,7 +33,7 @@ export function VersionSelect({
         <Text color="gray">Source:</Text> {value}
       </Select.Trigger>
       <Select.Content position="popper">
-        {!!items.length ? (
+        {items.length ? (
           <Virtuoso
             style={{
               height: "280px",

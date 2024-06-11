@@ -6,6 +6,7 @@ import { GitHubLogoIcon } from "@radix-ui/react-icons";
 import type { Metadata } from "next";
 import { ThemeChanger } from "./theme-changer";
 import "./globals.css";
+import type { PropsWithChildren } from "react";
 
 const font = Source_Code_Pro({
   subsets: ["latin"],
@@ -17,11 +18,7 @@ export const metadata: Metadata = {
   title: "Sifu",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="en" suppressHydrationWarning className={font.className}>
       <Reset>

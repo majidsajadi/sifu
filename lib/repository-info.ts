@@ -33,7 +33,7 @@ function parseDependencyRepositoryInfo(repository: TRegistryVersionRepository) {
 
 async function getDependencyRepositoryInfoFromCache(name: string) {
   try {
-    // return await kv.hgetall<IDependencyRepositoryInfo>(`DEP:REPO:${name}`);
+    return await kv.hgetall<IDependencyRepositoryInfo>(`DEP:REPO:${name}`);
   } catch (error) {
     return undefined;
   }
@@ -41,8 +41,9 @@ async function getDependencyRepositoryInfoFromCache(name: string) {
 
 async function setDependencyRepositoryInfoInCache(name: string, repository: IDependencyRepositoryInfo) {
   try {
-    // await kv.hset(`DEP:REPO:${name}`, repository);
+    await kv.hset(`DEP:REPO:${name}`, repository);
   } catch (error) {
+    console.error(error)
   }
 }
 
@@ -61,10 +62,10 @@ async function getDependencyRepositoryInfoFromRegistery(name: string) {
  */
 export async function getDependencyRepositoryInfo(name: string) {
   const hit = await getDependencyRepositoryInfoFromCache(name);
-  if (!!hit) return hit;
+  if (hit) return hit;
 
   const repo = await getDependencyRepositoryInfoFromRegistery(name);
-  if (!!repo) {
+  if (repo) {
     await setDependencyRepositoryInfoInCache(name, repo);
   }
 

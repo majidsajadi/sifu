@@ -81,7 +81,7 @@ function compareObjects(source?: TObject, target?: TObject) {
     Object.entries(target).forEach(([name, range]) => {
       const item = result.find((diff) => diff.name === name);
 
-      if (!!item) {
+      if (item) {
         item.target = range;
       } else {
         result.push({

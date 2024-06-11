@@ -11,7 +11,7 @@ type TChangelogURL = {
 
 async function getDependencyChangelogURLCache(name: string) {
   try {
-    // return await kv.hgetall<string>(`DEP:CL:URL:${name}`);
+    return await kv.hgetall<TChangelogURL>(`DEP:CL:URL:${name}`);
   } catch (error) {
     return undefined;
   }
@@ -19,14 +19,16 @@ async function getDependencyChangelogURLCache(name: string) {
 
 async function setDependencyChangelogURLInCache(name: string, url: TChangelogURL) {
   try {
-    // await kv.hset(`DEP:CL:URL:${name}`, url);
-  } catch (error) {}
+    await kv.hset(`DEP:CL:URL:${name}`, url);
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 function getPossibleURLs({ directory, owner, repo }: IDependencyRepositoryInfo) {
   const BASE_URL = "https://github.com";
   const POSSIBLE_NAMES = ["CHANGELOG.md", "HISTORY.md", "RELEASES.md", "changelog.md", "releases.md", "NEWS.md"];
-  const POSSIBLE_DIRECTORIES = !!directory ? [directory, ""] : [""];
+  const POSSIBLE_DIRECTORIES = directory ? [directory, ""] : [""];
   const PISSIBLE_BRANCHES = ["main" /**, "master" */];
 
   const urls: TChangelogURL[] = [];
@@ -35,7 +37,7 @@ function getPossibleURLs({ directory, owner, repo }: IDependencyRepositoryInfo) 
     PISSIBLE_BRANCHES.forEach((branch) => {
       POSSIBLE_DIRECTORIES.forEach((directory) => {
         let path = `/${name}`;
-        if (!!directory) {
+        if (directory) {
           path = `/${directory}/${name}`;
         }
 
@@ -67,6 +69,7 @@ async function findDependencyChangelogURL(name: string) {
       if (response.ok) {
         url = possibleURL;
       }
+      // eslint-disable-next-line no-empty
     } catch (error) {}
   }
 
@@ -81,10 +84,10 @@ async function findDependencyChangelogURL(name: string) {
  */
 export async function getDependencyChangelogURL(name: string) {
   const hit = await getDependencyChangelogURLCache(name);
-  if (!!hit) return hit;
+  if (hit) return hit;
 
   const url = await findDependencyChangelogURL(name);
-  if (!!url) {
+  if (url) {
     await setDependencyChangelogURLInCache(name, url);
   }
 

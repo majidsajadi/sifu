@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { getCommits } from "@/lib/lib";
 import { Badge, Box, Card, Flex, IconButton, Link as NavLink, Text, Tooltip } from "@radix-ui/themes";
 import { CircleIcon, ExternalLinkIcon } from "@radix-ui/react-icons";
+import { getCommits } from "@/lib/dependency";
 import CEmpty from "../(common)/empty";
 import type { TDependenciesNamePageProps } from "../types";
 

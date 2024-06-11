@@ -1,5 +1,9 @@
 import semver from "semver";
+import { Octokit } from "octokit";
 import { fetchAdvisories, fetchDependency, searchDependency } from "./registry";
+import { getDependencyRepository } from "./dependency-repository-manager";
+
+export const github = new Octokit().rest;
 
 /**
  * Fetches dependency info from registry.
@@ -138,4 +142,44 @@ export async function getAdvisories(name: string, source?: string, target?: stri
 
   const data = await fetchAdvisories(name, source, target);
   return data[name];
+}
+
+/**
+ * @param name - dependency name
+ * @param source - source dependency
+ * @param target - target dependency
+ * @returns Git commits from the source version to target version 
+ */
+export async function getCommits(name: string, source?: string, target?: string) {
+  if (!source || !target) return;
+
+  const repository = await getDependencyRepository(name); 
+  if (!repository) throw new Error("Repository information could not be found");
+
+  const {owner, repo } = repository;
+
+  const { data } = await github.repos.compareCommitsWithBasehead({
+    owner,
+    repo,
+    basehead: `v${source}...v${target}`,
+  });
+
+  const commits = data.commits.map((commit) => {
+    const author = commit.author ? { url: commit.author.html_url, name: commit.author.login } : undefined;
+
+    return {
+      author,
+      sha: commit.sha,
+      message: commit.commit.message,
+      date: commit.commit.author?.date,
+      url: commit.html_url,
+    };
+  });
+
+  return {
+    url: data.html_url,
+    total: data.total_commits,
+    files: data.files?.length,
+    commits,
+  };
 }

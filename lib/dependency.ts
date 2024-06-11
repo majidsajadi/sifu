@@ -1,7 +1,7 @@
 import semver from "semver";
 import { Octokit } from "octokit";
 import { fetchAdvisories, fetchDependency, searchDependency } from "./registry";
-import { getDependencyRepository } from "./dependency-repository-manager";
+import { getDependencyRepository } from "./dependency-repository";
 
 export const github = new Octokit().rest;
 

@@ -1,7 +1,7 @@
 import { kv } from "@vercel/kv";
 import { fetchDependency, TRegistryVersionRepository } from "./registry";
 
-type IDependencyRepository = { owner: string; repo: string; directory: undefined | string };
+export type IDependencyRepository = { owner: string; repo: string; directory: undefined | string };
 
 function parseDependencyRepository(repository: TRegistryVersionRepository) {
   const url = typeof repository === "string" ? repository : repository.type === "git" ? repository.url : undefined;

@@ -1,5 +1,7 @@
 import { Source_Code_Pro } from "next/font/google";
 import NextLink from "next/link";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ThemeProvider } from "next-themes";
 import { Box, Container, Flex, Heading, IconButton, Link, Reset, Text, Theme, Tooltip } from "@radix-ui/themes";
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
@@ -65,6 +67,8 @@ export default function RootLayout({ children }: PropsWithChildren) {
               </Container>
             </Theme>
           </ThemeProvider>
+          <Analytics />
+          <SpeedInsights />
         </body>
       </Reset>
     </html>

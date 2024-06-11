@@ -24,7 +24,7 @@ export default async function Page({ params, searchParams }: TDependenciesNamePa
   if (!response?.length) return <CEmpty message="No advisories found" />;
 
   return (
-    <Table.Root>
+    <Table.Root  variant="surface" size="1">
       <Table.Header>
         <Table.Row>
           <Table.ColumnHeaderCell>Advisories</Table.ColumnHeaderCell>
@@ -53,22 +53,22 @@ export default async function Page({ params, searchParams }: TDependenciesNamePa
             </Table.RowHeaderCell>
             <Table.Cell>
               {semver.satisfies(source, vulnerable_versions) ? (
-                <Badge size="3" color="red">
+                <Badge color="red">
                   <CircleBackslashIcon /> Affected
                 </Badge>
               ) : (
-                <Badge size="3" color="green">
+                <Badge color="green">
                   <CheckIcon /> Not Affected
                 </Badge>
               )}
             </Table.Cell>
             <Table.Cell>
               {semver.satisfies(target, vulnerable_versions) ? (
-                <Badge size="3" color="red">
+                <Badge color="red">
                   <CircleBackslashIcon /> Affected
                 </Badge>
               ) : (
-                <Badge size="3" color="green">
+                <Badge color="green">
                   <CheckIcon /> Not Affected
                 </Badge>
               )}

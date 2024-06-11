@@ -1,4 +1,5 @@
 import semver from "semver";
+import { checkDependencyRepository, storeDependencyRepository } from "./dependency-repository-manager";
 import { fetchAdvisories, fetchDependency, searchDependency } from "./registry";
 
 /**
@@ -6,7 +7,15 @@ import { fetchAdvisories, fetchDependency, searchDependency } from "./registry";
  * @param name - dependency name
  */
 export async function getDependency(name: string) {
-  const dependency = await fetchDependency(name);
+  const dependencyRepositoryExists = checkDependencyRepository(name);
+
+  // if we dont have the dependency repository info fetch the full metadata from registry that has the repository field
+  // so we can find and store the dependency repository information ahead of time
+  const dependency = await fetchDependency(name, !dependencyRepositoryExists);
+
+  if (dependencyRepositoryExists) {
+    storeDependencyRepository(name, dependency.versions[dependency["dist-tags"].latest].repository);
+  }
 
   const versions = Object.values(dependency.versions)
     // filter out deprecated dependencies.
@@ -91,7 +100,7 @@ function compareObjects(source?: TObject, target?: TObject) {
 
 /**
  * Compares source and target versions `engine` field in `package.json`.
- * 
+ *
  * @param name - dependency name
  * @param source - source dependency
  * @param target - target dependency
@@ -110,7 +119,7 @@ export async function compareEngines(name: string, source?: string, target?: str
 
 /**
  * Compares the dependencies of source and target versions.
- * 
+ *
  * @param name - dependency name
  * @param source - source dependency
  * @param target - target dependency

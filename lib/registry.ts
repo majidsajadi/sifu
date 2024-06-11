@@ -21,11 +21,8 @@ type TSearchDependencyResponse = {
     package: {
       name: string;
       description?: string;
-      // unused fields omitted
     };
-    // unused fields omitted
   }[];
-  // unused fields omitted
 };
 
 const REVALIDATE_SEARCH_DEPENDENCY = (12 * 60) & 60;
@@ -42,12 +39,19 @@ export async function searchDependency(query: string) {
   throw new RegistryNetworkError(await resp.text());
 }
 
+export type TRegistryVersionRepository =
+  | string
+  | {
+      type: string;
+      url: string;
+      directory?: string;
+    };
+
 type TFetchDependencyResponse = Readonly<{
   name: string;
   modified: string;
   "dist-tags": {
     latest: string;
-    // unused fields omitted
   };
   versions: Record<
     string,
@@ -58,19 +62,23 @@ type TFetchDependencyResponse = Readonly<{
       engines?: {
         [EngineName in "npm" | "node" | string]?: string;
       };
-      // unused fields omitted
+      // not exists if the `abbreviated` is true
+      repository?: TRegistryVersionRepository;
     }
   >;
 }>;
 
 const REVALIDATE_FETCH_DEPENDENCY = (12 * 60) & 60;
 
-export async function fetchDependency(name: string) {
+export async function fetchDependency(name: string, abbreviated = true) {
   const url = new URL(encodeURIComponent(name).replace(/^%40/, "@"), REGISTRY_URL);
 
-  const headers = {
-    accept: "application/vnd.npm.install-v1+json; q=1.0, application/json; q=0.8, */*",
-  };
+  // fetch full metadata or abbreviated version. the full metadata includes information such as repository
+  const headers = abbreviated
+    ? {
+        accept: "application/vnd.npm.install-v1+json; q=1.0, application/json; q=0.8, */*",
+      }
+    : undefined;
 
   const resp = await fetch(url, { headers, next: { revalidate: REVALIDATE_FETCH_DEPENDENCY } });
 
@@ -95,8 +103,6 @@ type TSecurityAdvisoriesResponse = Record<
     title: string;
     severity: TSeverity;
     vulnerable_versions: string;
-    cwe: unknown; // not using
-    cvss: unknown; // not using
   }[]
 >;
 

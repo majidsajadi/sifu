@@ -9,7 +9,7 @@ type TLayoutProps = PropsWithChildren &
     changelog: ReactNode;
     dependencies: ReactNode;
     engines: ReactNode;
-    vulnerabilities: ReactNode;
+    advisories: ReactNode;
   };
 
 export default function Layout({
@@ -18,7 +18,7 @@ export default function Layout({
   changelog,
   dependencies,
   engines,
-  vulnerabilities,
+  advisories,
   params,
 }: TLayoutProps) {
   fetchDependency(params.name);
@@ -33,7 +33,7 @@ export default function Layout({
             <Tabs.Trigger value="changelog">Changelog</Tabs.Trigger>
             <Tabs.Trigger value="dependencies">Dependencies</Tabs.Trigger>
             <Tabs.Trigger value="engines">Engines</Tabs.Trigger>
-            <Tabs.Trigger value="vulnerabilities">Vulnerabilities</Tabs.Trigger>
+            <Tabs.Trigger value="advisories">Advisories</Tabs.Trigger>
             <Tabs.Trigger value="size" disabled>
               <Flex gap="2">
                 <Text>Size</Text> <Badge>Soon</Badge>
@@ -50,7 +50,7 @@ export default function Layout({
             <Tabs.Content value="changelog">{changelog}</Tabs.Content>
             <Tabs.Content value="dependencies">{dependencies}</Tabs.Content>
             <Tabs.Content value="engines">{engines}</Tabs.Content>
-            <Tabs.Content value="vulnerabilities">{vulnerabilities}</Tabs.Content>
+            <Tabs.Content value="advisories">{advisories}</Tabs.Content>
           </Box>
         </Tabs.Root>
       </Flex>

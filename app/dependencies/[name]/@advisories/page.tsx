@@ -1,10 +1,10 @@
 import NextLink from "next/link";
-import { compareVulnerabilities } from "@/lib/dependency";
 import semver from "semver";
 import { Badge, Flex, IconButton, Table, Text, Tooltip } from "@radix-ui/themes";
 import { CheckIcon, CircleBackslashIcon, ExternalLinkIcon } from "@radix-ui/react-icons";
 import type { TSeverity } from "@/lib/registry";
 import type { BadgeProps } from "@radix-ui/themes";
+import { getAdvisories } from "@/lib/dependency";
 import CEmpty from "../(common)/empty";
 import type { TDependenciesNamePageProps } from "../types";
 
@@ -17,21 +17,17 @@ const SEVERITY_COLORS: Record<TSeverity, BadgeProps["color"]> = {
 
 export default async function Page({ params, searchParams }: TDependenciesNamePageProps) {
   const { source, target } = searchParams;
-  const response = await compareVulnerabilities(
-    decodeURIComponent(params.name),
-    searchParams.source,
-    searchParams.target
-  );
+  const response = await getAdvisories(decodeURIComponent(params.name), searchParams.source, searchParams.target);
 
   if (!source || !target) return <CEmpty message="Please select `source` and `target`" />;
 
-  if (!response?.length) return <CEmpty message="No vulnerabilities found" />;
+  if (!response?.length) return <CEmpty message="No advisories found" />;
 
   return (
     <Table.Root>
       <Table.Header>
         <Table.Row>
-          <Table.ColumnHeaderCell>Vulnerability</Table.ColumnHeaderCell>
+          <Table.ColumnHeaderCell>Advisories</Table.ColumnHeaderCell>
           <Table.ColumnHeaderCell>{source}</Table.ColumnHeaderCell>
           <Table.ColumnHeaderCell>{target}</Table.ColumnHeaderCell>
         </Table.Row>

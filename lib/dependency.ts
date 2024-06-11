@@ -1,12 +1,18 @@
 import semver from "semver";
 import { fetchAdvisories, fetchDependency, searchDependency } from "./registry";
 
+/**
+ * Fetches dependency info from registry.
+ * @param name - dependency name
+ */
 export async function getDependency(name: string) {
   const dependency = await fetchDependency(name);
 
   const versions = Object.values(dependency.versions)
+    // filter out deprecated dependencies.
     .filter((ver) => !ver.deprecated)
     .map((ver) => ver.version)
+    // sort dependencys ascending.
     .sort((a, b) => semver.rcompare(a, b));
 
   return {
@@ -15,21 +21,22 @@ export async function getDependency(name: string) {
   };
 }
 
+/**
+ * Searches dependency by name in registry.
+ * @param name - dependency name
+ */
 export async function queryDependency(name: string) {
   const dependency = await searchDependency(name);
   return dependency.objects.map((dep) => dep.package);
 }
 
-function getLatestVersionStatisfies(versions: string[], range: string) {
-  return semver.maxSatisfying(versions, range) ?? undefined;
-}
-
 export async function getDependencyVersionOverview(name: string, range: string) {
   const metadata = await fetchDependency(name);
-
-  const versions = Object.keys(metadata.versions);
+  // latest tag is used by npm to identify the current version of a package.
   const latest = metadata["dist-tags"].latest;
-  const latestSatisfies = getLatestVersionStatisfies(versions, range);
+  const versions = Object.keys(metadata.versions);
+  // find latest version that satisfies the semver range provided.
+  const latestSatisfies = semver.maxSatisfying(versions, range) ?? undefined;
 
   return {
     latest,
@@ -47,6 +54,11 @@ type TObject = {
   [x: string]: string | undefined;
 };
 
+/**
+ * @param source - source object
+ * @param target - target object
+ * @returns an object containing all properties of source and target objects with both values.
+ */
 function compareObjects(source?: TObject, target?: TObject) {
   const result: Array<TObjectPropertyDiff> = [];
 
@@ -77,6 +89,14 @@ function compareObjects(source?: TObject, target?: TObject) {
   return result;
 }
 
+/**
+ * Compares source and target versions `engine` field in `package.json`.
+ * 
+ * @param name - dependency name
+ * @param source - source dependency
+ * @param target - target dependency
+ * @returns an array containing all engines in both versions.
+ */
 export async function compareEngines(name: string, source?: string, target?: string) {
   if (!source || !target) return;
 
@@ -88,6 +108,14 @@ export async function compareEngines(name: string, source?: string, target?: str
   return compareObjects(sourceEngines, targetEngines);
 }
 
+/**
+ * Compares the dependencies of source and target versions.
+ * 
+ * @param name - dependency name
+ * @param source - source dependency
+ * @param target - target dependency
+ * @returns an array containing all dependencies in both versions.
+ */
 export async function compareDependencies(name: string, source?: string, target?: string) {
   if (!source || !target) return;
 
@@ -99,7 +127,13 @@ export async function compareDependencies(name: string, source?: string, target?
   return compareObjects(sourceDependencies, targetDependencies);
 }
 
-export async function compareVulnerabilities(name: string, source?: string, target?: string) {
+/**
+ * @param name - dependency name
+ * @param source - source dependency
+ * @param target - target dependency
+ * @returns list of advisories for vulnerabilities that affect both versions
+ */
+export async function getAdvisories(name: string, source?: string, target?: string) {
   if (!source || !target) return;
 
   const data = await fetchAdvisories(name, source, target);

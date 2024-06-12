@@ -24,7 +24,7 @@ export default function Layout({
   fetchDependency(params.name);
 
   return (
-    <Container size="4" height="100vh" py="4">
+    <Container size="4" height="100%" py="4">
       <Flex direction="column" gap="8">
         {children}
         <Tabs.Root defaultValue="commits">

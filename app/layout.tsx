@@ -27,7 +27,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
         <body>
           <ThemeProvider attribute="class">
             <Theme accentColor="lime" grayColor="gray" radius="small">
-              <Container size="4" height="100dvh">
+              <Container size="4" height="100dvh" overflow="auto">
                 <Flex height="100%" direction="column">
                   <Box p="2" asChild>
                     <header>

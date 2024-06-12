@@ -29,7 +29,7 @@ function getPossibleURLs({ directory, owner, repo }: IDependencyRepositoryInfo) 
   const BASE_URL = "https://github.com";
   const POSSIBLE_NAMES = ["CHANGELOG.md", "HISTORY.md", "RELEASES.md", "changelog.md", "releases.md", "NEWS.md"];
   const POSSIBLE_DIRECTORIES = directory ? [directory, ""] : [""];
-  const PISSIBLE_BRANCHES = ["main" /**, "master" */];
+  const PISSIBLE_BRANCHES = ["main" , "master"];
 
   const urls: TChangelogURL[] = [];
 

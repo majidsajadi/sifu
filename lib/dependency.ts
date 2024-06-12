@@ -15,8 +15,8 @@ export async function getDependency(name: string) {
   const dependency = await fetchDependency(name);
 
   const versions = Object.values(dependency.versions)
-    // filter out deprecated dependencies.
-    .filter((ver) => !ver.deprecated)
+    // filter out deprecated dependencies. and prerelease versions
+    .filter((ver) => !ver.deprecated && semver.prerelease(ver.version) === null)
     .map((ver) => ver.version)
     // sort dependencys ascending.
     .sort((a, b) => semver.rcompare(a, b));

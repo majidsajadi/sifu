@@ -22,7 +22,7 @@ Enter **Sifu** or `Should I F***ing Update?`
 
 Sifu is an application that provides insights into every version of a dependency, helping you make informed decisions about updating your project's dependencies. It offers detailed information and guidance, minimizing the risks and ensuring your project stays secure and up-to-date.
 
-I suggest checking out [the link](https://sifuapp.vercel.app/dependencies/react?source=18.0.0&target=18.3.1) to the application page which compares React version `18.0.0` and `18.3.1`: 
+I suggest checking out [the link](https://sifuapp.vercel.app/dependencies/react?source=18.0.0&target=18.3.1) to the application page which compares React version `18.0.0` and `18.3.1`
 
 ### Features
 
@@ -32,6 +32,27 @@ I suggest checking out [the link](https://sifuapp.vercel.app/dependencies/react?
 - **Security Advisories**: Identify security advisories that affect each version.
 - **Dependency Changes**: Show changes in the dependencies of the current and latest versions (or any other versions).
 - **Engine Changes**: Show changes in the engines of the current and latest versions (or any other versions).
+
+### How to Install
+If you just want to try out the app, it's live on this [website](https://sifuapp.vercel.app).
+
+Or you can run the project locally. (requires Node.js (18+) and npm)
+
+```bash
+### clone the repository
+git clone https://github.com/majidsajadi/sifu
+
+### open the folder
+cd sifu
+
+### install dependencies
+pnpm i # or `npm i` or `yarn`
+
+### start the development server:
+pnpm dev # or `npm run dev` or `yarn dev`
+
+### Go to localhost:3000
+```
 
 ### Disclaimer
 

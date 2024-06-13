@@ -39,7 +39,7 @@ export function DisplayVersion({ value, range }: TDisplayVersionProps) {
                     : undefined
           }
         >
-          -${parsed.prerelease.join(".")}
+          -{parsed.prerelease.join(".")}
         </Text>
       )}
     </Text>

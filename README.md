@@ -22,6 +22,8 @@ Enter **Sifu** or `Should I F***ing Update?`
 
 Sifu is an application that provides insights into every version of a dependency, helping you make informed decisions about updating your project's dependencies. It offers detailed information and guidance, minimizing the risks and ensuring your project stays secure and up-to-date.
 
+I suggest checking out [the link](https://sifuapp.vercel.app/dependencies/react?source=18.0.0&target=18.3.1) to the application page which compares React version `18.0.0` and `18.3.1`: 
+
 ### Features
 
 - **Find Latest Versions**: Retrieve the latest version of dependencies listed in your `package.json` from the registry.

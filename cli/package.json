@@ -1,0 +1,23 @@
+{
+  "name": "sifu",
+  "version": "0.0.0",
+  "type": "module",
+  "description": "Sifu rocks",
+  "scripts": {
+    "build": "tsc",
+    "start": "pnpm build && node --no-warnings ./dist/bin/sifu.js",
+    "typecheck": "tsc --noEmit",
+    "fmt": "pnpm fmt:fix",
+    "fmt:fix": "prettier . --write --cache",
+    "fmt:check": "prettier .",
+    "prepublishOnly": "npm run build"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.2",
+    "prettier": "^3.3.2",
+    "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "cac": "^6.7.14"
+  }
+}

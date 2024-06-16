@@ -11,3 +11,11 @@ export function filterObject(
     Object.entries(record).filter((value) => predicate(value))
   );
 }
+
+export function differenceString(source: string, target: string) {
+  const diffStart = [...source].findIndex(
+    (char, index) => char !== target[index]
+  );
+
+  return [source.substring(0, diffStart), source.substring(diffStart)];
+}

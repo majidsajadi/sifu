@@ -2,24 +2,24 @@ lockfileVersion: 5.4
 
 specifiers:
   '@pnpm/read-package-json': ^9.0.2
-  '@types/cli-table': ^0.3.4
   '@types/node': ^20.14.2
   '@types/picomatch': ^2.3.3
   cac: ^6.7.14
-  cli-table3: ^0.6.5
+  cockatiel: ^3.1.3
   picocolors: ^1.0.1
   picomatch: ^4.0.2
   prettier: ^3.3.2
+  semver: ^7.6.2
   table: ^6.8.2
   typescript: ^5.4.5
 
 dependencies:
   '@pnpm/read-package-json': 9.0.2
-  '@types/cli-table': 0.3.4
   cac: 6.7.14
-  cli-table3: 0.6.5
+  cockatiel: 3.1.3
   picocolors: 1.0.1
   picomatch: 4.0.2
+  semver: 7.6.2
   table: 6.8.2
 
 devDependencies:
@@ -53,13 +53,6 @@ packages:
       picocolors: 1.0.1
     dev: false
 
-  /@colors/colors/1.5.0:
-    resolution: {integrity: sha512-ooWCrlZP11i8GImSjTHYHLkvFDP48nS4+204nGb1RiX/WXYHmJA2III9/e2DWVabCESdW7hBAEzHRqUn9OUVvQ==}
-    engines: {node: '>=0.1.90'}
-    requiresBuild: true
-    dev: false
-    optional: true
-
   /@pnpm/constants/8.0.0:
     resolution: {integrity: sha512-yQosGUvYPpAjb1jOFcdbwekRjZRVxN6C0hHzfRCZrMKbxGjt/E0g0RcFlEDNVZ95tm4oMMcr7nEPa7H7LX3emw==}
     engines: {node: '>=18.12'}
@@ -85,10 +78,6 @@ packages:
   /@pnpm/types/10.1.0:
     resolution: {integrity: sha512-cM2UhtQJs06zWm3wsXoVVi4b1P8rA7xioZCct/Q4sR5GAUq0VUReZMd9TkPEVdNlAiitctTAi9EM8D5hrO937A==}
     engines: {node: '>=18.12'}
-    dev: false
-
-  /@types/cli-table/0.3.4:
-    resolution: {integrity: sha512-GsALrTL69mlwbAw/MHF1IPTadSLZQnsxe7a80G8l4inN/iEXCOcVeT/S7aRc6hbhqzL9qZ314kHPDQnQ3ev+HA==}
     dev: false
 
   /@types/node/20.14.2:
@@ -148,13 +137,9 @@ packages:
       supports-color: 5.5.0
     dev: false
 
-  /cli-table3/0.6.5:
-    resolution: {integrity: sha512-+W/5efTR7y5HRD7gACw9yQjqMVvEMLBHmboM/kPWam+H+Hmyrgjh6YncVKK122YZkXrLudzTuAukUw9FnMf7IQ==}
-    engines: {node: 10.* || >= 12.*}
-    dependencies:
-      string-width: 4.2.3
-    optionalDependencies:
-      '@colors/colors': 1.5.0
+  /cockatiel/3.1.3:
+    resolution: {integrity: sha512-xC759TpZ69d7HhfDp8m2WkRwEUiCkxY8Ee2OQH/3H6zmy2D/5Sm+zSTbPRa+V2QyjDtpMvjOIAOVjA2gp6N1kQ==}
+    engines: {node: '>=16'}
     dev: false
 
   /color-convert/1.9.3:

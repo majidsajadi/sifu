@@ -20,8 +20,8 @@
   },
   "dependencies": {
     "@pnpm/read-package-json": "^9.0.2",
-    "@types/cli-table": "^0.3.4",
     "cac": "^6.7.14",
+    "cockatiel": "^3.1.2",
     "picocolors": "^1.0.1",
     "picomatch": "^4.0.2",
     "table": "^6.8.2"

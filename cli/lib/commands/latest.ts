@@ -3,7 +3,6 @@ import picocolors from "picocolors";
 import semver from "semver";
 import { colorizeVersion, renderTable, renderWarning } from "../render.js";
 import { readManifest } from "../manifest.js";
-import { validateFilterOptions } from "../options.js";
 import type { TFilterOptions, TCommonOptions, TManifest } from "../types.js";
 import { fetchDependency } from "../registry.js";
 import { SifuError } from "../error.js";
@@ -21,7 +20,20 @@ type TDependencyLatestVersions = TDependency & {
 export type TLatestOptions = TCommonOptions & TFilterOptions;
 
 export async function latest(options: TLatestOptions) {
-  validateFilterOptions(options);
+  if (!!options.include && !!options.exclude) {
+    throw new SifuError(
+      "INVALID_OPTION",
+      "both `include` and `exclude` options provided"
+    );
+  }
+
+  if (!!options.mode && ["dev, prod"].includes(options.mode)) {
+    throw new SifuError(
+      "INVALID_OPTION",
+      "`mode` only accept `dev` and `prod` as value"
+    );
+  }
+  
   const manifest = await readManifest(options.path);
   const deps = parseDependencies(manifest, options);
   const filtered = filterDependencies(deps, options);

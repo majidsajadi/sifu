@@ -25,7 +25,6 @@ async function getInstalledVersion(
   }
 
   const installedVersion = semver.minVersion(range);
-
   if (!installedVersion) {
     throw new SifuError(
       "NO_INSTALLED_VERSION",

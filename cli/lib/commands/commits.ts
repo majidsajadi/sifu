@@ -19,7 +19,8 @@ export async function commits(
     to = await registry.getLatestVersion(dependencyName);
   }
 
-  const commits = repository.fetchCommitsBetween(dependencyName, from, to);
+
+  const commits = await repository.fetchCommitsBetween(dependencyName, from, to);
 
   console.log(commits);
 }

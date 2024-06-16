@@ -7,7 +7,6 @@ import { changelog } from "../lib/commands/changelog.js";
 import { engines } from "../lib/commands/engines.js";
 import { advisories } from "../lib/commands/advisories.js";
 import { deps } from "../lib/commands/deps.js";
-import { size } from "../lib/commands/size.js";
 import { latest } from "../lib/commands/latest.js";
 
 const cli = cac(pkg.name).option(
@@ -63,12 +62,6 @@ cli
   .option("-s, --source <version>", "")
   .option("-t, --target <version>", "")
   .action(deps);
-
-cli
-  .command("size <dep>", "Compares bundle and package size ")
-  .option("-s, --source <version>", "")
-  .option("-t, --target <version>", "")
-  .action(size);
 
 cli.usage(pkg.description);
 cli.help();

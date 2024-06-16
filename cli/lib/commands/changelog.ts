@@ -1,5 +1,6 @@
 import manifest from "../core/manifest.js";
 import registry from "../core/registry.js";
+import repository from "../core/repository.js";
 import type { TCommonOptions, TRangeOptions } from "../types.js";
 
 export type TChangelogOptions = TCommonOptions & TRangeOptions;
@@ -17,4 +18,8 @@ export async function changelog(
   if (!to) {
     to = await registry.getLatestVersion(dependencyName);
   }
+
+  const changelog = repository.fetchChangelogBetween(dependencyName, from, to);
+
+  console.log(changelog);
 }

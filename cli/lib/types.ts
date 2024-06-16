@@ -11,13 +11,13 @@ export type TCommonOptions = {
 };
 
 export type TRangeOptions = {
-  source?: string;
-  target?: string;
+  from?: string;
+  to?: string;
 };
 
 export type TCompareOptions = {
-  from?: string;
-  to?: string;
+  source?: string;
+  target?: string;
 };
 
 export type TFilterOptions = {

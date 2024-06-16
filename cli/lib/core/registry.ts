@@ -2,6 +2,14 @@ import { SifuError } from "../error.js";
 
 const REGISTRY_URL = "https://registry.npmjs.org";
 
+type TRemoteDependencyRepository = 
+| string
+| {
+    type: string;
+    url: string;
+    directory?: string;
+  }
+
 type TRemoteDependency = Readonly<{
   dependencyName: string;
   modified: string;
@@ -16,13 +24,7 @@ type TRemoteDependency = Readonly<{
       deprecated?: string;
       engines?: Partial<Record<string, string>>;
       // not exists if the `abbreviated` is true
-      repository?:
-        | string
-        | {
-            type: string;
-            url: string;
-            directory?: string;
-          };
+      repository?: TRemoteDependencyRepository;
     }
   >;
 }>;
@@ -94,6 +96,12 @@ async function fetchAdvisories(name: string, source: string, target: string) {
   }
 
   throw new SifuError("REGISTRY_NETWORK_ERROR", await resp.text());
+}
+
+
+export type {
+  TRemoteDependency,
+  TRemoteDependencyRepository
 }
 
 export default {

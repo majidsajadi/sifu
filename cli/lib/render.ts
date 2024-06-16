@@ -1,32 +1,41 @@
 import pc from "picocolors";
 import semver from "semver";
-import { TableUserConfig, getBorderCharacters, table } from "table";
-import { differenceString } from "./utils.js";
+import { getBorderCharacters, table } from "table";
+import { SifuError } from "./error.js";
 
-const { log } = console;
+export function renderWarning(message: string) {
+  console.log(pc.yellow(message));
+}
 
-export const renderWarning = (message: string) => log(pc.yellow(message));
+export function renderTable(rows: string[][]) {
+  console.log(
+    table([...rows], {
+      border: getBorderCharacters("void"),
+    })
+  );
+}
 
-export const renderTable = (cols: string[], rows: string[][]) => {
-  const config: TableUserConfig = {
-    border: getBorderCharacters("norc"),
-  };
+export function colorizeText(text: string) {
+  return pc.white(text);
+}
 
-  const _cols = cols.map((col) => pc.dim(col));
-  const _table = table([_cols, ...rows], config);
-
-  log(_table);
-};
+export function colorizeSecondryText(text: string) {
+  return pc.white(text);
+}
 
 export function colorizeVersion(version: string, range: string) {
-  const parsed = semver.parse(version);
-  const current = semver.minVersion(range);
-  if (!parsed || !current) return pc.dim(version);
+  const current = semver.minVersion(range)?.toString();
+  if (!current) throw new SifuError("INVALID_RANGE", "cant parse range");
 
-  const diff = semver.diff(current, parsed);
+  const diff = semver.diff(current, version);
   if (!diff) return pc.dim(version);
 
-  const [same, changed] = differenceString(version, current.toString());
+  const diffStart = [...version].findIndex(
+    (char, index) => char !== current[index]
+  );
+
+  const same = version.substring(0, diffStart);
+  const changed = version.substring(diffStart);
 
   const color = RELEASE_TYPE_COLOR_MAP[diff];
   // @ts-ignore
@@ -35,10 +44,10 @@ export function colorizeVersion(version: string, range: string) {
 
 const RELEASE_TYPE_COLOR_MAP = {
   major: "red",
-  patch: "magenta",
-  minor: "yellow",
-  premajor: "cyan",
-  preminor: "cyan",
-  prepatch: "cyan",
-  prerelease: "cyan",
+  minor: "cyan",
+  patch: "green",
+  premajor: "yellow",
+  preminor: "yellow",
+  prepatch: "yellow",
+  prerelease: "yellow",
 };

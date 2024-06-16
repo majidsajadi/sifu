@@ -1,106 +1,112 @@
 import picomatch from "picomatch";
+import picocolors from "picocolors";
 import semver from "semver";
 import { colorizeVersion, renderTable, renderWarning } from "../render.js";
 import { readManifest } from "../manifest.js";
 import { validateFilterOptions } from "../options.js";
-import { filterObject, isEmptyObject } from "../utils.js";
-import type {
-  TFilterOptions,
-  TCommonOptions,
-  TDependencies,
-  TManifest,
-} from "../types.js";
+import type { TFilterOptions, TCommonOptions, TManifest } from "../types.js";
 import { fetchDependency } from "../registry.js";
+import { SifuError } from "../error.js";
+
+type TDependency = {
+  name: string;
+  range: string;
+  dev: boolean;
+};
+
+type TDependencyLatestVersions = TDependency & {
+  latest: string;
+};
 
 export type TLatestOptions = TCommonOptions & TFilterOptions;
 
 export async function latest(options: TLatestOptions) {
   validateFilterOptions(options);
   const manifest = await readManifest(options.path);
-  const parsed = parseDependencies(manifest, options);
-  const filtered = filterDependencies(parsed, options);
+  const deps = parseDependencies(manifest, options);
+  const filtered = filterDependencies(deps, options);
 
-  if (isEmptyObject(filtered)) {
+  if (!filtered.length) {
     renderWarning("No dependency found or matched the filters");
     return;
   }
 
-  const result = await getDependenciesLatestVersions(filtered);
-  renderLatestTable(result);
-}
-
-function renderLatestTable(data: TDependencyLatestVersions[]) {
-  const cols = ["name", "range", "latest satisfies", "latest"];
-  const rows = data.map(({ name, range, latest, latestSatisfies }) => [
-    name,
-    range,
-    colorizeVersion(latestSatisfies, range),
-    colorizeVersion(latest, range),
-  ]);
-  renderTable(cols, rows);
+  const latestVersions = await getDependenciesLatestVersions(filtered);
+  const needsUpdate = filterOutUpdatedDependencies(latestVersions);
+  renderLatestTable(needsUpdate);
 }
 
 function parseDependencies(
   manifest: TManifest,
   options: TLatestOptions
-): TDependencies {
+): TDependency[] {
   const dev =
-    !options.mode || options.mode === "dev" ? manifest.devDependencies : {};
+    (!options.mode || options.mode === "dev") && !!manifest.devDependencies
+      ? Object.entries(manifest.devDependencies).map(([name, range]) => ({
+          name,
+          range,
+          dev: true,
+        }))
+      : [];
 
   const prod =
-    !options.mode || options.mode === "prod" ? manifest.dependencies : {};
+    (!options.mode || options.mode === "prod") && !!manifest.dependencies
+      ? Object.entries(manifest.dependencies).map(([name, range]) => ({
+          name,
+          range,
+          dev: false,
+        }))
+      : [];
 
-  return {
-    ...dev,
-    ...prod,
-  };
+  return [...dev, ...prod];
 }
 
-function filterDependencies(deps: TDependencies, options: TLatestOptions) {
+function filterDependencies(deps: TDependency[], options: TLatestOptions) {
   if (!!options.include) {
     const match = picomatch(options.include);
-    return filterObject(deps, ([name]) => match(name));
+    return deps.filter((dep) => match(dep.name));
   }
 
   if (!!options.exclude) {
     const match = picomatch(options.exclude);
-    return filterObject(deps, ([name]) => !match(name));
+    return deps.filter((dep) => !match(dep.name));
   }
 
   return deps;
 }
 
-export async function getDependenciesLatestVersions(
-  deps: Record<string, string>
-) {
-  const promises = Object.entries(deps).map(([name, range]) =>
-    getDependencyLatestVersions(name, range)
-  );
-  return Promise.all(promises);
+async function getDependenciesLatestVersions(deps: TDependency[]) {
+  return Promise.all(deps.map(getDependencyLatestVersions));
 }
 
-type TDependencyLatestVersions = {
-  name: string;
-  range: string;
-  latest: string;
-  latestSatisfies: string;
-};
-
-export async function getDependencyLatestVersions(
-  name: string,
-  range: string
+async function getDependencyLatestVersions(
+  dep: TDependency
 ): Promise<TDependencyLatestVersions> {
-  const metadata = await fetchDependency(name);
-  // latest tag is used by npm to identify the current version of a package.
+  const metadata = await fetchDependency(dep.name);
   const latest = metadata["dist-tags"].latest;
-  const versions = Object.keys(metadata.versions);
-  // find latest version that satisfies the semver range provided.
-  const latestSatisfies = semver.maxSatisfying(versions, range) ?? "";
 
   return {
-    name,
-    range,
+    ...dep,
     latest,
-    latestSatisfies,
   };
+}
+
+function filterOutUpdatedDependencies(data: TDependencyLatestVersions[]) {
+  return data.filter(({ range, latest }) => {
+    const current = semver.minVersion(range);
+    if (!current) {
+      if (!current) throw new SifuError("INVALID_RANGE", "cant parse range");
+    }
+    return !semver.eq(current, latest);
+  });
+}
+
+function renderLatestTable(data: TDependencyLatestVersions[]) {
+  const rows = data.map(({ name, range, latest }) => [
+    picocolors.white(name),
+    picocolors.white(range),
+    picocolors.dim("➜"),
+    colorizeVersion(latest, range),
+  ]);
+  renderTable(rows);
 }

@@ -14,15 +14,15 @@ const cli = cac(pkg.name)
   .option("--path <path>", "Path to manifest directory", {
     default: ".",
   })
-  .option("--silent", "Runs the command in silent mode", {
-    default: false,
-  })
-  .option("--force", "Forces fetching from servers, bypass cache", {
-    default: false,
-  })
-  .option("--recursive", "Runs the command for each project in the workspace", {
-    default: false,
-  });
+  // .option("--silent", "Runs the command in silent mode", {
+  //   default: false,
+  // })
+  // .option("--force", "Forces fetching from servers, bypass cache", {
+  //   default: false,
+  // })
+  // .option("--recursive", "Runs the command for each project in the workspace", {
+  //   default: false,
+  // });
 
 cli
   .command("", "Lists latest versions available for your dependencies")
@@ -37,6 +37,11 @@ cli
   .option(
     "-e, --exclude <pattern>",
     "Specifies a glob pattern that match files to be excluded"
+  )
+  .option(
+    "-p, --prelease",
+    "Specifies if prelease versions should be included",
+    {default :false }
   )
   .action(latest);
 

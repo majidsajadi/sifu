@@ -1,4 +1,4 @@
-import type { TCommonOptions, TRangeOptions } from "../options.js";
+import type { TCommonOptions, TRangeOptions } from "../types.js";
 
 export type TChangelogOptions = TCommonOptions & TRangeOptions
 

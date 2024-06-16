@@ -1,4 +1,4 @@
-import type { TCommonOptions, TCompareOptions } from "../options.js";
+import type { TCommonOptions, TCompareOptions } from "../types.js";
 
 export type TEnginesOptions = TCommonOptions & TCompareOptions;
 

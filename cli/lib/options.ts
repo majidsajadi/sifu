@@ -1,16 +1,18 @@
-export type TCommonOptions = {
-  path: string;
-  silent: boolean;
-  force: boolean;
-  recursive: boolean;
-};
+import { SifuError } from "./error.js";
+import { TFilterOptions } from "./types.js";
 
-export type TRangeOptions = {
-  source?: string;
-  target?: string;
-};
+export function validateFilterOptions(options: TFilterOptions) {
+  if (!!options.include && !!options.exclude) {
+    throw new SifuError(
+      "INVALID_OPTION",
+      "both `include` and `exclude` options provided"
+    );
+  }
 
-export type TCompareOptions = {
-  from?: string;
-  to?: string;
-};
+  if (!!options.mode && ["dev, prod"].includes(options.mode)) {
+    throw new SifuError(
+      "INVALID_OPTION",
+      "`mode` only accept `dev` and `prod` as value"
+    );
+  }
+}

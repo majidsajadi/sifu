@@ -8,9 +8,6 @@ export type TManifest = {
 
 export type TCommonOptions = {
   path: string;
-  // silent: boolean;
-  // force: boolean;
-  // recursive: boolean;
 };
 
 export type TRangeOptions = {
@@ -24,7 +21,6 @@ export type TCompareOptions = {
 };
 
 export type TFilterOptions = {
-  prelease: boolean;
   mode?: "dev" | "prod";
   include?: string;
   exclude?: string;

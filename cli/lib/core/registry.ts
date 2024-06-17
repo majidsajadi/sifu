@@ -1,14 +1,16 @@
+import semver from "semver";
 import { SifuError } from "../error.js";
+import { TLocalDependency } from "./manifest.js";
 
 const REGISTRY_URL = "https://registry.npmjs.org";
 
-type TRemoteDependencyRepository = 
-| string
-| {
-    type: string;
-    url: string;
-    directory?: string;
-  }
+type TRemoteDependencyRepository =
+  | string
+  | {
+      type: string;
+      url: string;
+      directory?: string;
+    };
 
 type TRemoteDependency = Readonly<{
   dependencyName: string;
@@ -91,21 +93,49 @@ async function fetchAdvisories(name: string, source: string, target: string) {
   });
 
   if (resp.ok) {
-    const result = await resp.json() as TSecurityAdvisoriesResponse
-    return result[name]
+    const result = (await resp.json()) as TSecurityAdvisoriesResponse;
+    return result[name];
   }
 
   throw new SifuError("REGISTRY_NETWORK_ERROR", await resp.text());
 }
 
-
-export type {
-  TRemoteDependency,
-  TRemoteDependencyRepository
+async function getDependenciesLatestVersions(deps: TLocalDependency[]) {
+  return Promise.all(deps.map(getDependencyLatestVersions));
 }
+
+async function getDependencyLatestVersions(dep: TLocalDependency) {
+  const metadata = await fetchDependency(dep.name);
+  const latest = metadata["dist-tags"].latest;
+
+  return {
+    ...dep,
+    latest,
+  };
+}
+
+function filterOutUpdatedDependencies(
+  data: Array<TLocalDependency & { latest: string }>
+) {
+  return data.filter(({ range, latest }) => {
+    const current = semver.minVersion(range);
+    if (!current) {
+      if (!current) throw new SifuError("INVALID_RANGE", "cant parse range");
+    }
+    return !semver.eq(current, latest);
+  });
+}
+
+async function getOutdatedDependencies(dependencies: TLocalDependency[]) {
+  const latestVersions = await getDependenciesLatestVersions(dependencies);
+  return filterOutUpdatedDependencies(latestVersions);
+}
+
+export type { TRemoteDependency, TRemoteDependencyRepository };
 
 export default {
   getLatestVersion,
+  getOutdatedDependencies,
   fetchDependency,
   fetchAdvisories,
 };

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { cac } from "cac";
-import pkg from "../package.json" assert { type: "json" };
+import pkg from "../package.json" with { type: "json" };
 import { commits } from "../lib/commands/commits.js";
 import { changelog } from "../lib/commands/changelog.js";
 import { engines } from "../lib/commands/engines.js";
@@ -10,8 +10,8 @@ import { deps } from "../lib/commands/deps.js";
 import { latest } from "../lib/commands/latest.js";
 
 const cli = cac(pkg.name).option(
-  "--path <path>",
-  "Path to manifest directory",
+  "-p, --path <path>",
+  "Path to project directory containing package.json",
   {
     default: ".",
   }
@@ -56,16 +56,17 @@ cli
   .action(engines);
 
 cli
-  .command("advisories <dep>", "Compares security advisories")
-  .option("-s, --source <version>", "")
-  .option("-t, --target <version>", "")
-  .action(advisories);
-
-cli
   .command("deps <dep>", "Compares dependencies")
   .option("-s, --source <version>", "")
   .option("-t, --target <version>", "")
   .action(deps);
+
+cli
+  .command("advisories <dependency>", "Lists security advisories that affect either source or target version")
+  .option("-s, --source <version>", "Source version of the dependency (default: installed version)")
+  .option("-t, --target <version>", "Target version of the dependency (default: latest version available in registry)")
+  .action(advisories);
+
 
 export async function run() {
   try {
